@@ -12,21 +12,10 @@ function Home() {
 
   return (
     <>
-      <section className="hero">
-        <div className="hero-content">
-          <h1>Transforming Ideas Into Digital Reality</h1>
-
-          <p>
-            We build scalable websites, web applications
-            and innovative digital solutions for businesses.
-          </p>
-
-          <button>Get Started</button>
-
-          <h3 style={{ marginTop: "20px", color: "white" }}>
-            {message}
-          </h3>
-        </div>
+      <Hero />
+      <section className="section">
+        <h2>Welcome to Our Website</h2>
+        <p>{message}</p>
       </section>
 
       <section className="section">
