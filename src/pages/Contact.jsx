@@ -4,13 +4,13 @@ function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -23,24 +23,27 @@ function Contact() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         }
       );
 
       const data = await response.json();
 
-      alert(data.message);
+      if (data.success) {
+        alert(data.message);
 
-      setFormData({
-        name: "",
-        email: "",
-        message: ""
-      });
-
+        setFormData({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        alert("Failed to submit form");
+      }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Something went wrong");
     }
   };
@@ -59,6 +62,7 @@ function Contact() {
           placeholder="Your Name"
           value={formData.name}
           onChange={handleChange}
+          required
         />
 
         <input
@@ -67,6 +71,7 @@ function Contact() {
           placeholder="Your Email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
 
         <textarea
@@ -75,7 +80,8 @@ function Contact() {
           placeholder="Your Message"
           value={formData.message}
           onChange={handleChange}
-        ></textarea>
+          required
+        />
 
         <button type="submit">
           Send Message
