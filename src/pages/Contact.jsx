@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Contact() {
+  const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,6 +20,22 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email");
+      return;
+    }
+
+    if (formData.message.trim().length < 10) {
+      toast.error(
+        "Message must be at least 10 characters"
+      );
+      return;
+    }
+
+    setLoading(true);
+
     try {
       const response = await fetch(
         "http://localhost:5000/api/contact",
@@ -32,7 +51,7 @@ function Contact() {
       const data = await response.json();
 
       if (data.success) {
-        alert(data.message);
+        toast.success(data.message);
 
         setFormData({
           name: "",
@@ -40,11 +59,13 @@ function Contact() {
           message: "",
         });
       } else {
-        alert("Failed to submit form");
+        toast.error("Failed to submit form");
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong");
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,7 +87,7 @@ function Contact() {
         />
 
         <input
-          type="email"
+          type="text"
           name="email"
           placeholder="Your Email"
           value={formData.email}
@@ -83,8 +104,13 @@ function Contact() {
           required
         />
 
-        <button type="submit">
-          Send Message
+        <button
+          type="submit"
+          disabled={loading}
+        >
+          {loading
+            ? "Sending..."
+            : "Send Message"}
         </button>
       </form>
     </section>
