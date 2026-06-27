@@ -10,6 +10,9 @@ import Projects from "./pages/Projects";
 import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 
@@ -35,6 +38,19 @@ return (
 <Route path="/contact" element={<Contact />} />
 
 <Route path="*" element={<NotFound />} />
+<Route
+  path="/admin/login"
+  element={<AdminLogin />}
+/>
+
+<Route
+  path="/admin/dashboard"
+  element={
+    <ProtectedRoute>
+      <AdminDashboard />
+    </ProtectedRoute>
+  }
+/>
 
 
 </Routes>

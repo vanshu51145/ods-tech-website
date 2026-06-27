@@ -4,6 +4,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const Contact = require("./models/Contact");
 const nodemailer = require("nodemailer");
+const jwt = require("jsonwebtoken");
+const auth = require("./middleware/auth");
 
 const app = express();
 
@@ -41,6 +43,29 @@ app.get("/api/message", (req, res) => {
   res.json({
     message: "Empowering Businesses with Innovative Digital Solutions "
   });
+});
+app.get("/api/admin", auth, (req, res) => {
+
+  res.json({
+    success: true,
+    message: "Welcome Admin",
+  });
+
+});
+app.get("/api/contact", auth, async (req, res) => {
+  try {
+    const contacts = await Contact.find().sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      contacts,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
 });
 app.post("/api/contact", async (req, res) => {
   console.log("POST API HIT");
@@ -85,6 +110,39 @@ app.post("/api/contact", async (req, res) => {
       message: "Server Error",
     });
   }
+});
+app.post("/api/admin/login", (req, res) => {
+  console.log(req.body);
+
+  const { email, password } = req.body;
+
+  if (
+    email === process.env.ADMIN_EMAIL &&
+    password === process.env.ADMIN_PASSWORD
+  ) {
+
+    const token = jwt.sign(
+
+      { email },
+
+      process.env.JWT_SECRET,
+
+      { expiresIn: "1h" }
+
+    );
+
+    return res.json({
+      success: true,
+      token,
+    });
+
+  }
+
+  res.status(401).json({
+    success: false,
+    message: "Invalid Credentials",
+  });
+
 });
 const PORT = process.env.PORT || 5000;
 
