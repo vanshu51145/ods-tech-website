@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -10,59 +10,64 @@ import Projects from "./pages/Projects";
 import Blogs from "./pages/Blogs";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import AdminProjects from "./pages/AdminProjects";
+
 import ProtectedRoute from "./components/ProtectedRoute";
-
-
 
 function App() {
 
-return (
+  const location = useLocation();
 
-<>
-<Navbar />
+  const isAdminPage = location.pathname.startsWith("/admin");
 
-<Routes>
+  return (
+    <>
 
-<Route path="/" element={<Home />} />
+      {!isAdminPage && <Navbar />}
 
-<Route path="/about" element={<About />} />
+      <Routes>
 
-<Route path="/services" element={<Services />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/contact" element={<Contact />} />
 
-<Route path="/projects" element={<Projects />} />
+        <Route
+          path="/admin/login"
+          element={<AdminLogin />}
+        />
 
-<Route path="/blogs" element={<Blogs />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-<Route path="/contact" element={<Contact />} />
+        <Route
+          path="/admin/projects"
+          element={
+            <ProtectedRoute>
+              <AdminProjects />
+            </ProtectedRoute>
+          }
+        />
 
-<Route path="*" element={<NotFound />} />
-<Route
-  path="/admin/login"
-  element={<AdminLogin />}
-/>
+        <Route path="*" element={<NotFound />} />
 
-<Route
-  path="/admin/dashboard"
-  element={
-    <ProtectedRoute>
-      <AdminDashboard />
-    </ProtectedRoute>
-  }
-/>
+      </Routes>
 
+      {!isAdminPage && <Footer />}
 
-</Routes>
-
-
-<Footer />
-
-</>
-
-)
-
+    </>
+  );
 }
-
 
 export default App;

@@ -6,6 +6,10 @@ const Contact = require("./models/Contact");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const auth = require("./middleware/auth");
+const Project = require("./models/Project");
+const upload = require("./middleware/upload");
+const cloudinary = require("./config/cloudinary");
+const streamifier = require("streamifier");
 
 const app = express();
 
@@ -143,6 +147,95 @@ app.post("/api/admin/login", (req, res) => {
     message: "Invalid Credentials",
   });
 
+});
+app.get("/api/projects", async (req, res) => {
+  try {
+    const projects = await Project.find().sort({
+      createdAt: -1,
+    });
+
+    res.json({
+      success: true,
+      projects,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.post(
+  "/api/projects",
+  auth,
+  upload.single("image"),
+  async (req, res) =>  {
+  try {
+    const { title, category, description } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Image is required",
+      });
+    }
+
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: "ods-projects",
+      },
+      async (error, result) => {
+        if (error) {
+          return res.status(500).json({
+            success: false,
+            message: "Cloudinary Upload Failed",
+          });
+        }
+
+        const project = new Project({
+          title,
+          category,
+          description,
+          imageUrl: result.secure_url,
+        });
+
+        await project.save();
+
+        res.status(201).json({
+          success: true,
+          message: "Project Added Successfully",
+          project,
+        });
+      }
+    );
+
+    streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+}
+);
+app.delete("/api/projects/:id", auth, async (req, res) => {
+  try {
+    await Project.findByIdAndDelete(req.params.id);
+
+    res.json({
+      success: true,
+      message: "Project Deleted Successfully",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
 });
 const PORT = process.env.PORT || 5000;
 

@@ -128,3 +128,82 @@ td{
 tr:hover{
     background:#f3f4f6;
 }
+/* ========================= */
+/* Responsive Dashboard */
+/* ========================= */
+
+.menu-btn{
+    display:none;
+    font-size:28px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:#0f172a;
+}
+
+.close-btn{
+    display:none;
+    position:absolute;
+    top:20px;
+    right:20px;
+    background:none;
+    border:none;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+}
+
+@media (max-width: 992px){
+
+    .dashboard{
+        display:block;
+    }
+
+    .sidebar{
+        position:fixed;
+        top:0;
+        left:-260px;
+        width:250px;
+        height:100vh;
+        z-index:1000;
+        transition:.3s;
+        overflow-y:auto;
+    }
+
+    .sidebar.active{
+        left:0;
+    }
+
+    .close-btn{
+        display:block;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .main-content{
+        margin-left:0;
+        width:100%;
+        padding:20px;
+    }
+
+    .topbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .table-container{
+        overflow-x:auto;
+    }
+
+    table{
+        min-width:700px;
+    }
+
+}

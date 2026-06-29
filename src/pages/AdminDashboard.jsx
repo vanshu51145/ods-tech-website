@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
 
+
 function AdminDashboard() {
   const navigate = useNavigate();
 
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -43,22 +45,43 @@ function AdminDashboard() {
 
   return (
     <div className="dashboard" id="dashboard">
-      <div className="sidebar">
+      <div className={`sidebar ${menuOpen ? "active" : ""}`}>
+        <button
+          className="close-btn"
+          onClick={() => setMenuOpen(false)}
+        >
+          ✕
+        </button>
         <h2>ODS Admin</h2>
 
         <ul>
-    <li><a href="#dashboard">🏠 Dashboard</a></li>
-    <li><a href="#messages">📩 Contact Messages</a></li>
+          <li><a href="#dashboard">🏠 Dashboard</a></li>
+          <li><a href="#messages">📩 Contact Messages</a></li>
+          <li onClick={() => navigate("/admin/projects")}>
+            📁 Manage Projects
+          </li>
         </ul>
       </div>
 
       <div className="main-content">
         <div className="topbar">
+
+          <button
+            className="menu-btn"
+            onClick={() => setMenuOpen(true)}
+          >
+            ☰
+          </button>
+
           <h1>Admin Dashboard</h1>
 
-          <button className="logout-btn" onClick={logout}>
+          <button
+            className="logout-btn"
+            onClick={logout}
+          >
             Logout
           </button>
+
         </div>
 
         <div className="cards">
