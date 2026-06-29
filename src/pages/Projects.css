@@ -1,12 +1,21 @@
 .projects-page{
   padding:120px 8%;
   min-height:100vh;
+  background:#f8fafc;
   text-align:center;
 }
 
 .projects-page h1{
   font-size:3rem;
-  margin-bottom:40px;
+  margin-bottom:15px;
+  color:#0f172a;
+}
+
+.projects-subtitle{
+  max-width:700px;
+  margin:0 auto 40px;
+  color:#64748b;
+  line-height:1.7;
 }
 
 .filter-buttons{
@@ -14,38 +23,94 @@
   justify-content:center;
   gap:15px;
   flex-wrap:wrap;
-  margin-bottom:40px;
+  margin-bottom:50px;
 }
 
 .filter-buttons button{
-  padding:10px 20px;
+  padding:10px 22px;
   border:none;
   border-radius:30px;
   cursor:pointer;
   background:#e5e7eb;
   transition:.3s;
+  font-size:15px;
+}
+
+.filter-buttons button:hover{
+  background:#0ea5e9;
+  color:#fff;
 }
 
 .filter-buttons button.active{
-  background:#2563eb;
+  background:#0ea5e9;
   color:white;
 }
 
 .projects-grid{
-  display:grid;
-  grid-template-columns:
-  repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap: 25px;
 }
 
 .project-card{
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  box-shadow:
-  0 4px 15px rgba(0,0,0,.1);
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+    max-width:350px;
+    margin:auto;
 }
 
-.project-card h3{
-  margin-bottom:10px;
+.project-card:hover{
+  transform:translateY(-5px);
+}
+
+.project-image{
+    width:100%;
+    aspect-ratio:16/9;
+    object-fit:contain;
+    background:#f1f5f9;
+    padding:10px;
+}
+
+.project-content{
+    padding:18px;
+}
+
+.category{
+  display:inline-block;
+  background:#0ea5e9;
+  color:white;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:14px;
+  margin-bottom:12px;
+}
+
+.project-content h3{
+    font-size:20px;
+    margin:10px 0;
+}
+
+.project-content p{
+    font-size:15px;
+    line-height:1.5;
+    color:#555;
+}
+
+@media(max-width:768px){
+
+  .projects-page{
+    padding:90px 20px;
+  }
+
+  .projects-page h1{
+    font-size:2.2rem;
+  }
+
+  .projects-grid{
+    grid-template-columns:1fr;
+  }
+
 }

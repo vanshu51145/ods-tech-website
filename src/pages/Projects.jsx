@@ -1,104 +1,109 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import "./Projects.css";
 
 function Projects() {
-  const projects = [
-    {
-      id: 1,
-      title: "Business Website",
-      category: "Web Development",
-    },
-    {
-      id: 2,
-      title: "Online Store",
-      category: "E-Commerce",
-    },
-    {
-      id: 3,
-      title: "SEO Campaign",
-      category: "Digital Marketing",
-    },
-    {
-      id: 4,
-      title: "Portfolio Website",
-      category: "Web Development",
-    },
-    {
-      id: 5,
-      title: "Fashion Store",
-      category: "E-Commerce",
-    },
-    {
-      id: 6,
-      title: "Social Media Growth",
-      category: "Digital Marketing",
-    },
-  ];
+  const [projects, setProjects] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/projects");
+      const data = await response.json();
+
+      if (data.success) {
+        setProjects(data.projects);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
 
   const categories = [
     "All",
-    "Web Development",
-    "E-Commerce",
-    "Digital Marketing",
+    ...new Set(projects.map((project) => project.category)),
   ];
-
-  const [activeCategory, setActiveCategory] =
-    useState("All");
 
   const filteredProjects =
     activeCategory === "All"
       ? projects
       : projects.filter(
-          (project) =>
-            project.category === activeCategory
+          (project) => project.category === activeCategory
         );
 
   return (
     <section className="projects-page">
       <h1>Our Projects</h1>
 
+      <p className="projects-subtitle">
+        Explore our latest digital solutions built for businesses.
+      </p>
+
       <div className="filter-buttons">
         {categories.map((category) => (
           <button
             key={category}
             className={
-              activeCategory === category
-                ? "active"
-                : ""
+              activeCategory === category ? "active" : ""
             }
-            onClick={() =>
-              setActiveCategory(category)
-            }
+            onClick={() => setActiveCategory(category)}
           >
             {category}
           </button>
         ))}
       </div>
 
-      <div className="projects-grid">
-        {filteredProjects.map((project) => (
-          <motion.div
-            key={project.id}
-            className="project-card"
-            initial={{
-              opacity: 0,
-              scale: 0.8,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-            }}
-            transition={{
-              duration: 0.4,
-            }}
-          >
-            <h3>{project.title}</h3>
+      {loading ? (
+        <h2 style={{ textAlign: "center" }}>Loading...</h2>
+      ) : (
+        <div className="projects-grid">
+          {filteredProjects.length === 0 ? (
+            <h2>No Projects Found</h2>
+          ) : (
+            filteredProjects.map((project) => (
+              <motion.div
+                key={project._id}
+                className="project-card"
+                initial={{
+                  opacity: 0,
+                  scale: 0.9,
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                }}
+                transition={{
+                  duration: 0.4,
+                }}
+              >
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="project-image"
+                />
 
-            <p>{project.category}</p>
-          </motion.div>
-        ))}
-      </div>
+                <div className="project-content">
+                  <span className="category">
+                    {project.category}
+                  </span>
+
+                  <h3>{project.title}</h3>
+
+                  <p>{project.description}</p>
+                </div>
+              </motion.div>
+            ))
+          )}
+        </div>
+      )}
     </section>
   );
 }
