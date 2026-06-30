@@ -62,7 +62,6 @@ alert(data.message);
 
 }catch(error){
 
-console.log(error);
 
 }
 

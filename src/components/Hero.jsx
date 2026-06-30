@@ -86,7 +86,7 @@ duration:1
 >
  <img
   src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3"
-  alt="Developer"
+  loading="lazy"
 />
 
 

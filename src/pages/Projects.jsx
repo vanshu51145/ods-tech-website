@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import "./Projects.css";
 
 function Projects() {
@@ -21,16 +22,18 @@ function Projects() {
       }
 
       setLoading(false);
+
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
+
 
   const categories = [
     "All",
     ...new Set(projects.map((project) => project.category)),
   ];
+
 
   const filteredProjects =
     activeCategory === "All"
@@ -39,72 +42,132 @@ function Projects() {
           (project) => project.category === activeCategory
         );
 
+
   return (
-    <section className="projects-page">
-      <h1>Our Projects</h1>
+    <>
 
-      <p className="projects-subtitle">
-        Explore our latest digital solutions built for businesses.
-      </p>
+      <Helmet>
+        <title>
+          ODS Tech Projects | Portfolio
+        </title>
 
-      <div className="filter-buttons">
-        {categories.map((category) => (
-          <button
-            key={category}
-            className={
-              activeCategory === category ? "active" : ""
-            }
-            onClick={() => setActiveCategory(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
+        <meta
+          name="description"
+          content="View ODS Tech completed projects, web development work and digital solutions portfolio."
+        />
 
-      {loading ? (
-        <h2 style={{ textAlign: "center" }}>Loading...</h2>
-      ) : (
-        <div className="projects-grid">
-          {filteredProjects.length === 0 ? (
-            <h2>No Projects Found</h2>
-          ) : (
-            filteredProjects.map((project) => (
-              <motion.div
-                key={project._id}
-                className="project-card"
-                initial={{
-                  opacity: 0,
-                  scale: 0.9,
-                }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                }}
-                transition={{
-                  duration: 0.4,
-                }}
-              >
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="project-image"
-                />
+      </Helmet>
 
-                <div className="project-content">
-                  <span className="category">
-                    {project.category}
-                  </span>
 
-                  <h3>{project.title}</h3>
+      <section className="projects-page">
 
-                  <p>{project.description}</p>
-                </div>
-              </motion.div>
-            ))
-          )}
+        <h1>Our Projects</h1>
+
+
+        <p className="projects-subtitle">
+          Explore our latest digital solutions built for businesses.
+        </p>
+
+
+        <div className="filter-buttons">
+
+          {categories.map((category) => (
+
+            <button
+              key={category}
+              className={
+                activeCategory === category ? "active" : ""
+              }
+              onClick={() => setActiveCategory(category)}
+            >
+
+              {category}
+
+            </button>
+
+          ))}
+
         </div>
-      )}
-    </section>
+
+
+
+        {loading ? (
+
+          <h2 style={{ textAlign: "center" }}>
+            Loading...
+          </h2>
+
+
+        ) : (
+
+          <div className="projects-grid">
+
+            {filteredProjects.length === 0 ? (
+
+              <h2>No Projects Found</h2>
+
+
+            ) : (
+
+              filteredProjects.map((project) => (
+
+                <motion.div
+                  key={project._id}
+                  className="project-card"
+                  initial={{
+                    opacity: 0,
+                    scale: 0.9,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  transition={{
+                    duration: 0.4,
+                  }}
+                >
+
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="project-image"
+                    loading="lazy"
+                  />
+
+
+                  <div className="project-content">
+
+                    <span className="category">
+                      {project.category}
+                    </span>
+
+
+                    <h3>
+                      {project.title}
+                    </h3>
+
+
+                    <p>
+                      {project.description}
+                    </p>
+
+
+                  </div>
+
+
+                </motion.div>
+
+              ))
+
+            )}
+
+          </div>
+
+        )}
+
+      </section>
+
+    </>
   );
 }
 
