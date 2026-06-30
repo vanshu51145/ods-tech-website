@@ -156,6 +156,8 @@ app.get("/api/projects", async (req, res) => {
       projects,
     });
   } catch (error) {
+      console.error("Projects Error:", error);
+
     res.status(500).json({
       success: false,
       message: "Server Error",
