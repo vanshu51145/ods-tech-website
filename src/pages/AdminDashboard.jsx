@@ -19,7 +19,7 @@ function AdminDashboard() {
     const fetchContacts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/contact",
+          "https://ods-network-backend.onrender.com/api/contact",
           {
             headers: {
               Authorization: localStorage.getItem("token"),
