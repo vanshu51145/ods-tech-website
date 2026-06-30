@@ -37,7 +37,6 @@ function AdminProjects() {
         setProjects(data.projects);
       }
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -97,7 +96,6 @@ function AdminProjects() {
         alert(data.message);
       }
     } catch (err) {
-      console.log(err);
       alert("Something Went Wrong");
     }
 
@@ -124,7 +122,6 @@ function AdminProjects() {
         fetchProjects();
       }
     } catch (err) {
-      console.log(err);
     }
   };
 

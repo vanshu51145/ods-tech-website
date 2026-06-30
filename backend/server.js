@@ -13,15 +13,18 @@ const streamifier = require("streamifier");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 app.use(express.json());
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("MongoDB Connected");
   })
   .catch((err) => {
-    console.log("MongoDB Error:", err);
   });
 
 const transporter = nodemailer.createTransport({
@@ -72,7 +75,6 @@ app.get("/api/contact", auth, async (req, res) => {
   }
 });
 app.post("/api/contact", async (req, res) => {
-  console.log("POST API HIT");
 
   try {
     const { name, email, message } = req.body;
@@ -82,11 +84,8 @@ app.post("/api/contact", async (req, res) => {
       email,
       message,
     });
-    console.log("Saving to MongoDB...");
     await newContact.save();
-    console.log("Saved to MongoDB");
 
-    console.log("Sending Email...");
 
 
 
@@ -107,7 +106,6 @@ app.post("/api/contact", async (req, res) => {
       message: "Form Submitted Successfully",
     });
   } catch (error) {
-    console.error(error);
 
     res.status(500).json({
       success: false,
@@ -116,7 +114,6 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 app.post("/api/admin/login", (req, res) => {
-  console.log(req.body);
 
   const { email, password } = req.body;
 
@@ -211,7 +208,6 @@ app.post(
 
     streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
   } catch (error) {
-    console.log(error);
 
     res.status(500).json({
       success: false,
@@ -229,7 +225,6 @@ app.delete("/api/projects/:id", auth, async (req, res) => {
       message: "Project Deleted Successfully",
     });
   } catch (error) {
-    console.log(error);
 
     res.status(500).json({
       success: false,
@@ -239,6 +234,5 @@ app.delete("/api/projects/:id", auth, async (req, res) => {
 });
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+
+app.listen(PORT, () => {});
