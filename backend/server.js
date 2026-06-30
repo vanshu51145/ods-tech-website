@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const auth = require("./middleware/auth");
 const Project = require("./models/Project");
-const upload = require("./middleware/upload");
+const upload = require("./middleware/Upload");
 const cloudinary = require("./config/cloudinary");
 const streamifier = require("streamifier");
 
