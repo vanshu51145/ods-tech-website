@@ -107,7 +107,7 @@ function AdminProjects() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/projects/${id}`,
+        `https://ods-network-backend.onrender.com/api/projects/${id}`,
         {
           method: "DELETE",
           headers: {

@@ -8,7 +8,7 @@ function Home() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/message")
+    fetch("https://ods-network-backend.onrender.com/api/message")
       .then((res) => res.json())
       .then((data) => setMessage(data.message))
       .catch(() => {});

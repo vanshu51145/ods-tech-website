@@ -79,6 +79,8 @@ app.get("/api/contact",  async (req, res) => {
 app.post("/api/contact", async (req, res) => {
 
   try {
+        console.log("CONTACT DATA:", req.body);
+
     const { name, email, message } = req.body;
 
     const newContact = new Contact({
@@ -108,6 +110,7 @@ app.post("/api/contact", async (req, res) => {
       message: "Form Submitted Successfully",
     });
   } catch (error) {
+    console.log("CONTACT ERROR:", error);
 
     res.status(500).json({
       success: false,
