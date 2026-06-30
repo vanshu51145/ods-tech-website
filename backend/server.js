@@ -110,11 +110,11 @@ app.post("/api/contact", async (req, res) => {
       message: "Form Submitted Successfully",
     });
   } catch (error) {
-    console.log("CONTACT ERROR:", error);
+    console.log("CONTACT ERROR:", error.message);
 
     res.status(500).json({
       success: false,
-      message: "Server Error",
+      message:error.message
     });
   }
 });
