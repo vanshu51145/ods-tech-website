@@ -61,7 +61,7 @@ app.get("/api/admin", auth, (req, res) => {
   });
 
 });
-app.get("/api/contact", auth, async (req, res) => {
+app.get("/api/contact",  async (req, res) => {
   try {
     const contacts = await Contact.find().sort({ createdAt: -1 });
 
