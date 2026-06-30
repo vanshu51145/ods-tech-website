@@ -165,7 +165,7 @@ app.get("/api/projects", async (req, res) => {
 app.post(
   "/api/projects",
   auth,
-  upload.single("image"),
+  Upload.single("image"),
   async (req, res) =>  {
   try {
     const { title, category, description } = req.body;
