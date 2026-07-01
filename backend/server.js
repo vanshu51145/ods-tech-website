@@ -21,8 +21,10 @@ app.use(
 );
 app.use(express.json());
 mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
+ .connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 5000,
+  })
+    .then(() => {
     console.log("MongoDB Connected");
   })
   .catch((err) => {
@@ -92,7 +94,7 @@ app.post("/api/contact", async (req, res) => {
 
 
 
-
+try{
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER,
@@ -104,6 +106,13 @@ app.post("/api/contact", async (req, res) => {
         <p><strong>Message:</strong> ${message}</p>
       `,
     });
+      console.log("Email sent successfully");
+
+    } catch (mailError) {
+
+      console.log("MAIL ERROR:", mailError.message);
+
+    }
 
     res.status(200).json({
       success: true,
