@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://ods-tech-website.vercel.app/",
+    origin: "https://ods-tech-website.vercel.app",
     credentials: true,
   })
 );
