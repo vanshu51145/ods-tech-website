@@ -26,7 +26,8 @@ function Footer() {
 
           <p>Email: Info.odsnetwork@gmail.com</p>
           <p>Phone: +91 9801351931</p>
-          <p>India</p>
+          <p>NH 31, Rahimpur, Shambhu Deep
+            Dharam Kanta Khagaria, Bihar 851204</p>
         </div>
       </div>
 
