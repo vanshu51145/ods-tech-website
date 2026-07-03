@@ -24,8 +24,8 @@ function Footer() {
         <div className="footer-box">
           <h3>Contact</h3>
 
-          <p>Email: info@odstech.com</p>
-          <p>Phone: +91 9876543210</p>
+          <p>Email: Info.odsnetwork@gmail.com</p>
+          <p>Phone: +91 9801351931</p>
           <p>India</p>
         </div>
       </div>
