@@ -118,6 +118,14 @@ function AdminDashboard() {
             <h3>Manage Blogs</h3>
             <h1>📝</h1>
           </div>
+          <div
+            className="card"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/admin/projects")}
+          >
+            <h3>Manage Projects</h3>
+            <h1>📁</h1>
+          </div>
         </div>
 
         <div className="table-container" id="messages">

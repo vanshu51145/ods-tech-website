@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import JoditEditor from "jodit-react";
 import "./AdminBlogs.css";
@@ -20,6 +20,46 @@ function AdminBlogs() {
   const [coverImage, setCoverImage] = useState(null);
 
   const [loading, setLoading] = useState(false);
+
+  const editorConfig = useMemo(
+    () => ({
+      readonly: false,
+      placeholder: "Write your blog content here...",
+      height: 350,
+
+      toolbarAdaptive: false,
+
+      showCharsCounter: false,
+      showWordsCounter: false,
+      showXPathInStatusbar: false,
+
+      buttons: [
+        "bold",
+        "italic",
+        "underline",
+        "|",
+        "ul",
+        "ol",
+        "|",
+        "fontsize",
+        "brush",
+        "paragraph",
+        "|",
+        "image",
+        "link",
+        "table",
+        "|",
+        "align",
+        "|",
+        "undo",
+        "redo",
+        "|",
+        "hr",
+        "eraser",
+      ],
+    }),
+    []
+  );
 
   useEffect(() => {
     if (!token) {
@@ -165,8 +205,13 @@ function AdminBlogs() {
           required
         />
 
+        <label className="editor-label">
+          Blog Content
+        </label>
+
         <JoditEditor
           value={content}
+          config={editorConfig}
           onBlur={(newContent) => setContent(newContent)}
         />
 
@@ -189,7 +234,7 @@ function AdminBlogs() {
         <table>
           <thead>
             <tr>
-              <th>Image</th>
+              <th>Cover</th>
               <th>Title</th>
               <th>Author</th>
               <th>Action</th>
@@ -208,7 +253,7 @@ function AdminBlogs() {
                     <img
                       src={blog.coverImage}
                       alt={blog.title}
-                      width="80"
+                      width="90"
                     />
                   </td>
 
