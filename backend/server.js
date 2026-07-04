@@ -10,6 +10,7 @@ const Project = require("./models/Project");
 const Upload = require("./middleware/Upload");
 const cloudinary = require("./config/cloudinary");
 const streamifier = require("streamifier");
+const Blog = require("./models/Blog");
 
 const app = express();
 
@@ -180,6 +181,25 @@ app.get("/api/projects", async (req, res) => {
     });
   }
 });
+app.get("/api/blogs", async (req, res) => {
+  try {
+    const blogs = await Blog.find().sort({
+      createdAt: -1,
+    });
+
+    res.json({
+      success: true,
+      blogs,
+    });
+  } catch (error) {
+    console.error("Blogs Error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 app.post(
   "/api/projects",
   auth,
@@ -234,6 +254,70 @@ app.post(
   }
 }
 );
+app.post(
+  "/api/blogs",
+  auth,
+  Upload.single("coverImage"),
+  async (req, res) => {
+    try {
+      const { title, author, content } = req.body;
+
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Cover Image is required",
+        });
+      }
+
+      const slug = title
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "-");
+
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: "ods-blogs",
+        },
+        async (error, result) => {
+          if (error) {
+            return res.status(500).json({
+              success: false,
+              message: "Cloudinary Upload Failed",
+            });
+          }
+
+          const blog = new Blog({
+            title,
+            author,
+            content,
+            coverImage: result.secure_url,
+            slug,
+          });
+
+          await blog.save();
+
+          res.status(201).json({
+            success: true,
+            message: "Blog Added Successfully",
+            blog,
+          });
+        }
+      );
+
+      streamifier
+        .createReadStream(req.file.buffer)
+        .pipe(uploadStream);
+
+    } catch (error) {
+      console.log(error);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
 app.delete("/api/projects/:id", auth, async (req, res) => {
   try {
     await Project.findByIdAndDelete(req.params.id);
@@ -250,6 +334,22 @@ app.delete("/api/projects/:id", auth, async (req, res) => {
     });
   }
 });
+app.delete("/api/blogs/:id", auth, async (req, res) => {
+  try {
+    await Blog.findByIdAndDelete(req.params.id);
+
+    res.json({
+      success: true,
+      message: "Blog Deleted Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
