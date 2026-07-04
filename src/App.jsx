@@ -17,18 +17,18 @@ import AdminProjects from "./pages/AdminProjects";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import ReactGA from "react-ga4";
-
+import AdminBlogs from "./pages/AdminBlogs";
 function App() {
 
   const location = useLocation();
 
   const isAdminPage = location.pathname.startsWith("/admin");
   useEffect(() => {
-  ReactGA.send({
-    hitType: "pageview",
-    page: location.pathname + location.search,
-  });
-}, [location]);
+    ReactGA.send({
+      hitType: "pageview",
+      page: location.pathname + location.search,
+    });
+  }, [location]);
 
   return (
     <>
@@ -58,6 +58,7 @@ function App() {
           }
         />
 
+
         <Route
           path="/admin/projects"
           element={
@@ -66,7 +67,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route
+          path="/admin/blogs"
+          element={
+            <ProtectedRoute>
+              <AdminBlogs />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
 
       </Routes>
