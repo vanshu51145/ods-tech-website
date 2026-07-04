@@ -23,37 +23,39 @@ function Blogs() {
 
       setLoading(false);
     } catch (error) {
+      console.log(error);
       setLoading(false);
     }
   };
 
   return (
     <section className="blogs-page">
-
-      <h1>Latest Blogs</h1>
+      <div className="blogs-header">
+        <h1>Latest Blogs</h1>
+        <p>
+          Explore the latest articles, tutorials and insights from ODS Network.
+        </p>
+      </div>
 
       {loading ? (
-        <h2>Loading...</h2>
+        <div className="loading">Loading Blogs...</div>
       ) : blogs.length === 0 ? (
-        <h2>No Blogs Available</h2>
+        <div className="loading">No Blogs Available</div>
       ) : (
         <div className="blogs-grid">
-
           {blogs.map((blog) => (
-
-            <div className="blog-card" key={blog._id}>
-
+            <article className="blog-card" key={blog._id}>
               <img
                 src={blog.coverImage}
                 alt={blog.title}
+                loading="lazy"
               />
 
               <div className="blog-content">
-
                 <h2>{blog.title}</h2>
 
                 <p className="author">
-                  By {blog.author}
+                  By <span>{blog.author}</span>
                 </p>
 
                 <div
@@ -63,15 +65,14 @@ function Blogs() {
                   }}
                 />
 
+                <button className="read-btn">
+                  Read More →
+                </button>
               </div>
-
-            </div>
-
+            </article>
           ))}
-
         </div>
       )}
-
     </section>
   );
 }
