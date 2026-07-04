@@ -1,191 +1,250 @@
-/* AdminBlogs.css */
+/* ===========================
+   AdminBlogs.css
+=========================== */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.projects-page {
-  padding: 40px;
-  background: #f5f7fb;
-  min-height: 100vh;
+.projects-page{
+    min-height:100vh;
+    padding:40px;
+    background:#f4f7fc;
 }
 
-.projects-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
+/* Top Section */
+
+.projects-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
 }
 
-.projects-top h1 {
-  color: #1e293b;
-  font-size: 32px;
-  font-weight: 700;
+.projects-top h1{
+    font-size:32px;
+    color:#1e293b;
+    font-weight:700;
 }
 
-.back-btn {
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  padding: 12px 22px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: 0.3s;
+.back-btn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:12px 24px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
 }
 
-.back-btn:hover {
-  background: #1d4ed8;
+.back-btn:hover{
+    background:#1d4ed8;
 }
 
-.project-form {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,.08);
-  margin-bottom: 40px;
+/* Form */
+
+.project-form{
+    background:#fff;
+    padding:30px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(15,23,42,.08);
+    margin-bottom:35px;
 }
 
 .project-form input[type="text"],
-.project-form input[type="file"] {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 20px;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
-  font-size: 15px;
+.project-form input[type="file"]{
+    width:100%;
+    padding:15px 18px;
+    margin-bottom:20px;
+    border:1px solid #dbe4f0;
+    border-radius:10px;
+    font-size:15px;
+    transition:.3s;
 }
 
-.project-form input:focus {
-  outline: none;
-  border-color: #2563eb;
+.project-form input:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
 }
 
-.project-form .jodit-container {
-  margin-bottom: 20px;
+.editor-label{
+    display:block;
+    margin-bottom:12px;
+    font-size:16px;
+    font-weight:600;
+    color:#334155;
 }
 
-.project-form button {
-  width: 100%;
-  padding: 15px;
-  background: #2563eb;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 17px;
-  cursor: pointer;
-  transition: .3s;
+/* Publish Button */
+
+.project-form button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
 }
 
-.project-form button:hover {
-  background: #1d4ed8;
+.project-form button:hover{
+    background:#1d4ed8;
 }
 
-.table-box {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,.08);
-  overflow-x: auto;
+/* ===========================
+   Professional Jodit Editor
+=========================== */
+
+.jodit-container{
+    margin-bottom:22px;
+    border:1px solid #dbe4f0 !important;
+    border-radius:12px !important;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
 }
 
-.table-box h2 {
-  margin-bottom: 20px;
-  color: #1e293b;
+.jodit-toolbar__box{
+    background:#f8fafc !important;
+    border-bottom:1px solid #e2e8f0 !important;
+    padding:8px !important;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.jodit-toolbar-button{
+    border-radius:8px !important;
+    transition:.25s;
 }
 
-table thead {
-  background: #2563eb;
-  color: #fff;
+.jodit-toolbar-button:hover{
+    background:#2563eb !important;
+    color:#fff !important;
 }
 
-table th,
-table td {
-  padding: 15px;
-  text-align: center;
-  border-bottom: 1px solid #eee;
+.jodit-workplace{
+    background:#fff !important;
+    min-height:350px !important;
 }
 
-table img {
-  width: 90px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
+.jodit-wysiwyg{
+    padding:22px !important;
+    font-size:16px;
+    line-height:1.8;
+    color:#334155;
 }
 
-.delete-btn {
-  background: #ef4444;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: .3s;
+.jodit-status-bar{
+    display:none !important;
 }
 
-.delete-btn:hover {
-  background: #dc2626;
+/* ===========================
+   Table
+=========================== */
+
+.table-box{
+    background:#fff;
+    padding:30px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(15,23,42,.08);
+    overflow-x:auto;
 }
 
-/* Jodit Editor */
-
-.jodit-container {
-  border-radius: 8px !important;
-  overflow: hidden;
+.table-box h2{
+    margin-bottom:20px;
+    color:#1e293b;
+    font-size:24px;
 }
 
-.jodit-workplace {
-  min-height: 300px !important;
+table{
+    width:100%;
+    border-collapse:collapse;
 }
 
-.jodit-status-bar {
-  display: none !important;
+thead{
+    background:#2563eb;
+    color:#fff;
 }
 
-/* Responsive */
+th,
+td{
+    padding:16px;
+    text-align:center;
+    border-bottom:1px solid #edf2f7;
+}
+
+tbody tr:hover{
+    background:#f8fbff;
+}
+
+table img{
+    width:90px;
+    height:60px;
+    object-fit:cover;
+    border-radius:8px;
+    border:1px solid #e2e8f0;
+}
+
+.delete-btn{
+    background:#ef4444;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:14px;
+    transition:.3s;
+}
+
+.delete-btn:hover{
+    background:#dc2626;
+}
+
+/* ===========================
+   Responsive
+=========================== */
 
 @media(max-width:768px){
 
 .projects-page{
-padding:20px;
+    padding:20px;
 }
 
 .projects-top{
-flex-direction:column;
-gap:15px;
-align-items:flex-start;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:15px;
 }
 
 .projects-top h1{
-font-size:28px;
-}
-
-.project-form{
-padding:20px;
-}
-
-table{
-font-size:14px;
-}
-
-table th,
-table td{
-padding:10px;
+    font-size:28px;
 }
 
 .back-btn{
-width:100%;
+    width:100%;
 }
 
-.project-form button{
-font-size:16px;
+.project-form,
+.table-box{
+    padding:20px;
+}
+
+table{
+    font-size:14px;
+}
+
+th,
+td{
+    padding:12px;
+}
+
+.jodit-workplace{
+    min-height:250px !important;
 }
 
 }
@@ -193,29 +252,34 @@ font-size:16px;
 @media(max-width:500px){
 
 .projects-page{
-padding:15px;
+    padding:15px;
 }
 
 .projects-top h1{
-font-size:24px;
+    font-size:24px;
 }
 
-.project-form{
-padding:15px;
+.project-form,
+.table-box{
+    padding:15px;
 }
 
 .project-form input{
-font-size:14px;
+    font-size:14px;
 }
 
 table img{
-width:70px;
-height:50px;
+    width:70px;
+    height:50px;
 }
 
 .delete-btn{
-padding:8px 12px;
-font-size:13px;
+    padding:8px 12px;
+    font-size:13px;
+}
+
+.jodit-toolbar__box{
+    padding:4px !important;
 }
 
 }
