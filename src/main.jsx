@@ -6,6 +6,9 @@ import "./index.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { HelmetProvider } from "react-helmet-async";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-34R9B9JPTH");
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
