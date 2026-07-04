@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-
+import { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -16,12 +16,19 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminProjects from "./pages/AdminProjects";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import ReactGA from "react-ga4";
 
 function App() {
 
   const location = useLocation();
 
   const isAdminPage = location.pathname.startsWith("/admin");
+  useEffect(() => {
+  ReactGA.send({
+    hitType: "pageview",
+    page: location.pathname + location.search,
+  });
+}, [location]);
 
   return (
     <>
