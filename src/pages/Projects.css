@@ -17,7 +17,27 @@
   color:#64748b;
   line-height:1.7;
 }
+.search-box {
+  width: 100%;
+  max-width: 500px;
+  margin: 30px auto;
+}
 
+.search-box input {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #d6d6d6;
+  border-radius: 50px;
+  font-size: 16px;
+  outline: none;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.search-box input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.2);
+}
 .filter-buttons{
   display:flex;
   justify-content:center;
