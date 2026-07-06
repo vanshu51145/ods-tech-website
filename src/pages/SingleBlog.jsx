@@ -23,47 +23,61 @@ function SingleBlog() {
 
       if (data.success) {
         setBlog(data.blog);
+      } else {
+        setBlog(null);
       }
 
       setLoading(false);
     } catch (error) {
       console.log(error);
+      setBlog(null);
       setLoading(false);
     }
   };
 
   if (loading) {
-    return <h2 style={{ textAlign: "center", marginTop: "120px" }}>Loading...</h2>;
+    return (
+      <h2 style={{ textAlign: "center", marginTop: "120px" }}>
+        Loading...
+      </h2>
+    );
   }
 
   if (!blog) {
-    return <h2 style={{ textAlign: "center", marginTop: "120px" }}>Blog Not Found</h2>;
+    return (
+      <h2 style={{ textAlign: "center", marginTop: "120px" }}>
+        Blog Not Found
+      </h2>
+    );
   }
+
+  const cleanContent = (blog.content || "").replace(/<[^>]+>/g, "");
+  const shortDescription = cleanContent.substring(0, 150);
 
   return (
     <>
+      {/* SEO SAFE HELMET */}
       <Helmet>
-        <title>{blog.title} | ODS Tech</title>
+        <title>
+          {blog?.title ? `${blog.title} | ODS Tech` : "ODS Tech"}
+        </title>
 
-        <meta
-          name="description"
-          content={blog.content.replace(/<[^>]+>/g, "").substring(0, 150)}
-        />
+        <meta name="description" content={shortDescription} />
 
-        <meta property="og:title" content={blog.title} />
+        <meta property="og:title" content={blog?.title || "ODS Tech"} />
 
         <meta
           property="og:description"
-          content={blog.content.replace(/<[^>]+>/g, "").substring(0, 150)}
+          content={shortDescription}
         />
 
-        <meta property="og:image" content={blog.coverImage} />
+        <meta property="og:image" content={blog?.coverImage || ""} />
 
         <meta property="og:type" content="article" />
       </Helmet>
 
+      {/* BLOG CONTENT */}
       <section className="single-blog">
-
         <img
           src={blog.coverImage}
           alt={blog.title}
@@ -72,9 +86,7 @@ function SingleBlog() {
 
         <h1>{blog.title}</h1>
 
-        <p className="single-author">
-          By {blog.author}
-        </p>
+        <p className="single-author">By {blog.author}</p>
 
         <div
           className="single-content"
@@ -82,7 +94,6 @@ function SingleBlog() {
             __html: blog.content,
           }}
         />
-
       </section>
     </>
   );
