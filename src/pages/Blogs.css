@@ -69,6 +69,27 @@
     box-shadow:0 20px 40px rgba(15,23,42,.15);
 }
 
+.search-box {
+  width: 100%;
+  max-width: 500px;
+  margin: 30px auto 0;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #d6d6d6;
+  border-radius: 50px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+  background: #fff;
+}
+
+.search-box input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.2);
+}
 /* Image */
 
 .blog-card img{
