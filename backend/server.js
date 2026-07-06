@@ -164,7 +164,30 @@ app.post("/api/admin/login", (req, res) => {
 });
 app.get("/api/projects", async (req, res) => {
   try {
-    const projects = await Project.find().sort({
+    const search = req.query.search || "";
+
+    const projects = await Project.find({
+      $or: [
+        {
+          title: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          category: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          description: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ],
+    }).sort({
       createdAt: -1,
     });
 
@@ -173,7 +196,7 @@ app.get("/api/projects", async (req, res) => {
       projects,
     });
   } catch (error) {
-      console.error("Projects Error:", error);
+    console.error("Projects Error:", error);
 
     res.status(500).json({
       success: false,
@@ -183,7 +206,30 @@ app.get("/api/projects", async (req, res) => {
 });
 app.get("/api/blogs", async (req, res) => {
   try {
-    const blogs = await Blog.find().sort({
+    const search = req.query.search || "";
+
+    const blogs = await Blog.find({
+      $or: [
+        {
+          title: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          content: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+        {
+          author: {
+            $regex: search,
+            $options: "i",
+          },
+        },
+      ],
+    }).sort({
       createdAt: -1,
     });
 
