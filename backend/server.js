@@ -400,6 +400,34 @@ app.delete("/api/projects/:id", auth, async (req, res) => {
     });
   }
 });
+app.get("/api/blogs/:slug", async (req, res) => {
+  try {
+
+    const blog = await Blog.findOne({
+      slug: req.params.slug,
+    });
+
+    if (!blog) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      blog,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+
+  }
+});
 app.delete("/api/blogs/:id", auth, async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);

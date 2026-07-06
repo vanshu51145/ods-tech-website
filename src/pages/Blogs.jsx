@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Blogs.css";
 
 function Blogs() {
@@ -7,7 +8,6 @@ function Blogs() {
 
   const [search, setSearch] = useState("");
 
-  // Pagination
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -33,12 +33,11 @@ function Blogs() {
         setBlogs(data.blogs);
         setTotalPages(data.totalPages);
       }
-
-      setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -93,15 +92,16 @@ function Blogs() {
                     }}
                   />
 
-                  <button className="read-btn">
+                  <Link
+                    to={`/blogs/${blog.slug}`}
+                    className="read-btn"
+                  >
                     Read More →
-                  </button>
+                  </Link>
                 </div>
               </article>
             ))}
           </div>
-
-          {/* Pagination */}
 
           <div className="pagination">
             <button
@@ -114,9 +114,7 @@ function Blogs() {
             {[...Array(totalPages)].map((_, index) => (
               <button
                 key={index}
-                className={
-                  page === index + 1 ? "active-page" : ""
-                }
+                className={page === index + 1 ? "active-page" : ""}
                 onClick={() => setPage(index + 1)}
               >
                 {index + 1}
