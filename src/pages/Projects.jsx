@@ -28,12 +28,11 @@ function Projects() {
       if (data.success) {
         setProjects(data.projects);
       }
-
-      setLoading(false);
     } catch (error) {
       console.log(error);
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   const categories = [
@@ -67,7 +66,6 @@ function Projects() {
         </p>
 
         {/* Search Bar */}
-
         <div className="search-box">
           <input
             type="text"
@@ -77,8 +75,7 @@ function Projects() {
           />
         </div>
 
-        {/* Category Filter */}
-
+        {/* Category Buttons */}
         <div className="filter-buttons">
           {categories.map((category) => (
             <button
@@ -94,49 +91,37 @@ function Projects() {
         </div>
 
         {loading ? (
-          <h2 style={{ textAlign: "center" }}>
-            Loading...
-          </h2>
+          <h2 className="loading-text">Loading...</h2>
+        ) : filteredProjects.length === 0 ? (
+          <h2 className="loading-text">No Projects Found</h2>
         ) : (
           <div className="projects-grid">
-            {filteredProjects.length === 0 ? (
-              <h2>No Projects Found</h2>
-            ) : (
-              filteredProjects.map((project) => (
-                <motion.div
-                  key={project._id}
-                  className="project-card"
-                  initial={{
-                    opacity: 0,
-                    scale: 0.9,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  transition={{
-                    duration: 0.4,
-                  }}
-                >
-                  <img
-                    src={project.imageUrl}
-                    alt={project.title}
-                    className="project-image"
-                    loading="lazy"
-                  />
+            {filteredProjects.map((project) => (
+              <motion.div
+                key={project._id}
+                className="project-card"
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="project-image"
+                  loading="lazy"
+                />
 
-                  <div className="project-content">
-                    <span className="category">
-                      {project.category}
-                    </span>
+                <div className="project-content">
+                  <span className="category">
+                    {project.category}
+                  </span>
 
-                    <h3>{project.title}</h3>
+                  <h3>{project.title}</h3>
 
-                    <p>{project.description}</p>
-                  </div>
-                </motion.div>
-              ))
-            )}
+                  <p>{project.description}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         )}
       </section>
