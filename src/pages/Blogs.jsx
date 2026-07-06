@@ -4,15 +4,18 @@ import "./Blogs.css";
 function Blogs() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchBlogs();
-  }, []);
+  }, [search]);
 
   const fetchBlogs = async () => {
+    setLoading(true);
+
     try {
       const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/blogs"
+        `https://ods-network-backend.onrender.com/api/blogs?search=${encodeURIComponent(search)}`
       );
 
       const data = await response.json();
@@ -32,9 +35,19 @@ function Blogs() {
     <section className="blogs-page">
       <div className="blogs-header">
         <h1>Latest Blogs</h1>
+
         <p>
           Explore the latest articles, tutorials and insights from ODS Network.
         </p>
+
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="Search blogs..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       {loading ? (
