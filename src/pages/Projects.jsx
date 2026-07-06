@@ -7,11 +7,18 @@ function Projects() {
   const [projects, setProjects] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [loading, setLoading] = useState(true);
+
   const [search, setSearch] = useState("");
+
+  // Pagination
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const limit = 6;
 
   useEffect(() => {
     fetchProjects();
-  }, [search]);
+  }, [search, page]);
 
   const fetchProjects = async () => {
     setLoading(true);
@@ -20,13 +27,14 @@ function Projects() {
       const response = await fetch(
         `https://ods-network-backend.onrender.com/api/projects?search=${encodeURIComponent(
           search
-        )}`
+        )}&page=${page}&limit=${limit}`
       );
 
       const data = await response.json();
 
       if (data.success) {
         setProjects(data.projects);
+        setTotalPages(data.totalPages);
       }
     } catch (error) {
       console.log(error);
@@ -65,24 +73,25 @@ function Projects() {
           Explore our latest digital solutions built for businesses.
         </p>
 
-        {/* Search Bar */}
+        {/* Search */}
         <div className="search-box">
           <input
             type="text"
             placeholder="Search projects..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1);
+            }}
           />
         </div>
 
-        {/* Category Buttons */}
+        {/* Categories */}
         <div className="filter-buttons">
           {categories.map((category) => (
             <button
               key={category}
-              className={
-                activeCategory === category ? "active" : ""
-              }
+              className={activeCategory === category ? "active" : ""}
               onClick={() => setActiveCategory(category)}
             >
               {category}
@@ -95,34 +104,65 @@ function Projects() {
         ) : filteredProjects.length === 0 ? (
           <h2 className="loading-text">No Projects Found</h2>
         ) : (
-          <div className="projects-grid">
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project._id}
-                className="project-card"
-                initial={{ opacity: 0, y: 25 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
+          <>
+            <div className="projects-grid">
+              {filteredProjects.map((project) => (
+                <motion.div
+                  key={project._id}
+                  className="project-card"
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="project-image"
+                    loading="lazy"
+                  />
+
+                  <div className="project-content">
+                    <span className="category">
+                      {project.category}
+                    </span>
+
+                    <h3>{project.title}</h3>
+
+                    <p>{project.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Pagination */}
+            <div className="pagination">
+              <button
+                disabled={page === 1}
+                onClick={() => setPage(page - 1)}
               >
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="project-image"
-                  loading="lazy"
-                />
+                Previous
+              </button>
 
-                <div className="project-content">
-                  <span className="category">
-                    {project.category}
-                  </span>
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  className={
+                    page === index + 1 ? "active-page" : ""
+                  }
+                  onClick={() => setPage(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              ))}
 
-                  <h3>{project.title}</h3>
-
-                  <p>{project.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              <button
+                disabled={page === totalPages}
+                onClick={() => setPage(page + 1)}
+              >
+                Next
+              </button>
+            </div>
+          </>
         )}
       </section>
     </>
