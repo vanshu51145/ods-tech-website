@@ -165,8 +165,10 @@ app.post("/api/admin/login", (req, res) => {
 app.get("/api/projects", async (req, res) => {
   try {
     const search = req.query.search || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
 
-    const projects = await Project.find({
+    const query = {
       $or: [
         {
           title: {
@@ -187,16 +189,24 @@ app.get("/api/projects", async (req, res) => {
           },
         },
       ],
-    }).sort({
-      createdAt: -1,
-    });
+    };
+
+    const totalProjects = await Project.countDocuments(query);
+
+    const projects = await Project.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
 
     res.json({
       success: true,
       projects,
+      currentPage: page,
+      totalPages: Math.ceil(totalProjects / limit),
+      totalProjects,
     });
   } catch (error) {
-    console.error("Projects Error:", error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
@@ -207,8 +217,10 @@ app.get("/api/projects", async (req, res) => {
 app.get("/api/blogs", async (req, res) => {
   try {
     const search = req.query.search || "";
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
 
-    const blogs = await Blog.find({
+    const query = {
       $or: [
         {
           title: {
@@ -229,16 +241,24 @@ app.get("/api/blogs", async (req, res) => {
           },
         },
       ],
-    }).sort({
-      createdAt: -1,
-    });
+    };
+
+    const totalBlogs = await Blog.countDocuments(query);
+
+    const blogs = await Blog.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
 
     res.json({
       success: true,
       blogs,
+      currentPage: page,
+      totalPages: Math.ceil(totalBlogs / limit),
+      totalBlogs,
     });
   } catch (error) {
-    console.error("Blogs Error:", error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
