@@ -1,0 +1,44 @@
+.single-blog{
+    max-width:900px;
+    margin:120px auto 60px;
+    padding:0 20px;
+}
+
+.single-image{
+    width:100%;
+    border-radius:15px;
+    margin-bottom:30px;
+}
+
+.single-blog h1{
+    font-size:38px;
+    margin-bottom:15px;
+    color:#0f172a;
+}
+
+.single-author{
+    color:#64748b;
+    margin-bottom:30px;
+    font-size:18px;
+}
+
+.single-content{
+    line-height:1.8;
+    color:#334155;
+    font-size:18px;
+}
+
+.single-content img{
+    max-width:100%;
+    border-radius:10px;
+    margin:20px 0;
+}
+
+.single-content h2,
+.single-content h3{
+    margin:25px 0 15px;
+}
+
+.single-content p{
+    margin-bottom:18px;
+}

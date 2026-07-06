@@ -18,6 +18,7 @@ import AdminProjects from "./pages/AdminProjects";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ReactGA from "react-ga4";
 import AdminBlogs from "./pages/AdminBlogs";
+import SingleBlog from "./pages/SingleBlog";
 function App() {
 
   const location = useLocation();
@@ -74,6 +75,10 @@ function App() {
               <AdminBlogs />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/blogs/:slug"
+          element={<SingleBlog />}
         />
         <Route path="*" element={<NotFound />} />
 
