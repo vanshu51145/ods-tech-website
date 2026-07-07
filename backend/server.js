@@ -357,9 +357,13 @@ app.post(
   Upload.single("coverImage"),
   async (req, res) => {
     try {
+      console.log("BODY:", req.body);
+      console.log("FILE:", req.file);
       const title = xss(req.body.title);
       const author = xss(req.body.author);
       const content = xss(req.body.content);
+           console.log("Sanitized:", { title, author, content });
+
       if (!title || !author || !content) {
         return res.status(400).json({
           success: false,
@@ -413,12 +417,12 @@ app.post(
         .pipe(uploadStream);
 
     } catch (error) {
-      console.log(error);
+     console.error("BLOG ERROR:", error);
 
-      res.status(500).json({
-        success: false,
-        message: "Server Error",
-      });
+  res.status(500).json({
+    success: false,
+    message: error.message,
+  });
     }
   }
 );
