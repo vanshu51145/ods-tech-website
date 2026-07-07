@@ -3,6 +3,8 @@ import Hero from "../components/Hero";
 import About from "../components/About";
 import ServicesSection from "../components/ServicesSection";
 import { Helmet } from "react-helmet-async";
+import TestimonialForm from "../components/TestimonialForm";
+import Testimonials from "../components/Testimonials";
 
 function Home() {
   const [message, setMessage] = useState("");
@@ -32,6 +34,9 @@ function Home() {
       <ServicesSection />
 
       <About />
+      <Testimonials />
+
+      <TestimonialForm />
 
     </>
   );
