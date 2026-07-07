@@ -13,6 +13,7 @@ const streamifier = require("streamifier");
 const Blog = require("./models/Blog");
 const rateLimit = require("express-rate-limit");
 const xss = require("xss");
+const Testimonial = require("./models/Testimonial");
 
 const app = express();
 
@@ -426,6 +427,108 @@ app.post(
     }
   }
 );
+app.get("/api/testimonials", async (req, res) => {
+  try {
+    const testimonials = await Testimonial.find({
+      isApproved: true,
+    }).sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      testimonials,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.get("/api/admin/testimonials", auth, async (req, res) => {
+  try {
+    const testimonials = await Testimonial.find().sort({
+      createdAt: -1,
+    });
+
+    res.json({
+      success: true,
+      testimonials,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.post("/api/testimonials", async (req, res) => {
+  try {
+    const clientName = xss(req.body.clientName);
+    const company = xss(req.body.company);
+    const feedback = xss(req.body.feedback);
+    const rating = Number(req.body.rating);
+
+    if (!clientName || !company || !feedback || !rating) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+    if (rating < 1 || rating > 5) {
+  return res.status(400).json({
+    success: false,
+    message: "Rating must be between 1 and 5",
+  });
+}
+
+    const testimonial = new Testimonial({
+      clientName,
+      company,
+      feedback,
+      rating,
+    });
+
+    await testimonial.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Review submitted successfully. Waiting for approval.",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.put("/api/admin/testimonials/:id", auth, async (req, res) => {
+  try {
+    const testimonial = await Testimonial.findById(req.params.id);
+
+    if (!testimonial) {
+      return res.status(404).json({
+        success: false,
+        message: "Review not found",
+      });
+    }
+
+    testimonial.isApproved = true;
+
+    await testimonial.save();
+
+    res.json({
+      success: true,
+      message: "Review Approved",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 app.delete("/api/projects/:id", auth, async (req, res) => {
   try {
     await Project.findByIdAndDelete(req.params.id);
@@ -485,7 +588,21 @@ app.delete("/api/blogs/:id", auth, async (req, res) => {
     });
   }
 });
+app.delete("/api/admin/testimonials/:id", auth, async (req, res) => {
+  try {
+    await Testimonial.findByIdAndDelete(req.params.id);
 
+    res.json({
+      success: true,
+      message: "Review Deleted",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

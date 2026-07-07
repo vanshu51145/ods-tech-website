@@ -62,6 +62,9 @@ function AdminDashboard() {
           <li onClick={() => navigate("/admin/blogs")}>
             📝 Manage Blogs
           </li>
+          <li onClick={() => navigate("/admin/testimonials")}>
+  ⭐ Manage Testimonials
+</li>
         </ul>
       </div>
 
@@ -126,6 +129,14 @@ function AdminDashboard() {
             <h3>Manage Projects</h3>
             <h1>📁</h1>
           </div>
+          <div
+  className="card"
+  style={{ cursor: "pointer" }}
+  onClick={() => navigate("/admin/testimonials")}
+>
+  <h3>Manage Testimonials</h3>
+  <h1>⭐</h1>
+</div>
         </div>
 
         <div className="table-container" id="messages">
