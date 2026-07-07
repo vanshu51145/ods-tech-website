@@ -11,6 +11,8 @@ const Upload = require("./middleware/Upload");
 const cloudinary = require("./config/cloudinary");
 const streamifier = require("streamifier");
 const Blog = require("./models/Blog");
+const rateLimit = require("express-rate-limit");
+const xss = require("xss");
 
 const app = express();
 
@@ -23,11 +25,32 @@ app.use(
   })
 );
 app.use(express.json());
+const contactLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: {
+    success: false,
+    message: "Too many requests. Please try again after 15 minutes.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: {
+    success: false,
+    message: "Too many login attempts. Please try again after 15 minutes.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 mongoose
- .connect(process.env.MONGO_URI, {
+  .connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 5000,
   })
-    .then(() => {
+  .then(() => {
     console.log("MongoDB Connected");
   })
   .catch((err) => {
@@ -66,7 +89,7 @@ app.get("/api/admin", auth, (req, res) => {
   });
 
 });
-app.get("/api/contact",  async (req, res) => {
+app.get("/api/contact", auth, async (req, res) => {
   try {
     const contacts = await Contact.find().sort({ createdAt: -1 });
 
@@ -81,13 +104,14 @@ app.get("/api/contact",  async (req, res) => {
     });
   }
 });
-app.post("/api/contact", async (req, res) => {
+app.post("/api/contact", contactLimiter, async (req, res) => {
 
   try {
-        console.log("CONTACT DATA:", req.body);
+    console.log("CONTACT DATA:", req.body);
 
-    const { name, email, message } = req.body;
-
+    const name = xss(req.body.name);
+    const email = xss(req.body.email);
+    const message = xss(req.body.message);
     const newContact = new Contact({
       name,
       email,
@@ -97,18 +121,18 @@ app.post("/api/contact", async (req, res) => {
 
 
 
-try{
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER,
-      subject: "New Contact Form Submission",
-      html: `
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER,
+        subject: "New Contact Form Submission",
+        html: `
         <h2>New Contact Message</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Message:</strong> ${message}</p>
       `,
-    });
+      });
       console.log("Email sent successfully");
 
     } catch (mailError) {
@@ -126,14 +150,14 @@ try{
 
     res.status(500).json({
       success: false,
-      message:error.message
+      message: error.message
     });
   }
 });
-app.post("/api/admin/login", (req, res) => {
+app.post("/api/admin/login", loginLimiter, (req, res) => {
 
-  const { email, password } = req.body;
-
+  const email = xss(req.body.email);
+  const password = xss(req.body.password);
   if (
     email === process.env.ADMIN_EMAIL &&
     password === process.env.ADMIN_PASSWORD
@@ -270,55 +294,62 @@ app.post(
   "/api/projects",
   auth,
   Upload.single("image"),
-  async (req, res) =>  {
-  try {
-    const { title, category, description } = req.body;
-
-    if (!req.file) {
-      return res.status(400).json({
-        success: false,
-        message: "Image is required",
-      });
-    }
-
-    const uploadStream = cloudinary.uploader.upload_stream(
-      {
-        folder: "ods-projects",
-      },
-      async (error, result) => {
-        if (error) {
-          return res.status(500).json({
-            success: false,
-            message: "Cloudinary Upload Failed",
-          });
-        }
-
-        const project = new Project({
-          title,
-          category,
-          description,
-          imageUrl: result.secure_url,
-        });
-
-        await project.save();
-
-        res.status(201).json({
-          success: true,
-          message: "Project Added Successfully",
-          project,
+  async (req, res) => {
+    try {
+      const title = xss(req.body.title);
+      const category = xss(req.body.category);
+      const description = xss(req.body.description);
+      if (!title || !category || !description) {
+        return res.status(400).json({
+          success: false,
+          message: "All fields are required",
         });
       }
-    );
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Image is required",
+        });
+      }
 
-    streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
-  } catch (error) {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: "ods-projects",
+        },
+        async (error, result) => {
+          if (error) {
+            return res.status(500).json({
+              success: false,
+              message: "Cloudinary Upload Failed",
+            });
+          }
 
-    res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
+          const project = new Project({
+            title,
+            category,
+            description,
+            imageUrl: result.secure_url,
+          });
+
+          await project.save();
+
+          res.status(201).json({
+            success: true,
+            message: "Project Added Successfully",
+            project,
+          });
+        }
+      );
+
+      streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
+    } catch (error) {
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
   }
-}
 );
 app.post(
   "/api/blogs",
@@ -326,8 +357,15 @@ app.post(
   Upload.single("coverImage"),
   async (req, res) => {
     try {
-      const { title, author, content } = req.body;
-
+      const title = xss(req.body.title);
+      const author = xss(req.body.author);
+      const content = xss(req.body.content);
+      if (!title || !author || !content) {
+        return res.status(400).json({
+          success: false,
+          message: "All fields are required",
+        });
+      }
       if (!req.file) {
         return res.status(400).json({
           success: false,
