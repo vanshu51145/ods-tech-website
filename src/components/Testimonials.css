@@ -1,6 +1,7 @@
 .testimonials-section {
   padding: 80px 8%;
   background: #f8fbff;
+  overflow: hidden;
 }
 
 .testimonial-header {
@@ -74,7 +75,7 @@
 }
 
 .swiper {
-  padding-bottom: 60px;
+ padding: 20px 40px 60px;
 }
 
 .swiper-button-next,
@@ -88,11 +89,11 @@
 }
 
 .swiper-button-prev {
-  left: -20px !important;
+  left: 10px !important;
 }
 
 .swiper-button-next {
-  right: -20px !important;
+  right: 10px !important;
 }
 
 .swiper-button-next::after,
