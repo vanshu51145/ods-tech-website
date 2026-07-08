@@ -79,9 +79,39 @@
 
 .swiper-button-next,
 .swiper-button-prev {
-  color: #2563eb;
+  color: #2563eb !important;
+  background: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0,0,0,.15);
 }
 
+.swiper-button-prev {
+  left: -20px !important;
+}
+
+.swiper-button-next {
+  right: -20px !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 18px !important;
+  font-weight: bold;
+}
+.swiper-slide {
+  height: auto;
+}
+
+.testimonial-card {
+  height: 100%;
+  min-height: 320px;
+}
+
+.feedback {
+  min-height: 90px;
+}
 .swiper-pagination-bullet-active {
   background: #2563eb !important;
 }
