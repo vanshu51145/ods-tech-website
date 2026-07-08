@@ -9,6 +9,10 @@ function AdminTestimonials() {
   }, []);
 
   const fetchTestimonials = async () => {
+    console.log(
+"TOKEN:",
+localStorage.getItem("token")
+);
     try {
       const response = await fetch(
         "https://ods-network-backend.onrender.com/api/admin/testimonials",
