@@ -84,7 +84,8 @@ localStorage.getItem("token")
 
   return (
     <div className="admin-testimonials">
-      <button
+      <div className="admin-testimonials-header">
+        <button 
 
     className="back-btn"
 
@@ -95,6 +96,7 @@ localStorage.getItem("token")
     ← Back to Dashboard
 
   </button>
+  </div>
 
       <h2>Manage Testimonials</h2>
 
