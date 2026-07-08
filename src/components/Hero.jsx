@@ -1,8 +1,9 @@
 import "./Hero.css";
 import { motion } from "framer-motion";
-
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const navigate = useNavigate();
 
 return (
 
@@ -47,13 +48,18 @@ that help businesses grow in the digital world.
 <div className="hero-buttons">
 
 
-<button className="primary-btn">
-Explore Services
+<button
+  className="primary-btn"
+  onClick={() => navigate("/services")}
+>
+  Explore Services
 </button>
 
-
-<button className="secondary-btn">
-Get In Touch
+<button
+  className="secondary-btn"
+  onClick={() => navigate("/contact")}
+>
+  Get In Touch
 </button>
 
 

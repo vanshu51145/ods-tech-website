@@ -7,34 +7,46 @@ function Navbar() {
   return (
     <header>
       <nav className="navbar">
-        <div className="logo">
-          <h2>ODS TECH</h2>
-        </div>
+        <Link to="/" className="logo">
+  ODS TECH
+</Link>
 
         <ul className={menuOpen ? "nav-links active" : "nav-links"}>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
+        <li>
+  <Link to="/" onClick={() => setMenuOpen(false)}>
+    Home
+  </Link>
+</li>
 
-          <li>
-            <Link to="/about">About</Link>
-          </li>
+<li>
+  <Link to="/about" onClick={() => setMenuOpen(false)}>
+    About
+  </Link>
+</li>
 
-          <li>
-            <Link to="/services">Services</Link>
-          </li>
+<li>
+  <Link to="/services" onClick={() => setMenuOpen(false)}>
+    Services
+  </Link>
+</li>
 
-          <li>
-            <Link to="/projects">Projects</Link>
-          </li>
+<li>
+  <Link to="/projects" onClick={() => setMenuOpen(false)}>
+    Projects
+  </Link>
+</li>
 
-          <li>
-            <Link to="/blogs">Blogs</Link>
-          </li>
+<li>
+  <Link to="/blogs" onClick={() => setMenuOpen(false)}>
+    Blogs
+  </Link>
+</li>
 
-          <li>
-            <Link to="/contact">Contact</Link>
-          </li>
+<li>
+  <Link to="/contact" onClick={() => setMenuOpen(false)}>
+    Contact
+  </Link>
+</li>
         </ul>
 
         <div
