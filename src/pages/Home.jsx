@@ -3,7 +3,6 @@ import Hero from "../components/Hero";
 import About from "../components/About";
 import ServicesSection from "../components/ServicesSection";
 import { Helmet } from "react-helmet-async";
-import TestimonialForm from "../components/TestimonialForm";
 import Testimonials from "../components/Testimonials";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -76,7 +75,6 @@ console.log(err);
       <About />
       <Testimonials />
 
-      <TestimonialForm />
 
     </>
   );
