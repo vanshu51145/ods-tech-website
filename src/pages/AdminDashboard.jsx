@@ -134,7 +134,7 @@ function AdminDashboard() {
   style={{ cursor: "pointer" }}
   onClick={() => navigate("/admin/testimonials")}
 >
-  <h3>Manage Testimonials</h3>
+  <h3>Manage Reviews</h3>
   <h1>⭐</h1>
 </div>
         </div>
