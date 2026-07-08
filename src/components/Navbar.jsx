@@ -7,8 +7,17 @@ function Navbar() {
   return (
     <header>
       <nav className="navbar">
-        <Link to="/" className="logo">
-  ODS TECH
+       <Link
+  to="/"
+  className="logo"
+  onClick={() => setMenuOpen(false)}
+>
+  <img
+    src="blob:https://gemini.google.com/36710f17-9991-4198-89f1-e81908a9477c"
+    alt="ODS Tech Logo"
+    className="logo-img"
+  />
+  <span>ODS TECH</span>
 </Link>
 
         <ul className={menuOpen ? "nav-links active" : "nav-links"}>
