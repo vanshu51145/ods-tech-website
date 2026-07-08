@@ -69,7 +69,7 @@
 .delete-btn:hover{
     background:#dc2626;
 }
-.admin-testimonials{
+.admin-testimonials-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
