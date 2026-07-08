@@ -4,33 +4,33 @@ import "./FAQ.css";
 function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
 
-  const faqData = [
-    {
-      question: "What technologies do you use?",
-      answer:
-        "We specialize in MERN Stack, React.js, Node.js, Express.js, MongoDB, JavaScript, HTML, CSS, and modern web technologies.",
-    },
-    {
-      question: "Do you offer SEO services?",
-      answer:
-        "Yes. We provide SEO-friendly website development along with performance optimization and responsive design.",
-    },
-    {
-      question: "Can you build custom business websites?",
-      answer:
-        "Absolutely! We build custom websites, portfolios, e-commerce platforms, and enterprise web applications based on your business requirements.",
-    },
-    {
-      question: "How long does it take to complete a project?",
-      answer:
-        "The timeline depends on the project scope. Most business websites are completed within 2–6 weeks.",
-    },
-    {
-      question: "Do you provide website maintenance?",
-      answer:
-        "Yes. We offer ongoing maintenance, bug fixes, security updates, and feature enhancements after project delivery.",
-    },
-  ];
+ const faqData = [
+  {
+    question: "What services does ODS Tech provide?",
+    answer:
+      "We provide website development, web applications, UI/UX design, digital solutions, business websites, and ongoing website maintenance services.",
+  },
+  {
+    question: "How long does it take to complete a website?",
+    answer:
+      "The timeline depends on the project requirements. Most business websites are completed within 2 to 6 weeks, while larger projects may take longer.",
+  },
+  {
+    question: "Do you provide website maintenance after delivery?",
+    answer:
+      "Yes. We offer post-launch support, regular updates, bug fixes, security improvements, and maintenance to keep your website running smoothly.",
+  },
+  {
+    question: "Can you redesign my existing website?",
+    answer:
+      "Absolutely! We can redesign your existing website with a modern look, improved performance, responsive design, and better user experience.",
+  },
+  {
+    question: "How can I request a quotation for my project?",
+    answer:
+      "You can contact us through the Contact page or submit your project details, and our team will get back to you with a customized quotation.",
+  },
+];
 
   const toggleFAQ = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
