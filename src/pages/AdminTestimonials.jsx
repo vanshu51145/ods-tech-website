@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "./AdminTestimonials.css";
-
+import { useNavigate } from "react-router-dom";
 function AdminTestimonials() {
   const [testimonials, setTestimonials] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTestimonials();
@@ -83,6 +84,17 @@ localStorage.getItem("token")
 
   return (
     <div className="admin-testimonials">
+      <button
+
+    className="back-btn"
+
+    onClick={() => navigate("/admin/dashboard")}
+
+  >
+
+    ← Back to Dashboard
+
+  </button>
 
       <h2>Manage Testimonials</h2>
 
