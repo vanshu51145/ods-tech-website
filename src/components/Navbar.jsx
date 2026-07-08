@@ -13,7 +13,7 @@ function Navbar() {
   onClick={() => setMenuOpen(false)}
 >
   <img
-    src="blob:https://gemini.google.com/36710f17-9991-4198-89f1-e81908a9477c"
+    src="https://tse1.mm.bing.net/th/id/OIP.OI3gXZAHFlR-sHZuF0ngDgHaHa?r=0&pid=Api&h=220&P=0"
     alt="ODS Tech Logo"
     className="logo-img"
   />
