@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./TestimonialForm.css";
+import "./ReviewModal.css";
 
-function TestimonialForm() {
+function ReviewModal({ closeModal, refreshTestimonials }) {
   const [formData, setFormData] = useState({
     clientName: "",
     company: "",
@@ -46,6 +46,9 @@ function TestimonialForm() {
           rating: "",
           feedback: "",
         });
+
+        refreshTestimonials();
+        closeModal();
       } else {
         alert(data.message);
       }
@@ -58,15 +61,17 @@ function TestimonialForm() {
   };
 
   return (
-    <section className="testimonial-form-section">
+    <div className="modal-overlay">
+      <div className="review-modal">
 
-      <div className="testimonial-form-container">
+        <button
+          className="close-modal"
+          onClick={closeModal}
+        >
+          ✕
+        </button>
 
-        <h2>Share Your Experience</h2>
-
-        <p>
-          We'd love to hear your feedback about our services.
-        </p>
+        <h2>Leave a Review</h2>
 
         <form onSubmit={handleSubmit}>
 
@@ -103,7 +108,7 @@ function TestimonialForm() {
           </select>
 
           <textarea
-            rows="6"
+            rows="5"
             name="feedback"
             placeholder="Write your feedback..."
             value={formData.feedback}
@@ -118,9 +123,8 @@ function TestimonialForm() {
         </form>
 
       </div>
-
-    </section>
+    </div>
   );
 }
 
-export default TestimonialForm;
+export default ReviewModal;
