@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
+import { CSVLink } from "react-csv";
 
 
 function AdminDashboard() {
@@ -9,7 +10,22 @@ function AdminDashboard() {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const headers = [
+  { label: "Name", key: "name" },
+  { label: "Email", key: "email" },
+  { label: "Service Requested", key: "serviceRequested" },
+  { label: "Message", key: "message" },
+  { label: "Date", key: "createdAt" },
+  { label: "Status", key: "status" },
+];
+const csvData = contacts.map((contact) => ({
+  name: contact.name,
+  email: contact.email,
+  serviceRequested: contact.serviceRequested,
+  message: contact.message,
+  createdAt: new Date(contact.createdAt).toLocaleDateString(),
+  status: contact.status,
+}));
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/admin/login");
@@ -172,9 +188,20 @@ function AdminDashboard() {
         </div>
 
         <div className="table-container" id="messages">
-          <h2 style={{ marginBottom: "20px" }}>
-            Contact Messages
-          </h2>
+          <div className="table-header">
+
+  <h2>Contact Messages</h2>
+
+  <CSVLink
+    data={csvData}
+    headers={headers}
+    filename="ODS-Leads.csv"
+    className="export-btn"
+  >
+    Export Leads to CSV
+  </CSVLink>
+
+</div>
 
           <table>
             <thead>
