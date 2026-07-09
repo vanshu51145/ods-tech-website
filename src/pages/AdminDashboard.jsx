@@ -14,6 +14,38 @@ function AdminDashboard() {
     localStorage.removeItem("token");
     navigate("/admin/login");
   };
+  const updateStatus = async (id, status) => {
+  try {
+    const response = await fetch(
+      `https://ods-network-backend.onrender.com/api/contact/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setContacts((prev) =>
+        prev.map((contact) =>
+          contact._id === id
+            ? { ...contact, status }
+            : contact
+        )
+      );
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.log(error);
+    alert("Failed to update status");
+  }
+};
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -149,19 +181,21 @@ function AdminDashboard() {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Service</th>
                 <th>Message</th>
                 <th>Date</th>
+                <th>Status</th>
               </tr>
             </thead>
 
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="4">Loading...</td>
+                  <td colSpan="5">Loading...</td>
                 </tr>
               ) : contacts.length === 0 ? (
                 <tr>
-                  <td colSpan="4">No Messages Found</td>
+                  <td colSpan="5">No Messages Found</td>
                 </tr>
               ) : (
                 contacts.map((contact) => (
@@ -169,6 +203,7 @@ function AdminDashboard() {
                     <td>{contact.name}</td>
 
                     <td>{contact.email}</td>
+                    <td>{contact.serviceRequested}</td>
 
                     <td>
                       {contact.message.length > 50
@@ -181,6 +216,18 @@ function AdminDashboard() {
                         contact.createdAt
                       ).toLocaleDateString()}
                     </td>
+                    <td>
+  <select
+    value={contact.status}
+    onChange={(e) =>
+      updateStatus(contact._id, e.target.value)
+    }
+  >
+    <option value="New">New</option>
+    <option value="Contacted">Contacted</option>
+    <option value="Converted">Converted</option>
+  </select>
+</td>
                   </tr>
                 ))
               )}

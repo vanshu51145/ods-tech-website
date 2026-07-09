@@ -105,6 +105,38 @@ app.get("/api/contact", auth, async (req, res) => {
     });
   }
 });
+app.put("/api/contact/:id", auth, async (req, res) => {
+  try {
+    const { status } = req.body;
+
+    const contact = await Contact.findById(req.params.id);
+
+    if (!contact) {
+      return res.status(404).json({
+        success: false,
+        message: "Contact not found",
+      });
+    }
+
+    contact.status = status;
+
+    await contact.save();
+
+    res.json({
+      success: true,
+      message: "Status Updated",
+      contact,
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 app.post("/api/contact", contactLimiter, async (req, res) => {
 
   try {
