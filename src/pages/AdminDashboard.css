@@ -113,7 +113,13 @@ table{
     width:100%;
     border-collapse:collapse;
 }
-
+table select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  outline: none;
+}
 th{
     background:#0ea5e9;
     color:white;

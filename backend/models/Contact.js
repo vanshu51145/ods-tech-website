@@ -21,6 +21,11 @@ const contactSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    status: {
+  type: String,
+  enum: ["New", "Contacted", "Converted"],
+  default: "New",
+},
   },
   {
     timestamps: true,
