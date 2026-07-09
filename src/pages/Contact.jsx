@@ -7,6 +7,7 @@ function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    serviceRequested: "",
     message: "",
   });
 
@@ -56,6 +57,7 @@ function Contact() {
         setFormData({
           name: "",
           email: "",
+          serviceRequested: "",
           message: "",
         });
       } else {
@@ -94,7 +96,19 @@ function Contact() {
           onChange={handleChange}
           required
         />
-
+        <select
+          name="serviceRequested"
+          value={formData.serviceRequested}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Service</option>
+          <option value="Web Development">Web Development</option>
+          <option value="App Development">App Development</option>
+          <option value="SEO">SEO</option>
+          <option value="Digital Marketing">Digital Marketing</option>
+          <option value="Other">Other</option>
+        </select>
         <textarea
           rows="5"
           name="message"
@@ -103,6 +117,7 @@ function Contact() {
           onChange={handleChange}
           required
         />
+
 
         <button
           type="submit"
