@@ -112,12 +112,20 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
 
     const name = xss(req.body.name);
     const email = xss(req.body.email);
+    const serviceRequested = xss(req.body.serviceRequested);
     const message = xss(req.body.message);
+    if (!name || !email || !serviceRequested || !message) {
+  return res.status(400).json({
+    success: false,
+    message: "All fields are required",
+  });
+}
     const newContact = new Contact({
-      name,
-      email,
-      message,
-    });
+  name,
+  email,
+  serviceRequested,
+  message,
+});
     await newContact.save();
 
 
@@ -131,6 +139,7 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
         <h2>New Contact Message</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Service Requested:</strong> ${serviceRequested}</p>
         <p><strong>Message:</strong> ${message}</p>
       `,
       });

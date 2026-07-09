@@ -12,6 +12,11 @@ const contactSchema = new mongoose.Schema(
       required: true,
     },
 
+    serviceRequested: {
+      type: String,
+      required: true,
+    },
+
     message: {
       type: String,
       required: true,
