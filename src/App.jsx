@@ -20,6 +20,8 @@ import ReactGA from "react-ga4";
 import AdminBlogs from "./pages/AdminBlogs";
 import SingleBlog from "./pages/SingleBlog";
 import AdminTestimonials from "./pages/AdminTestimonials";
+import Careers from "./pages/Careers";
+import AdminJobs from "./pages/AdminJobs";
 function App() {
 
   const location = useLocation();
@@ -84,9 +86,21 @@ function App() {
         <Route
           path="/admin/testimonials"
           element={<ProtectedRoute>
-      <AdminTestimonials />
-    </ProtectedRoute>}
+            <AdminTestimonials />
+          </ProtectedRoute>}
         />
+        <Route
+          path="/careers"
+          element={<Careers />}
+        />
+       <Route
+  path="/admin/jobs"
+  element={
+    <ProtectedRoute>
+      <AdminJobs />
+    </ProtectedRoute>
+  }
+/>
         <Route path="*" element={<NotFound />} />
 
       </Routes>
