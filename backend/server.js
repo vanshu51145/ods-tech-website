@@ -28,6 +28,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5,
@@ -38,6 +39,7 @@ const contactLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

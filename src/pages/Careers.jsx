@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
+import "./Careers.css";
 function Careers() {
   const [jobs, setJobs] = useState([]);
   const [showForm, setShowForm] = useState(false);

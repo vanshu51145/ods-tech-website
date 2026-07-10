@@ -164,19 +164,7 @@ function AdminJobs() {
 
         <h1>{editId ? "Edit Job" : "Post New Job"}</h1>
 
-        <button
-          onClick={logout}
-          style={{
-            padding: "10px 20px",
-            border: "none",
-            borderRadius: "8px",
-            background: "#dc2626",
-            color: "#fff",
-            cursor: "pointer",
-          }}
-        >
-          Logout
-        </button>
+        
       </div>
 
       <form onSubmit={handleSubmit} className="job-form">
