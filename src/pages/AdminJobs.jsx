@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import "./AdminJobs.css"
 
 function AdminJobs() {
   const navigate = useNavigate();
