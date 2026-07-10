@@ -11,57 +11,57 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const headers = [
-  { label: "Name", key: "name" },
-  { label: "Email", key: "email" },
-  { label: "Service Requested", key: "serviceRequested" },
-  { label: "Message", key: "message" },
-  { label: "Date", key: "createdAt" },
-  { label: "Status", key: "status" },
-];
-const csvData = contacts.map((contact) => ({
-  name: contact.name,
-  email: contact.email,
-  serviceRequested: contact.serviceRequested,
-  message: contact.message,
-  createdAt: new Date(contact.createdAt).toLocaleDateString(),
-  status: contact.status,
-}));
+    { label: "Name", key: "name" },
+    { label: "Email", key: "email" },
+    { label: "Service Requested", key: "serviceRequested" },
+    { label: "Message", key: "message" },
+    { label: "Date", key: "createdAt" },
+    { label: "Status", key: "status" },
+  ];
+  const csvData = contacts.map((contact) => ({
+    name: contact.name,
+    email: contact.email,
+    serviceRequested: contact.serviceRequested,
+    message: contact.message,
+    createdAt: new Date(contact.createdAt).toLocaleDateString(),
+    status: contact.status,
+  }));
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/admin/login");
   };
   const updateStatus = async (id, status) => {
-  try {
-    const response = await fetch(
-      `https://ods-network-backend.onrender.com/api/contact/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token"),
-        },
-        body: JSON.stringify({ status }),
-      }
-    );
-
-    const data = await response.json();
-
-    if (data.success) {
-      setContacts((prev) =>
-        prev.map((contact) =>
-          contact._id === id
-            ? { ...contact, status }
-            : contact
-        )
+    try {
+      const response = await fetch(
+        `https://ods-network-backend.onrender.com/api/contact/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+          body: JSON.stringify({ status }),
+        }
       );
-    } else {
-      alert(data.message);
+
+      const data = await response.json();
+
+      if (data.success) {
+        setContacts((prev) =>
+          prev.map((contact) =>
+            contact._id === id
+              ? { ...contact, status }
+              : contact
+          )
+        );
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Failed to update status");
     }
-  } catch (error) {
-    console.log(error);
-    alert("Failed to update status");
-  }
-};
+  };
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -111,8 +111,13 @@ const csvData = contacts.map((contact) => ({
             📝 Manage Blogs
           </li>
           <li onClick={() => navigate("/admin/testimonials")}>
-  ⭐ Manage Testimonials
-</li>
+            ⭐ Manage Testimonials
+          </li>
+          <li
+            onClick={() => navigate("/admin/jobs")}
+          >
+            💼 Manage Jobs
+          </li>
         </ul>
       </div>
 
@@ -178,30 +183,37 @@ const csvData = contacts.map((contact) => ({
             <h1>📁</h1>
           </div>
           <div
-  className="card"
-  style={{ cursor: "pointer" }}
-  onClick={() => navigate("/admin/testimonials")}
->
-  <h3>Manage Reviews</h3>
-  <h1>⭐</h1>
-</div>
+            className="card"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/admin/testimonials")}
+          >
+            <h3>Manage Reviews</h3>
+            <h1>⭐</h1>
+          </div>
+          <div
+            className="card"
+            onClick={() => navigate("/admin/jobs")}
+          >
+            <h3>Manage Jobs</h3>
+            <h1>💼</h1>
+          </div>
         </div>
 
         <div className="table-container" id="messages">
           <div className="table-header">
 
-  <h2>Contact Messages</h2>
+            <h2>Contact Messages</h2>
 
-  <CSVLink
-    data={csvData}
-    headers={headers}
-    filename="ODS-Leads.csv"
-    className="export-btn"
-  >
-    Export Leads to CSV
-  </CSVLink>
+            <CSVLink
+              data={csvData}
+              headers={headers}
+              filename="ODS-Leads.csv"
+              className="export-btn"
+            >
+              Export Leads to CSV
+            </CSVLink>
 
-</div>
+          </div>
 
           <table>
             <thead>
@@ -244,17 +256,17 @@ const csvData = contacts.map((contact) => ({
                       ).toLocaleDateString()}
                     </td>
                     <td>
-  <select
-    value={contact.status}
-    onChange={(e) =>
-      updateStatus(contact._id, e.target.value)
-    }
-  >
-    <option value="New">New</option>
-    <option value="Contacted">Contacted</option>
-    <option value="Converted">Converted</option>
-  </select>
-</td>
+                      <select
+                        value={contact.status}
+                        onChange={(e) =>
+                          updateStatus(contact._id, e.target.value)
+                        }
+                      >
+                        <option value="New">New</option>
+                        <option value="Contacted">Contacted</option>
+                        <option value="Converted">Converted</option>
+                      </select>
+                    </td>
                   </tr>
                 ))
               )}

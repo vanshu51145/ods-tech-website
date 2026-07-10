@@ -14,6 +14,8 @@ const Blog = require("./models/Blog");
 const rateLimit = require("express-rate-limit");
 const xss = require("xss");
 const Testimonial = require("./models/Testimonial");
+const Job = require("./models/Job");
+const Application = require("./models/Application");
 
 const app = express();
 
@@ -193,6 +195,23 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
     res.status(500).json({
       success: false,
       message: error.message
+    });
+  }
+});
+app.get("/api/applications", auth, async (req, res) => {
+  try {
+    const applications = await Application.find()
+      .populate("jobId", "title")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      applications,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
     });
   }
 });
@@ -502,6 +521,21 @@ app.get("/api/admin/testimonials", auth, async (req, res) => {
     });
   }
 });
+app.get("/api/jobs", async (req, res) => {
+  try {
+    const jobs = await Job.find().sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      jobs,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 app.post("/api/testimonials", async (req, res) => {
   try {
     const clientName = xss(req.body.clientName);
@@ -544,6 +578,101 @@ app.post("/api/testimonials", async (req, res) => {
     });
   }
 });
+app.post("/api/jobs", auth, async (req, res) => {
+  try {
+    const job = new Job({
+      title: req.body.title,
+      description: req.body.description,
+      type: req.body.type,
+    });
+
+    await job.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Job Posted Successfully",
+      job,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.post(
+  "/api/jobs/apply",
+  Upload.single("resume"),
+  async (req, res) => {
+    try {
+
+      const name = xss(req.body.name);
+      const email = xss(req.body.email);
+      const jobId = req.body.jobId;
+
+      if (!name || !email || !jobId) {
+        return res.status(400).json({
+          success: false,
+          message: "All fields are required",
+        });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Resume PDF is required",
+        });
+      }
+
+      const uploadStream =
+        cloudinary.uploader.upload_stream(
+          {
+            folder: "ods-resumes",
+            resource_type: "raw",
+          },
+          async (error, result) => {
+
+            if (error) {
+              return res.status(500).json({
+                success: false,
+                message: "Resume Upload Failed",
+              });
+            }
+
+            const application =
+              new Application({
+                name,
+                email,
+                jobId,
+                resume: result.secure_url,
+              });
+
+            await application.save();
+
+            res.status(201).json({
+              success: true,
+              message: "Application Submitted Successfully",
+            });
+          }
+        );
+
+      streamifier
+        .createReadStream(req.file.buffer)
+        .pipe(uploadStream);
+
+    } catch (error) {
+
+      console.log(error);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+
+    }
+  }
+);
 app.put("/api/admin/testimonials/:id", auth, async (req, res) => {
   try {
     const testimonial = await Testimonial.findById(req.params.id);
@@ -570,6 +699,69 @@ app.put("/api/admin/testimonials/:id", auth, async (req, res) => {
     });
   }
 });
+app.put("/api/jobs/:id", auth, async (req, res) => {
+  try {
+
+   const job = await Job.findById(req.params.id);
+
+if (!job) {
+  return res.status(404).json({
+    success:false,
+    message:"Job not found"
+  });
+}
+
+job.isActive = !job.isActive;
+
+await job.save();
+
+    res.json({
+      success: true,
+      message: "Job Updated",
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+
+  }
+});
+app.put("/api/jobs/edit/:id", auth, async (req, res) => {
+  try {
+    const { title, description, type } = req.body;
+
+    const job = await Job.findById(req.params.id);
+
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    job.title = title;
+    job.description = description;
+    job.type = type;
+
+    await job.save();
+
+    res.json({
+      success: true,
+      message: "Job Updated Successfully",
+      job,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
 app.delete("/api/projects/:id", auth, async (req, res) => {
   try {
     await Project.findByIdAndDelete(req.params.id);

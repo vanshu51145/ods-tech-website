@@ -1,0 +1,165 @@
+/* ================= Careers Cards ================= */
+
+.career-card {
+  background: #fff;
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+}
+
+.career-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.career-card h2 {
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+.career-card p {
+  color: #555;
+  line-height: 1.6;
+  margin: 15px 0;
+}
+
+.career-card h4 {
+  color: #0077ff;
+  margin-bottom: 15px;
+}
+
+.career-card button {
+  padding: 12px 25px;
+  background: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.career-card button:hover {
+  background: #005fd1;
+}
+
+/* ================= Modal ================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.modal {
+  background: #fff;
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  border-radius: 12px;
+  animation: popup 0.3s ease;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: .3s;
+}
+
+.modal input:focus {
+  border-color: #0077ff;
+}
+
+.modal input[type="file"] {
+  padding: 8px;
+}
+
+/* ================= Buttons ================= */
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.modal-buttons button:first-child {
+  background: #0077ff;
+  color: white;
+}
+
+.modal-buttons button:first-child:hover {
+  background: #005fd1;
+}
+
+.modal-buttons button:last-child {
+  background: #ef4444;
+  color: white;
+}
+
+.modal-buttons button:last-child:hover {
+  background: #dc2626;
+}
+
+/* ================= Responsive ================= */
+
+@media (max-width: 768px) {
+
+  .career-card {
+    padding: 20px;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  .modal-buttons button {
+    width: 100%;
+  }
+
+}
