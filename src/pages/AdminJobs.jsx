@@ -146,7 +146,8 @@ function AdminJobs() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginBottom: "30px",
+          marginBottom: "20px ",
+          padding:"30px 0px",
                     position:"relative",
 
         }}
@@ -155,11 +156,15 @@ function AdminJobs() {
           onClick={() => navigate("/admin/dashboard")}
           style={{
             position: "absolute",
+            display:"flex",
+            alignItems:"center",
   left:"0",
 
   padding: "10px 20px",
   border: "none",
-  borderradius: "8px",
+  gap:"8px",
+  borderRadius: "10px",
+  border:"none",
 
   background: "#2563eb",
   color: "white",
@@ -175,10 +180,11 @@ function AdminJobs() {
         <h1
         style={
             {
-                fontsize: "32px",
-  fontweight: "700",
-  color: "#0f172a",
+                fontsize: "42px",
+  fontweight: "800",
+  color: "#2563eb",
   margin: "0",
+  letterSpacing:"-1px",
             }
         }>{editId ? "Edit Job" : "Post New Job"}</h1>
 
