@@ -154,12 +154,19 @@ function AdminJobs() {
         <button
           onClick={() => navigate("/admin/dashboard")}
           style={{
-            padding: "10px 20px",
-            border: "none",
-            borderRadius: "8px",
-            background: "#2563eb",
-            color: "#fff",
-            cursor: "pointer",
+            position: "absolute",
+  left:"0",
+
+  padding: "10px 20px",
+  border: "none",
+  borderradius: "8px",
+
+  background: "#2563eb",
+  color: "white",
+
+  fontsize: "15px",
+  cursor: "pointer",
+  transition: ".3s",
           }}
         >
           ← Dashboard
