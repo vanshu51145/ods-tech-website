@@ -144,9 +144,11 @@ function AdminJobs() {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "center",
           alignItems: "center",
           marginBottom: "30px",
+                    position:"relative",
+
         }}
       >
         <button
@@ -163,7 +165,15 @@ function AdminJobs() {
           ← Dashboard
         </button>
 
-        <h1>{editId ? "Edit Job" : "Post New Job"}</h1>
+        <h1
+        style={
+            {
+                fontsize: "32px",
+  fontweight: "700",
+  color: "#0f172a",
+  margin: "0",
+            }
+        }>{editId ? "Edit Job" : "Post New Job"}</h1>
 
        
       </div>
