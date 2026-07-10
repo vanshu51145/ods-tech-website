@@ -630,6 +630,9 @@ app.post(
           {
             folder: "ods-resumes",
             resource_type: "raw",
+             public_id: req.file.originalname,
+    use_filename: true,
+    unique_filename: true,
           },
           async (error, result) => {
 
