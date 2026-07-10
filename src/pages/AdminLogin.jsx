@@ -125,7 +125,7 @@ function AdminLogin() {
                 className="toggle-password"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? "🙈" : "👁"}
+                {showPassword ? "👁️‍🗨️" : "👁"}
               </span>
 
             </div>
