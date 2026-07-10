@@ -1,47 +1,81 @@
-/* ================= Careers Cards ================= */
+/* ================= Page ================= */
+
+.page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 80px 20px;
+}
+
+.page h1 {
+  text-align: center;
+  font-size: 42px;
+  color: #0f172a;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.page > p {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 50px;
+}
+
+/* ================= Cards ================= */
 
 .career-card {
+  max-width: 850px;
+  margin: 25px auto;
   background: #fff;
-  padding: 25px;
-  margin: 20px 0;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: 0.3s ease;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  transition: all .35s ease;
+  border-left: 6px solid #2563eb;
 }
 
 .career-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(37, 99, 235, 0.18);
 }
 
 .career-card h2 {
-  margin-bottom: 10px;
   color: #0f172a;
+  font-size: 28px;
+  margin-bottom: 12px;
 }
 
 .career-card p {
   color: #555;
-  line-height: 1.6;
-  margin: 15px 0;
+  line-height: 1.8;
+  font-size: 16px;
+  margin: 18px 0;
 }
 
 .career-card h4 {
-  color: #0077ff;
-  margin-bottom: 15px;
+  display: inline-block;
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 8px 18px;
+  border-radius: 30px;
+  margin-bottom: 25px;
+  font-size: 15px;
 }
 
 .career-card button {
-  padding: 12px 25px;
-  background: #0077ff;
-  color: #fff;
+  padding: 14px 28px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
   cursor: pointer;
-  transition: 0.3s;
+  font-size: 16px;
+  font-weight: 600;
+  transition: .3s;
 }
 
 .career-card button:hover {
-  background: #005fd1;
+  background: #1d4ed8;
+  transform: translateY(-2px);
 }
 
 /* ================= Modal ================= */
@@ -49,117 +83,146 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(15, 23, 42, .65);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
   padding: 20px;
+  z-index: 999;
 }
 
 .modal {
+  width: 100%;
+  max-width: 500px;
   background: #fff;
-  width: 100%;
-  max-width: 450px;
-  padding: 30px;
-  border-radius: 12px;
-  animation: popup 0.3s ease;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 20px 45px rgba(0,0,0,.25);
+  animation: popup .35s ease;
 }
 
-@keyframes popup {
-  from {
-    transform: scale(.8);
-    opacity: 0;
+@keyframes popup{
+  from{
+    opacity:0;
+    transform:scale(.85);
   }
-
-  to {
-    transform: scale(1);
-    opacity: 1;
+  to{
+    opacity:1;
+    transform:scale(1);
   }
 }
 
-.modal h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #0f172a;
+.modal h2{
+  text-align:center;
+  margin-bottom:25px;
+  color:#0f172a;
+  font-size:28px;
 }
 
-.modal form {
-  display: flex;
-  flex-direction: column;
+.modal form{
+  display:flex;
+  flex-direction:column;
 }
 
-.modal input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  transition: .3s;
+.modal input{
+  width:100%;
+  padding:14px;
+  margin-bottom:18px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:15px;
+  transition:.3s;
 }
 
-.modal input:focus {
-  border-color: #0077ff;
+.modal input:focus{
+  border-color:#2563eb;
+  outline:none;
+  box-shadow:0 0 0 3px rgba(37,99,235,.15);
 }
 
-.modal input[type="file"] {
-  padding: 8px;
+.modal input[type="file"]{
+  padding:10px;
 }
 
 /* ================= Buttons ================= */
 
-.modal-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
+.modal-buttons{
+  display:flex;
+  gap:15px;
+  margin-top:10px;
 }
 
-.modal-buttons button {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: .3s;
+.modal-buttons button{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+  transition:.3s;
 }
 
-.modal-buttons button:first-child {
-  background: #0077ff;
-  color: white;
+.modal-buttons button:first-child{
+  background:#2563eb;
+  color:#fff;
 }
 
-.modal-buttons button:first-child:hover {
-  background: #005fd1;
+.modal-buttons button:first-child:hover{
+  background:#1d4ed8;
 }
 
-.modal-buttons button:last-child {
-  background: #ef4444;
-  color: white;
+.modal-buttons button:last-child{
+  background:#ef4444;
+  color:#fff;
 }
 
-.modal-buttons button:last-child:hover {
-  background: #dc2626;
+.modal-buttons button:last-child:hover{
+  background:#dc2626;
 }
 
+/* ================= Empty State ================= */
+
+.page p{
+  font-size:18px;
+}
+
+.career-subtitle{
+  text-align:center;
+  color:#64748b;
+  font-size:18px;
+  margin-bottom:50px;
+}
 /* ================= Responsive ================= */
 
-@media (max-width: 768px) {
+@media(max-width:768px){
 
-  .career-card {
-    padding: 20px;
-  }
+.page{
+  padding:60px 15px;
+}
 
-  .modal {
-    padding: 20px;
-  }
+.page h1{
+  font-size:32px;
+}
 
-  .modal-buttons {
-    flex-direction: column;
-  }
+.career-card{
+  padding:25px;
+}
 
-  .modal-buttons button {
-    width: 100%;
-  }
+.career-card h2{
+  font-size:23px;
+}
+
+.modal{
+  padding:25px;
+}
+
+.modal-buttons{
+  flex-direction:column;
+}
+
+.modal-buttons button{
+  width:100%;
+}
 
 }

@@ -87,6 +87,9 @@ function Careers() {
     <section className="page">
 
       <h1>Careers</h1>
+      <p className="career-subtitle">
+Join our growing team and build amazing digital products with ODS Network.
+</p>
 
       {jobs.length === 0 ? (
         <p>No openings available right now.</p>

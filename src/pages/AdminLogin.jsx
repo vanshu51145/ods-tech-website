@@ -1,137 +1,151 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./AdminLogin.css";
 
 function AdminLogin() {
 
-const navigate=useNavigate();
+  const navigate = useNavigate();
 
-const [formData,setFormData]=useState({
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-email:"",
-password:""
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-});
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/admin/dashboard");
+    }
+  }, [navigate]);
 
-const handleChange=(e)=>{
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-setFormData({
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-...formData,
-[e.target.name]:e.target.value
+    setLoading(true);
 
-});
+    try {
+      const response = await fetch(
+        "https://ods-network-backend.onrender.com/api/admin/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-};
+      const data = await response.json();
 
-const handleSubmit=async(e)=>{
+      if (data.success) {
 
-e.preventDefault();
+        localStorage.setItem("token", data.token);
 
-try{
+        toast.success("Login Successful");
 
-const response=await fetch(
-"https://ods-network-backend.onrender.com/api/admin/login",
-{
+        navigate("/admin/dashboard");
 
-method:"POST",
+      } else {
 
-headers:{
-"Content-Type":"application/json"
-},
+        toast.error(data.message);
 
-body:JSON.stringify(formData)
+      }
 
-}
+    } catch (error) {
 
-);
+      console.log(error);
 
-const data=await response.json();
+      toast.error("Server Error");
 
-if(data.success){
+    } finally {
 
-localStorage.setItem("token",data.token);
+      setLoading(false);
 
-navigate("/admin/dashboard");
+    }
+  };
 
-}else{
+  return (
+    <section className="admin-login">
 
-alert(data.message);
+      <div className="login-card">
 
-}
+        <div className="admin-logo">
+          🔐
+        </div>
 
-}catch(error){
+        <h1>Admin Login</h1>
 
+        <p>
+          Welcome Back! Login to manage ODS Network.
+        </p>
 
-}
+        <form onSubmit={handleSubmit}>
 
-};
+          <div className="input-group">
 
-return(
+            <label>Email Address</label>
 
-<section className="admin-login">
+            <input
+              type="email"
+              name="email"
+              placeholder="admin@example.com"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
-<div className="login-card">
+          </div>
 
-<div className="admin-logo">
-🔐
-</div>
+          <div className="input-group">
 
-<h1>Admin Login</h1>
+            <label>Password</label>
 
-<p>
-Sign in to access the ODS Admin Dashboard
-</p>
+            <div className="password-box">
 
-<form onSubmit={handleSubmit}>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
 
-<div className="input-group">
+              <span
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "🙈" : "👁"}
+              </span>
 
-<label>Email</label>
+            </div>
 
-<input
-type="email"
-name="email"
-placeholder="Enter admin email"
-value={formData.email}
-onChange={handleChange}
-required
-/>
+          </div>
 
-</div>
+          <button
+            type="submit"
+            className="login-btn"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
 
-<div className="input-group">
+        </form>
 
-<label>Password</label>
+      </div>
 
-<input
-type="password"
-name="password"
-placeholder="Enter password"
-value={formData.password}
-onChange={handleChange}
-required
-/>
-
-</div>
-
-<button
-className="login-btn"
-type="submit"
->
-
-Login
-
-</button>
-
-</form>
-
-</div>
-
-</section>
-
-);
-
+    </section>
+  );
 }
 
 export default AdminLogin;
