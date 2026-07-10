@@ -164,7 +164,7 @@ function AdminJobs() {
 
         <h1>{editId ? "Edit Job" : "Post New Job"}</h1>
 
-        
+       
       </div>
 
       <form onSubmit={handleSubmit} className="job-form">
