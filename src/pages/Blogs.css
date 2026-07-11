@@ -211,6 +211,65 @@
 .read-btn:hover{
     background:#1d4ed8;
 }
+.blogs-cta {
+  margin-top: 70px;
+  padding: 50px 30px;
+  text-align: center;
+  background: #f8fbff;
+  border-radius: 15px;
+}
+
+.blogs-cta h2 {
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.blogs-cta p {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.blogs-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.blogs-cta-buttons button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-3px);
+}
+
+.secondary-btn {
+  background: #fff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+}
+
+.secondary-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-3px);
+}
 /* Responsive */
 
 @media (max-width:992px){

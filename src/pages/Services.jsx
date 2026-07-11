@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { title } from "framer-motion/client";
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 function Services() {
+  const navigate = useNavigate();
   const services = [
     {
       title: "🌐 Web Development",
@@ -49,10 +51,15 @@ function Services() {
           ODS Tech Services | Web & Software Solutions
         </title>
 
-        <meta
-          name="description"
-          content="Explore ODS Tech services including web development, app development, SEO optimization and digital marketing solutions."
-        />
+  <meta
+    name="description"
+    content="Explore ODS Network services including Web Development, Mobile Apps, SEO, Digital Marketing, Cloud Solutions, UI/UX Design, and IT Consulting."
+  />
+
+  <meta
+    name="keywords"
+    content="Web Development, SEO, Digital Marketing, App Development, Cloud Solutions"
+  />
       </Helmet>
 
 
@@ -74,6 +81,12 @@ function Services() {
               <p>
                 {service.description}
               </p>
+              <button
+  className="service-btn"
+  onClick={() => navigate("/contact")}
+>
+  Get a Free Quote
+</button>
 
             </motion.div>
           ))}

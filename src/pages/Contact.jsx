@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { Helmet } from "react-helmet-async";
 function Contact() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -72,6 +74,24 @@ function Contact() {
   };
 
   return (
+    <>
+  <Helmet>
+    <title>Contact Us | ODS Network</title>
+
+    <meta
+      name="description"
+      content="Contact ODS Network for Web Development, Mobile App Development, SEO, Digital Marketing, Cloud Solutions, and IT Consulting services. Get in touch with our team today."
+    />
+
+    <meta
+      name="keywords"
+      content="Contact ODS Network, Web Development Company, Digital Marketing, SEO Services, Mobile App Development, IT Company Khagaria Bihar"
+    />
+
+    <meta name="author" content="ODS Network" />
+  </Helmet>
+
+    
     <section className="page">
       <h1>Contact Us</h1>
 
@@ -128,7 +148,32 @@ function Contact() {
             : "Send Message"}
         </button>
       </form>
+      <div className="contact-cta">
+  <h2>Looking for Professional IT Solutions?</h2>
+
+  <p>
+    Explore our services and discover how ODS Network can help transform
+    your ideas into innovative digital solutions.
+  </p>
+
+  <div className="contact-cta-buttons">
+    <button
+      className="primary-btn"
+      onClick={() => navigate("/services")}
+    >
+      Explore Services
+    </button>
+
+    <button
+      className="secondary-btn"
+      onClick={() => navigate("/about")}
+    >
+      Learn More
+    </button>
+  </div>
+</div>
     </section>
+    </>
   );
 }
 
