@@ -1,0 +1,39 @@
+.resources-section {
+  padding: 80px 8%;
+  text-align: center;
+}
+
+.resources-section h2 {
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+}
+
+.resources-section > p {
+  max-width: 750px;
+  margin: 0 auto 50px;
+  color: #666;
+  line-height: 1.8;
+}
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0,0,0,.15);
+}
+
+.service-btn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 22px;
+  background: #2563eb;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: .3s;
+}
+
+.service-btn:hover {
+  background: #1d4ed8;
+}

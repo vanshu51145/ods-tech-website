@@ -162,7 +162,83 @@
     line-height:1.5;
     color:#555;
 }
+.project-btn {
+  margin-top: 18px;
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s ease;
+}
 
+.project-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-3px);
+}
+
+.project-cta {
+  margin-top: 70px;
+  padding: 55px 30px;
+  text-align: center;
+  background: #f8fbff;
+  border-radius: 15px;
+}
+
+.project-cta h2 {
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.project-cta p {
+  max-width: 750px;
+  margin: 0 auto 30px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.project-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.project-cta-buttons button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.project-cta-buttons .primary-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.project-cta-buttons .primary-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-3px);
+}
+
+.project-cta-buttons .secondary-btn {
+  background: #fff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+}
+
+.project-cta-buttons .secondary-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-3px);
+}
 @media(max-width:768px){
 
     .projects-page{

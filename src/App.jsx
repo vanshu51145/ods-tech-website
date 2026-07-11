@@ -22,6 +22,7 @@ import SingleBlog from "./pages/SingleBlog";
 import AdminTestimonials from "./pages/AdminTestimonials";
 import Careers from "./pages/Careers";
 import AdminJobs from "./pages/AdminJobs";
+import Resources from "./pages/Resources";
 function App() {
 
   const location = useLocation();
@@ -93,6 +94,7 @@ function App() {
           path="/careers"
           element={<Careers />}
         />
+        <Route path="/resources" element={<Resources />} />
        <Route
   path="/admin/jobs"
   element={

@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import "./Projects.css";
+import { useNavigate } from "react-router-dom";
+
 
 function Projects() {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [loading, setLoading] = useState(true);
@@ -61,9 +64,35 @@ function Projects() {
         <title>ODS Tech Projects | Portfolio</title>
 
         <meta
-          name="description"
-          content="View ODS Tech completed projects, web development work and digital solutions portfolio."
-        />
+    name="description"
+    content="Explore ODS Network's portfolio of successful web development, mobile app development, UI/UX design, SEO, digital marketing, and cloud solution projects delivered for businesses."
+  />
+
+  <meta
+    name="keywords"
+    content="ODS Network Projects, Web Development Portfolio, Mobile App Portfolio, Software Development, UI UX Design, SEO Projects, Digital Marketing Projects, IT Solutions"
+  />
+
+  <meta name="author" content="ODS Network" />
+
+  <meta
+    property="og:title"
+    content="Projects | ODS Network Portfolio"
+  />
+
+  <meta
+    property="og:description"
+    content="Browse our portfolio of innovative web development, mobile applications, SEO, digital marketing, cloud solutions, and IT consulting projects."
+  />
+
+  <meta property="og:type" content="website" />
+
+  <meta
+    property="og:image"
+    content="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
+  />
+
+  <meta name="robots" content="index, follow" />
       </Helmet>
 
       <section className="projects-page">
@@ -129,6 +158,12 @@ function Projects() {
                     <h3>{project.title}</h3>
 
                     <p>{project.description}</p>
+                    <button
+  className="project-btn"
+  onClick={() => navigate("/contact")}
+>
+  Start Your Project
+</button>
                   </div>
                 </motion.div>
               ))}
@@ -164,6 +199,30 @@ function Projects() {
             </div>
           </>
         )}
+        <div className="project-cta">
+  <h2>Ready to Build Your Next Project?</h2>
+
+  <p>
+    Whether you need a business website, mobile app, SEO, or digital
+    marketing, ODS Network is here to help you achieve your goals.
+  </p>
+
+  <div className="project-cta-buttons">
+    <button
+      className="primary-btn"
+      onClick={() => navigate("/services")}
+    >
+      Explore Services
+    </button>
+
+    <button
+      className="secondary-btn"
+      onClick={() => navigate("/contact")}
+    >
+      Contact Us
+    </button>
+  </div>
+</div>
       </section>
     </>
   );
