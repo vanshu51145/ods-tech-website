@@ -1,40 +1,62 @@
 import { Link } from "react-router-dom";
 function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer-container">
+   <footer className="footer">
+  <div className="footer-container">
 
-        <div className="footer-box">
-          <h3>ODS TECH</h3>
-          <p>
-            We create innovative web solutions,
-            scalable applications and digital products.
-          </p>
-        </div>
+    {/* Company Info */}
+    <div className="footer-box">
+      <h3>ODS Network</h3>
+      <p>
+        ODS Network is a technology-driven company delivering innovative
+        Web Development, Mobile App Development, Digital Marketing,
+        SEO, UI/UX Design, Cloud Solutions, and IT Consulting services
+        to help businesses achieve digital success.
+      </p>
+    </div>
 
-        <div className="footer-box">
-          <h3>Quick Links</h3>
+    {/* Quick Links */}
+    <div className="footer-box">
+      <h3>Quick Links</h3>
 
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/services">Services</Link>
-          <Link to="/contact">Contact</Link>
-        </div>
+      <Link to="/">Home</Link>
+      <Link to="/about">About Us</Link>
+      <Link to="/services">Services</Link>
+      <Link to="/blogs">Blogs</Link>
+      <Link to="/careers">Careers</Link>
+      <Link to="/contact">Contact Us</Link>
+    </div>
 
-        <div className="footer-box">
-          <h3>Contact</h3>
+    {/* Contact */}
+    <div className="footer-box">
+      <h3>Contact Us</h3>
 
-          <p>Email: Info.odsnetwork@gmail.com</p>
-          <p>Phone: +91 9801351931</p>
-          <p>NH 31, Rahimpur, Shambhu Deep
-            Dharam Kanta Khagaria, Bihar 851204</p>
-        </div>
-      </div>
+      <p>
+        <strong>Email:</strong><br />
+        info.odsnetwork@gmail.com
+      </p>
 
-      <div className="copyright">
-        © 2026 ODS TECH. All Rights Reserved.
-      </div>
-    </footer>
+      <p>
+        <strong>Phone:</strong><br />
+        +91 98013 51931
+      </p>
+
+      <p>
+        <strong>Address:</strong><br />
+        NH-31, Rahimpur,<br />
+        Shambhu Deep Dharam Kanta,<br />
+        Khagaria, Bihar – 851204, India
+      </p>
+    </div>
+
+  </div>
+
+  <div className="copyright">
+    <p>
+      © {new Date().getFullYear()} ODS Network. All Rights Reserved.
+    </p>
+  </div>
+</footer>
   );
 }
 

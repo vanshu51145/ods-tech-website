@@ -9,22 +9,45 @@ function AboutSection() {
       transition={{ duration: 1 }}
       viewport={{ once: true }}
     >
-      <h2>Why Choose ODS Network?</h2>
+    <h2 style={{ textAlign: "center", marginBottom: "35px" }}>
+  Why Choose ODS Network?
+</h2>
 
-      <p
-        style={{
-          maxWidth: "800px",
-          margin: "auto",
-          textAlign: "center",
-          lineHeight: "1.8"
-        }}
-      >
-        ODS Network specializes in delivering
-        innovative web solutions, mobile applications,
-        UI/UX design, SEO strategies, and digital
-        marketing services that help businesses scale
-        and succeed in the digital world.
-      </p>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+    gap: "20px",
+    maxWidth: "1100px",
+    margin: "auto",
+  }}
+>
+  {[
+    "Experienced & Skilled Team",
+    "Customized Digital Solutions",
+    "Latest Technologies",
+    "On-Time Project Delivery",
+    "Transparent Communication",
+    "24/7 Customer Support",
+    "End-to-End IT Services",
+    "Customer-Centric Approach",
+  ].map((item, index) => (
+    <div
+      key={index}
+      style={{
+        background: "#fff",
+        padding: "25px",
+        borderRadius: "12px",
+        boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+        textAlign: "center",
+        transition: "0.3s",
+      }}
+    >
+      <h3 style={{ color: "#0d6efd", marginBottom: "10px" }}>✔</h3>
+      <p>{item}</p>
+    </div>
+  ))}
+</div>
     </motion.section>
   );
 }
