@@ -13,7 +13,7 @@ function AboutSection() {
   Why Choose ODS Network?
 </h2>
 
-<div
+<div className="why-container"
   style={{
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
@@ -41,9 +41,14 @@ function AboutSection() {
         boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
         textAlign: "center",
         transition: "0.3s",
+        boxShadow: hover
+            ? "0 18px 40px rgba(13,110,253,0.25)"
+            : "0 8px 20px rgba(0,0,0,0.08)",
+          transform: hover ? "translateY(-8px)" : "translateY(0)",
       }}
     >
-      <h3 style={{ color: "#0d6efd", marginBottom: "10px" }}>✔</h3>
+      <h3 style={{ color: "#0d6efd", marginBottom: "10px" ,transition: "transform 0.3s ease",
+            transform: hover ? "scale(1.2)" : "scale(1)",}}>✔</h3>
       <p>{item}</p>
     </div>
   ))}
