@@ -53,7 +53,7 @@ function Navbar() {
 
           <li>
             <Link to="/contact" onClick={() => setMenuOpen(false)}>
-              Contact
+              Contact Us
             </Link>
           </li>
 
