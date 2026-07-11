@@ -4,33 +4,33 @@ import "./FAQ.css";
 function FAQ() {
     const [activeIndex, setActiveIndex] = useState(null);
 
-    const faqData = [
-        {
-            question: "What services does ODS Tech provide?",
-            answer:
-                "We provide website development, web applications, UI/UX design, digital solutions, business websites, and ongoing website maintenance services.",
-        },
-        {
-            question: "How long does it take to complete a website?",
-            answer:
-                "The timeline depends on the project requirements. Most business websites are completed within 2 to 6 weeks, while larger projects may take longer.",
-        },
-        {
-            question: "Do you provide website maintenance after delivery?",
-            answer:
-                "Yes. We offer post-launch support, regular updates, bug fixes, security improvements, and maintenance to keep your website running smoothly.",
-        },
-        {
-            question: "Can you redesign my existing website?",
-            answer:
-                "Absolutely! We can redesign your existing website with a modern look, improved performance, responsive design, and better user experience.",
-        },
-        {
-            question: "How can I request a quotation for my project?",
-            answer:
-                "You can contact us through the Contact page or submit your project details, and our team will get back to you with a customized quotation.",
-        },
-    ];
+const faqData = [
+  {
+    question: "What services does ODS Network provide?",
+    answer:
+      "ODS Network provides Web Development, Mobile App Development, UI/UX Design, Digital Marketing, SEO, Cloud Solutions, IT Consulting, and website maintenance services tailored to businesses of all sizes.",
+  },
+  {
+    question: "How long does it take to complete a website?",
+    answer:
+      "The development timeline depends on the project's complexity. A standard business website typically takes 2–6 weeks, while custom enterprise solutions may require additional time.",
+  },
+  {
+    question: "Do you provide support after project delivery?",
+    answer:
+      "Yes. We offer ongoing maintenance, security updates, performance optimization, bug fixes, and technical support to ensure your website remains secure and up to date.",
+  },
+  {
+    question: "Can you redesign my existing website?",
+    answer:
+      "Absolutely. We modernize existing websites with improved UI/UX, responsive layouts, faster performance, better SEO, and enhanced security.",
+  },
+  {
+    question: "How can I request a quotation?",
+    answer:
+      "You can contact us through our Contact page, email us at info.odsnetwork@gmail.com, or call +91 98013 51931. Our team will provide a customized quotation based on your project requirements.",
+  },
+];
 
     const toggleFAQ = (index) => {
         setActiveIndex(activeIndex === index ? null : index);
