@@ -62,6 +62,7 @@ function Navbar() {
               Careers
             </Link>
           </li>
+          <li><Link to="/resources">Resources</Link></li>
         </ul>
 
         <div
