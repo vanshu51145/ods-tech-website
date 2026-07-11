@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet-async";
+import { useNavigate } from "react-router-dom";
 
 function About() {
+  const navigate = useNavigate();
   return (
     <>
       <Helmet>
@@ -8,10 +10,15 @@ function About() {
           About ODS Tech | Our Company
         </title>
 
-        <meta
-          name="description"
-          content="Learn about ODS Tech, our mission, vision and technology services for businesses."
-        />
+         <meta
+    name="description"
+    content="Learn about ODS Network, our mission, vision, values, and how we deliver innovative digital solutions for businesses."
+  />
+
+  <meta
+    name="keywords"
+    content="About ODS Network, IT Company, Software Development, Technology Solutions"
+  />
       </Helmet>
 
 
@@ -105,7 +112,30 @@ function About() {
           </div>
 
         </div>
+<div className="about-cta">
+  <h2>Ready to Grow Your Business?</h2>
 
+  <p>
+    Explore our professional services or get in touch with our experts
+    to discuss your next project.
+  </p>
+
+  <div className="about-cta-buttons">
+    <button
+      className="primary-btn"
+      onClick={() => navigate("/services")}
+    >
+      Explore Services
+    </button>
+
+    <button
+      className="secondary-btn"
+      onClick={() => navigate("/contact")}
+    >
+      Contact Us
+    </button>
+  </div>
+</div>
       </section>
     </>
   );

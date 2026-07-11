@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./Careers.css";
+import { Helmet } from "react-helmet-async";
 function Careers() {
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedJob, setSelectedJob] = useState("");
@@ -84,6 +87,34 @@ function Careers() {
   };
 
   return (
+     <>
+    <Helmet>
+      <title>Careers | ODS Network</title>
+
+      <meta
+        name="description"
+        content="Explore career opportunities at ODS Network. Join our team and build innovative web applications, mobile apps, and digital solutions."
+      />
+
+      <meta
+        name="keywords"
+        content="ODS Network Careers, IT Jobs, Software Developer Jobs, Web Developer Jobs, Digital Marketing Careers, Internship"
+      />
+
+      <meta name="author" content="ODS Network" />
+
+      <meta
+        property="og:title"
+        content="Careers | ODS Network"
+      />
+
+      <meta
+        property="og:description"
+        content="Join ODS Network and grow your career with exciting opportunities in software development, web development, and digital marketing."
+      />
+
+      <meta property="og:type" content="website" />
+    </Helmet>
     <section className="page">
 
       <h1>Careers</h1>
@@ -180,8 +211,33 @@ Join our growing team and build amazing digital products with ODS Network.
 
         </div>
       )}
+      <div className="career-cta">
+  <h2>Didn't Find the Right Opportunity?</h2>
+
+  <p>
+    We're always looking for talented professionals. Get in touch with
+    our HR team and share your profile for future opportunities.
+  </p>
+
+  <div className="career-cta-buttons">
+    <button
+      className="primary-btn"
+      onClick={() => navigate("/contact")}
+    >
+      Contact HR
+    </button>
+
+    <button
+      className="secondary-btn"
+      onClick={() => navigate("/services")}
+    >
+      Explore Our Services
+    </button>
+  </div>
+</div>
 
     </section>
+    </>
   );
 }
 

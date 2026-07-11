@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Blogs.css";
+import { Helmet } from "react-helmet-async";
 
 function Blogs() {
+  const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,6 +43,34 @@ function Blogs() {
   };
 
   return (
+      <>
+    <Helmet>
+      <title>Latest Blogs | ODS Network</title>
+
+      <meta
+        name="description"
+        content="Read the latest blogs from ODS Network on Web Development, Mobile App Development, SEO, Digital Marketing, UI/UX Design, Cloud Solutions, and emerging technologies."
+      />
+
+      <meta
+        name="keywords"
+        content="ODS Network Blogs, Web Development Blogs, SEO Tips, Digital Marketing, Mobile App Development, Technology Articles, IT Solutions"
+      />
+
+      <meta name="author" content="ODS Network" />
+
+      <meta
+        property="og:title"
+        content="Latest Blogs | ODS Network"
+      />
+
+      <meta
+        property="og:description"
+        content="Stay updated with the latest insights on web development, SEO, digital marketing, and technology from ODS Network."
+      />
+
+      <meta property="og:type" content="website" />
+    </Helmet>
     <section className="blogs-page">
       <div className="blogs-header">
         <h1>Latest Blogs</h1>
@@ -74,7 +104,7 @@ function Blogs() {
               <article className="blog-card" key={blog._id}>
                 <img
                   src={blog.coverImage}
-                  alt={blog.title}
+                  alt={`${blog.title} - ODS Network Blog`}
                   loading="lazy"
                 />
 
@@ -130,7 +160,32 @@ function Blogs() {
           </div>
         </>
       )}
+      <div className="blogs-cta">
+  <h2>Need Professional IT Solutions?</h2>
+
+  <p>
+    Looking for a reliable technology partner? Explore our services or
+    contact our team to discuss your project.
+  </p>
+
+  <div className="blogs-cta-buttons">
+    <button
+      className="primary-btn"
+      onClick={() => navigate("/services")}
+    >
+      Explore Services
+    </button>
+
+    <button
+      className="secondary-btn"
+      onClick={() => navigate("/contact")}
+    >
+      Contact Us
+    </button>
+  </div>
+</div>
     </section>
+    </>
   );
 }
 

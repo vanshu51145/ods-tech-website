@@ -405,7 +405,144 @@ padding:40px 10%;
   padding:20px;
   border-top:1px solid rgba(255,255,255,0.1);
 }
+.about-cta {
+  text-align: center;
+  margin-top: 70px;
+  padding: 50px 20px;
+  background: #f8fbff;
+  border-radius: 15px;
+}
 
+.about-cta h2 {
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.about-cta p {
+  max-width: 700px;
+  margin: auto;
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.about-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-3px);
+}
+
+.secondary-btn {
+  background: white;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+}
+
+.secondary-btn:hover {
+  background: #2563eb;
+  color: white;
+  transform: translateY(-3px);
+}
+.service-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.service-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+}
+
+.contact-cta {
+  margin-top: 70px;
+  padding: 50px 30px;
+  text-align: center;
+  background: #f8fbff;
+  border-radius: 15px;
+}
+
+.contact-cta h2 {
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.contact-cta p {
+  max-width: 700px;
+  margin: 0 auto 30px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.contact-cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-cta-buttons button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-3px);
+}
+
+.secondary-btn {
+  background: #fff;
+  color: #2563eb;
+  border: 2px solid #2563eb;
+}
+
+.secondary-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-3px);
+}
 /* ======================
    MOBILE RESPONSIVE
 ====================== */
