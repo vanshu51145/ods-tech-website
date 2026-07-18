@@ -127,6 +127,8 @@ table select {
   margin-bottom:20px;
   flex-wrap:wrap;
   gap:20px;
+    width:100%;
+
 }
 
 .export-btn{
