@@ -137,6 +137,7 @@ table select {
   text-decoration:none;
   font-weight:600;
   transition:.3s;
+  padding-right: 40px;
 }
 
 .export-btn:hover{
