@@ -5,7 +5,7 @@
 .page h1{
     text-align:center;
     margin-bottom:30px;
-    color:#2563eb;
+    color:hsl(221, 83%, 53%);
 }
 
 .filter-box{

@@ -4,171 +4,210 @@ import { useNavigate } from "react-router-dom";
 import "./AdminTickets.css";
 
 function AdminTickets() {
-  const [tickets, setTickets] = useState([]);
-  const [filter, setFilter] = useState("All");
-const navigate = useNavigate();
-  useEffect(() => {
-    fetchTickets();
-  }, []);
-
-  const fetchTickets = async () => {
-    try {
-        const token = localStorage.getItem("token");
-         console.log(
-      "TOKEN:",
-      localStorage.getItem("token")
-    );
-     const response = await fetch(
-  "https://ods-network-backend.onrender.com/api/tickets/admin/all",
-  {
-    headers: {
-Authorization: `Bearer ${token}`,    },
-  }
-);
-      const data = await response.json();
-
-      if (data.success) {
-        setTickets(data.tickets);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const updateStatus = async (id, status) => {
-    try {
-    const response = await fetch(
-  `https://ods-network-backend.onrender.com/api/tickets/${id}`,
-  {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-Authorization: `Bearer ${localStorage.getItem("token")}`,    },
-    body: JSON.stringify({
-      status,
-    }),
-  }
-);
-
-      const data = await response.json();
-
-      if (data.success) {
-        toast.success("Status Updated");
+    const [tickets, setTickets] = useState([]);
+    const [filter, setFilter] = useState("All");
+    const navigate = useNavigate();
+    useEffect(() => {
         fetchTickets();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Server Error");
-    }
-  };
+    }, []);
 
-  const filteredTickets =
-    filter === "All"
-      ? tickets
-      : tickets.filter((ticket) => ticket.status === filter);
+    const fetchTickets = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            console.log(
+                "TOKEN:",
+                localStorage.getItem("token")
+            );
+            const response = await fetch(
+                "https://ods-network-backend.onrender.com/api/tickets/admin/all",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            const data = await response.json();
 
-  return (
-    <section className="page">
+            if (data.success) {
+                setTickets(data.tickets);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-<div className="page-header">
-  <button
-    className="back-btn"
-    onClick={() => navigate("/admin/dashboard")}
-  >
-    ← Back to Dashboard
-  </button>
+    const updateStatus = async (id, status) => {
+        try {
+            const response = await fetch(
+                `https://ods-network-backend.onrender.com/api/tickets/${id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                    body: JSON.stringify({
+                        status,
+                    }),
+                }
+            );
 
-  <h1>Manage Support Tickets</h1>
-</div>
-      <div className="filter-box">
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        >
-          <option value="All">All Tickets</option>
-          <option value="Open">Open</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Resolved">Resolved</option>
-        </select>
-      </div>
+            const data = await response.json();
 
-      <div className="table-container">
+            if (data.success) {
+                toast.success("Status Updated");
+                fetchTickets();
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error("Server Error");
+        }
+    };
 
-        <table className="ticket-table">
+    const filteredTickets =
+        filter === "All"
+            ? tickets
+            : tickets.filter((ticket) => ticket.status === filter);
 
-          <thead>
+    return (
+        <section className="page">
 
-            <tr>
-              <th>Client ID</th>
-              <th>Subject</th>
-              <th>Priority</th>
-              <th>Status</th>
-              <th>Update</th>
-            </tr>
+            <div className="page-header"
+            style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "20px ",
+          padding: "30px 0px",
+          position: "relative",
 
-          </thead>
+        }}>
+                <button
+                    className="back-btn"
+                    onClick={() => navigate("/admin/dashboard")}
+                    style={{
+                        position: "absolute",
+                        display: "flex",
+                        alignItems: "center",
+                        left: "0",
 
-          <tbody>
+                        padding: "10px 20px",
+                        border: "none",
+                        gap: "8px",
+                        borderRadius: "10px",
+                        border: "none",
 
-            {filteredTickets.length === 0 ? (
-              <tr>
-                <td colSpan="5">
-                  No Tickets Found
-                </td>
-              </tr>
-            ) : (
-              filteredTickets.map((ticket) => (
-                <tr key={ticket._id}>
+                        background: "#2563eb",
+                        color: "white",
 
-                  <td>{ticket.clientId}</td>
+                        fontsize: "15px",
+                        cursor: "pointer",
+                        transition: ".3s",
+                    }}
+                >
+                    ← Back to Dashboard
+                </button>
 
-                  <td>{ticket.subject}</td>
+                <h1
+                    style={
+                        {
+                            fontsize: "42px",
+                            fontweight: "800",
+                            color: "#2563eb",
+                            margin: "0",
+                            letterSpacing: "-1px",
+                        }
+                    }>Manage Support Tickets</h1>
+            </div>
+            <div className="filter-box">
+                <select
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                >
+                    <option value="All">All Tickets</option>
+                    <option value="Open">Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+            </div>
 
-                  <td>{ticket.priority}</td>
+            <div className="table-container">
 
-                  <td>{ticket.status}</td>
+                <table className="ticket-table">
 
-                  <td>
+                    <thead>
 
-                    <select
-                      value={ticket.status}
-                      onChange={(e) =>
-                        updateStatus(
-                          ticket._id,
-                          e.target.value
-                        )
-                      }
-                    >
-                      <option value="Open">
-                        Open
-                      </option>
+                        <tr>
+                            <th>Client ID</th>
+                            <th>Subject</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Update</th>
+                        </tr>
 
-                      <option value="In Progress">
-                        In Progress
-                      </option>
+                    </thead>
 
-                      <option value="Resolved">
-                        Resolved
-                      </option>
+                    <tbody>
 
-                    </select>
+                        {filteredTickets.length === 0 ? (
+                            <tr>
+                                <td colSpan="5">
+                                    No Tickets Found
+                                </td>
+                            </tr>
+                        ) : (
+                            filteredTickets.map((ticket) => (
+                                <tr key={ticket._id}>
 
-                  </td>
+                                    <td>{ticket.clientId}</td>
 
-                </tr>
-              ))
-            )}
+                                    <td>{ticket.subject}</td>
 
-          </tbody>
+                                    <td>{ticket.priority}</td>
 
-        </table>
+                                    <td>{ticket.status}</td>
 
-      </div>
+                                    <td>
 
-    </section>
-  );
+                                        <select
+                                            value={ticket.status}
+                                            onChange={(e) =>
+                                                updateStatus(
+                                                    ticket._id,
+                                                    e.target.value
+                                                )
+                                            }
+                                        >
+                                            <option value="Open">
+                                                Open
+                                            </option>
+
+                                            <option value="In Progress">
+                                                In Progress
+                                            </option>
+
+                                            <option value="Resolved">
+                                                Resolved
+                                            </option>
+
+                                        </select>
+
+                                    </td>
+
+                                </tr>
+                            ))
+                        )}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+    );
 }
 
 export default AdminTickets;
