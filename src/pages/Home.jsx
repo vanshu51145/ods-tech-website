@@ -3,7 +3,6 @@ import About from "../components/About";
 import ServicesSection from "../components/ServicesSection";
 import Testimonials from "../components/Testimonials";
 import FAQ from "../components/FAQ";
-import Resources from "../components/Resources";
 import { Helmet } from "react-helmet-async";
 
 function Home() {
@@ -36,7 +35,6 @@ function Home() {
       <Testimonials />
 
       <FAQ />
-      <Resources />
     </>
   );
 }
