@@ -4,7 +4,6 @@ const router = express.Router();
 const Ticket = require("../models/Ticket");
 const auth = require("../middleware/auth");
 const clientAuth = require("../middleware/clientAuth");
-const auth = require("../middleware/auth");
 
 router.get("/admin/all", auth, async (req, res) => {
   try {
