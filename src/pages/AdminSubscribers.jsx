@@ -15,6 +15,10 @@ function AdminSubscribers() {
 
 
   const fetchSubscribers = async () => {
+    console.log(
+ "ADMIN TOKEN:",
+ localStorage.getItem("token")
+);
 
     try {
 
@@ -46,15 +50,21 @@ function AdminSubscribers() {
   };
 
 
-  const csvData = subscribers.map((subscriber)=>({
+ const csvData = subscribers.map((subscriber)=>({
 
-    Email: subscriber.email,
+  Email: subscriber.email,
 
-    Date: new Date(
-      subscriber.subscribedAt
-    ).toLocaleDateString()
+  Date: new Date(
+    subscriber.subscribedAt
+  ).toLocaleString("en-IN", {
+    day:"2-digit",
+    month:"2-digit",
+    year:"numeric",
+    hour:"2-digit",
+    minute:"2-digit"
+  })
 
-  }));
+}));
 
 
 
