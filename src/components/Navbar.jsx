@@ -63,7 +63,9 @@ function Navbar() {
             </Link>
           </li>
           <li><Link to="/resources" onClick={() => setMenuOpen(false)}>Resources</Link></li>
-          
+          <li><Link to="/client/login"  onClick={() => setMenuOpen(false)}>
+  Client Portal
+</Link></li>
         </ul>
 
         <div
