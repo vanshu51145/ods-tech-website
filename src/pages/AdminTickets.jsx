@@ -13,10 +13,14 @@ const navigate = useNavigate();
 
   const fetchTickets = async () => {
     try {
-      const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/tickets"
-      );
-
+     const response = await fetch(
+  "https://ods-network-backend.onrender.com/api/tickets/admin/all",
+  {
+    headers: {
+      Authorization: localStorage.getItem("token"),
+    },
+  }
+);
       const data = await response.json();
 
       if (data.success) {
@@ -29,16 +33,19 @@ const navigate = useNavigate();
 
   const updateStatus = async (id, status) => {
     try {
-      const response = await fetch(
-        `https://ods-network-backend.onrender.com/api/tickets/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status }),
-        }
-      );
+    const response = await fetch(
+  `https://ods-network-backend.onrender.com/api/tickets/${id}`,
+  {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    body: JSON.stringify({
+      status,
+    }),
+  }
+);
 
       const data = await response.json();
 
