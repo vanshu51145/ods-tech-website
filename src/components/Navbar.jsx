@@ -58,11 +58,14 @@ function Navbar() {
           </li>
 
           <li>
-            <Link to="/careers">
+            <Link to="/careers" onClick={() => setMenuOpen(false)}>
               Careers
             </Link>
           </li>
-          <li><Link to="/resources">Resources</Link></li>
+          <li><Link to="/resources" onClick={() => setMenuOpen(false)}>Resources</Link></li>
+          <li><Link to="/client/tickets" onClick={() => setMenuOpen(false)}>
+            Support Tickets
+          </Link></li>
         </ul>
 
         <div
