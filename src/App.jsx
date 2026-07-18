@@ -114,7 +114,9 @@ element={<ClientTickets/>}
 />
 <Route
   path="/admin/tickets"
-  element={<AdminTickets />}
+  element={ <ProtectedRoute>
+      <AdminTickets />
+    </ProtectedRoute>}
 />
 <Route path="/client/login" element={<ClientLogin />} />
 <Route path="/client/register" element={<ClientRegister />} />
