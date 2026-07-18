@@ -67,7 +67,6 @@ res.status(500).json({
 
 
 });
-const auth = require("../middleware/auth");
 
 
 router.get("/subscribers", auth, async(req,res)=>{
