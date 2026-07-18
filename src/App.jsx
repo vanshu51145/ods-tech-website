@@ -25,6 +25,9 @@ import AdminJobs from "./pages/AdminJobs";
 import Resources from "./components/Resources";
 import ClientTickets from "./pages/ClientTickets";
 import AdminTickets from "./pages/AdminTickets";
+import ClientLogin from "./pages/ClientLogin";
+import ClientRegister from "./pages/ClientRegister";
+import ClientDashboard from "./pages/ClientDashboard";
 function App() {
 
   const location = useLocation();
@@ -113,6 +116,9 @@ element={<ClientTickets/>}
   path="/admin/tickets"
   element={<AdminTickets />}
 />
+<Route path="/client/login" element={<ClientLogin />} />
+<Route path="/client/register" element={<ClientRegister />} />
+<Route path="/client/dashboard" element={<ClientDashboard />} />
         <Route path="*" element={<NotFound />} />
 
       </Routes>
