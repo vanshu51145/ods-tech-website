@@ -3,11 +3,33 @@ const router = express.Router();
 
 const Ticket = require("../models/Ticket");
 const auth = require("../middleware/auth");
+const clientAuth = require("../middleware/clientAuth");
+const auth = require("../middleware/auth");
 
-router.post("/", async (req, res) => {
+router.get("/admin/all", auth, async (req, res) => {
   try {
-    const ticket = new Ticket(req.body);
+    const tickets = await Ticket.find().sort({ createdAt: -1 });
 
+    res.json({
+      success: true,
+      tickets,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+router.post("/", clientAuth, async (req, res) => {
+      try {
+const ticket = new Ticket({
+  clientId: req.client._id,
+  subject: req.body.subject,
+  description: req.body.description,
+  priority: req.body.priority,
+});
     await ticket.save();
 
     res.status(201).json({
@@ -22,10 +44,11 @@ router.post("/", async (req, res) => {
     });
   }
 });
-router.get("/", async (req, res) => {
-  try {
-    const tickets = await Ticket.find();
-
+router.get("/", clientAuth, async (req, res) => {
+      try {
+const tickets = await Ticket.find({
+  clientId: req.client._id,
+});
     res.json({
       success: true,
       tickets,
@@ -37,8 +60,8 @@ router.get("/", async (req, res) => {
     });
   }
 });
-router.put("/:id", async (req, res) => {
-  try {
+router.put("/:id", auth, async (req, res) => {
+      try {
     const ticket = await Ticket.findByIdAndUpdate(
       req.params.id,
       {

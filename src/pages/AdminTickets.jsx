@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import "./AdminTickets.css";
 
 function AdminTickets() {
   const [tickets, setTickets] = useState([]);
   const [filter, setFilter] = useState("All");
-
+const navigate = useNavigate();
   useEffect(() => {
     fetchTickets();
   }, []);
@@ -61,8 +62,16 @@ function AdminTickets() {
   return (
     <section className="page">
 
-      <h1>Manage Support Tickets</h1>
+<div className="page-header">
+  <button
+    className="back-btn"
+    onClick={() => navigate("/admin/dashboard")}
+  >
+    ← Back to Dashboard
+  </button>
 
+  <h1>Manage Support Tickets</h1>
+</div>
       <div className="filter-box">
         <select
           value={filter}
