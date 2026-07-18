@@ -18,11 +18,14 @@ const auth = (req, res, next) => {
 
   try {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("VERIFIED:", verified);
 
     req.user = verified;
 
     next();
   } catch (error) {
+        console.log("JWT ERROR:",error.message);
+
     return res.status(401).json({
       success: false,
       message: "Invalid Token",
