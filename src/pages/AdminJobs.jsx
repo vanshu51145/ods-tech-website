@@ -147,8 +147,8 @@ function AdminJobs() {
           justifyContent: "center",
           alignItems: "center",
           marginBottom: "20px ",
-          padding:"30px 0px",
-                    position:"relative",
+          padding: "30px 0px",
+          position: "relative",
 
         }}
       >
@@ -156,39 +156,39 @@ function AdminJobs() {
           onClick={() => navigate("/admin/dashboard")}
           style={{
             position: "absolute",
-            display:"flex",
-            alignItems:"center",
-  left:"0",
+            display: "flex",
+            alignItems: "center",
+            left: "0",
 
-  padding: "10px 20px",
-  border: "none",
-  gap:"8px",
-  borderRadius: "10px",
-  border:"none",
+            padding: "10px 20px",
+            border: "none",
+            gap: "8px",
+            borderRadius: "10px",
+            border: "none",
 
-  background: "#2563eb",
-  color: "white",
+            background: "#2563eb",
+            color: "white",
 
-  fontsize: "15px",
-  cursor: "pointer",
-  transition: ".3s",
+            fontsize: "15px",
+            cursor: "pointer",
+            transition: ".3s",
           }}
         >
           ← Dashboard
         </button>
 
         <h1
-        style={
+          style={
             {
-                fontsize: "42px",
-  fontweight: "800",
-  color: "#2563eb",
-  margin: "0",
-  letterSpacing:"-1px",
+              fontsize: "42px",
+              fontweight: "800",
+              color: "#2563eb",
+              margin: "0",
+              letterSpacing: "-1px",
             }
-        }>{editId ? "Edit Job" : "Post New Job"}</h1>
+          }>{editId ? "Edit Job" : "Post New Job"}</h1>
 
-       
+
       </div>
 
       <form onSubmit={handleSubmit} className="job-form">
@@ -242,7 +242,7 @@ function AdminJobs() {
         </thead>
 
         <tbody>
-                      {jobs.length === 0 ? (
+          {jobs.length === 0 ? (
             <tr>
               <td colSpan="4" style={{ textAlign: "center" }}>
                 No Jobs Found
