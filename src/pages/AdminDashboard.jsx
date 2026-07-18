@@ -8,6 +8,7 @@ function AdminDashboard() {
   const navigate = useNavigate();
 
   const [contacts, setContacts] = useState([]);
+  const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const headers = [
@@ -38,8 +39,7 @@ function AdminDashboard() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
-          },
+Authorization:`Bearer ${localStorage.getItem("token")}`          },
           body: JSON.stringify({ status }),
         }
       );
@@ -70,8 +70,7 @@ function AdminDashboard() {
           "https://ods-network-backend.onrender.com/api/contact",
           {
             headers: {
-              Authorization: localStorage.getItem("token"),
-            },
+Authorization:`Bearer ${localStorage.getItem("token")}`            },
           }
         );
 
@@ -87,7 +86,34 @@ function AdminDashboard() {
       }
     };
 
-    fetchContacts();
+    const fetchTickets = async () => {
+  try {
+
+    const response = await fetch(
+      "https://ods-network-backend.onrender.com/api/tickets/admin/all",
+      {
+        headers:{
+          Authorization:`Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("TICKETS:", data);
+
+    if(data.success){
+      setTickets(data.tickets);
+    }
+
+  } catch(error){
+    console.log(error);
+  }
+};
+
+
+fetchContacts();
+fetchTickets();
   }, []);
 
   return (
