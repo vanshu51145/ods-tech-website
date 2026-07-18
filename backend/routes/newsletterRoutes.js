@@ -67,6 +67,38 @@ res.status(500).json({
 
 
 });
+const auth = require("../middleware/auth");
+
+
+router.get("/subscribers", auth, async(req,res)=>{
+
+  try{
+
+    const subscribers = await Subscriber.find()
+      .sort({subscribedAt:-1});
+
+
+    res.json({
+
+      success:true,
+      subscribers
+
+    });
+
+
+  }
+  catch(error){
+
+    res.status(500).json({
+
+      success:false,
+      message:error.message
+
+    });
+
+  }
+
+});
 
 
 module.exports = router;
