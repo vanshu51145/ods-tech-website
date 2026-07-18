@@ -621,3 +621,44 @@ padding:40px 10%;
     padding:60px 6%;
   }
 }
+
+.newsletter-form{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+
+.newsletter-form input{
+
+padding:12px;
+border-radius:6px;
+border:none;
+outline:none;
+width:200px;
+
+}
+
+
+.newsletter-form button{
+
+padding:12px 18px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-weight:600;
+
+}
+
+
+@media(max-width:768px){
+
+.newsletter-form{
+flex-direction:column;
+}
+
+.newsletter-form input{
+width:100%;
+}
+
+}
