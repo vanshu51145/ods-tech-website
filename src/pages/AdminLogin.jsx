@@ -16,7 +16,7 @@ function AdminLogin() {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("adminToken")) {
       navigate("/admin/dashboard");
     }
   }, [navigate]);
@@ -49,7 +49,7 @@ function AdminLogin() {
 
       if (data.success) {
 
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("adminToken", data.token);
 
         toast.success("Login Successful");
 
