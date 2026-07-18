@@ -1,0 +1,59 @@
+.page{
+    padding:40px;
+}
+
+.page h1{
+    text-align:center;
+    margin-bottom:30px;
+    color:#2563eb;
+}
+
+.filter-box{
+    margin-bottom:25px;
+}
+
+.filter-box select{
+    padding:10px 15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.table-container{
+    width:100%;
+    overflow-x:auto;
+}
+
+.ticket-table{
+    width:100%;
+    min-width:800px;
+    border-collapse:collapse;
+}
+
+.ticket-table th{
+    background:#2563eb;
+    color:white;
+    padding:15px;
+}
+
+.ticket-table td{
+    padding:15px;
+    text-align:center;
+    border:1px solid #ddd;
+}
+
+.ticket-table select{
+    padding:8px;
+    border-radius:6px;
+}
+
+@media(max-width:768px){
+
+    .page{
+        padding:20px;
+    }
+
+    .ticket-table{
+        min-width:700px;
+    }
+
+}

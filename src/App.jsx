@@ -24,6 +24,7 @@ import Careers from "./pages/Careers";
 import AdminJobs from "./pages/AdminJobs";
 import Resources from "./components/Resources";
 import ClientTickets from "./pages/ClientTickets";
+import AdminTickets from "./pages/AdminTickets";
 function App() {
 
   const location = useLocation();
@@ -107,6 +108,10 @@ function App() {
 <Route
 path="/client/tickets"
 element={<ClientTickets/>}
+/>
+<Route
+  path="/admin/tickets"
+  element={<AdminTickets />}
 />
         <Route path="*" element={<NotFound />} />
 

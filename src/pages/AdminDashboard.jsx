@@ -118,6 +118,9 @@ function AdminDashboard() {
           >
             💼 Manage Jobs
           </li>
+          <li onClick={() => navigate("/admin/tickets")}>
+            🎫 Manage Support Tickets
+          </li>
         </ul>
       </div>
 
@@ -196,6 +199,14 @@ function AdminDashboard() {
           >
             <h3>Manage Jobs</h3>
             <h1>💼</h1>
+          </div>
+          <div
+            className="card"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/admin/tickets")}
+          >
+            <h3>Support Tickets</h3>
+            <h1>🎫</h1>
           </div>
         </div>
 
