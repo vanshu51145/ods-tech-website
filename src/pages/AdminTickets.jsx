@@ -13,6 +13,10 @@ const navigate = useNavigate();
 
   const fetchTickets = async () => {
     try {
+         console.log(
+      "TOKEN:",
+      localStorage.getItem("token")
+    );
      const response = await fetch(
   "https://ods-network-backend.onrender.com/api/tickets/admin/all",
   {
