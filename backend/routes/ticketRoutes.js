@@ -5,7 +5,7 @@ const Ticket = require("../models/Ticket");
 const auth = require("../middleware/auth");
 const clientAuth = require("../middleware/clientAuth");
 
-router.get("/admin/all", clientAuth , async (req, res) => {
+router.get("/admin/all", auth , async (req, res) => {
   try {
     const tickets = await Ticket.find().sort({ createdAt: -1 });
 
