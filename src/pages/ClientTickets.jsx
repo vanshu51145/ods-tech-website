@@ -6,7 +6,8 @@ function ClientTickets() {
     const [tickets, setTickets] = useState([]);
 
     const [formData, setFormData] = useState({
-        clientId: "687a0d1234567890abcdef12",
+          clientId:
+                        JSON.parse(localStorage.getItem("client"))?._id,
         subject: "",
         description: "",
         priority: "",
@@ -54,6 +55,8 @@ function ClientTickets() {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                          Authorization: localStorage.getItem("clientToken"),
+
                     },
                     body: JSON.stringify(formData),
                 }
