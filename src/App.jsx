@@ -28,6 +28,7 @@ import AdminTickets from "./pages/AdminTickets";
 import ClientLogin from "./pages/ClientLogin";
 import ClientRegister from "./pages/ClientRegister";
 import ClientDashboard from "./pages/ClientDashboard";
+import AdminSubscribers from "./pages/AdminSubscribers";
 function App() {
 
   const location = useLocation();
@@ -121,6 +122,14 @@ element={<ClientTickets/>}
 <Route path="/client/login" element={<ClientLogin />} />
 <Route path="/client/register" element={<ClientRegister />} />
 <Route path="/client/dashboard" element={<ClientDashboard />} />
+<Route
+ path="/admin/subscribers"
+ element={
+   <ProtectedRoute>
+     <AdminSubscribers />
+   </ProtectedRoute>
+ }
+/>
         <Route path="*" element={<NotFound />} />
 
       </Routes>

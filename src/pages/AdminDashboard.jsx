@@ -39,7 +39,8 @@ function AdminDashboard() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-Authorization:`Bearer ${localStorage.getItem("token")}`          },
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
           body: JSON.stringify({ status }),
         }
       );
@@ -70,7 +71,8 @@ Authorization:`Bearer ${localStorage.getItem("token")}`          },
           "https://ods-network-backend.onrender.com/api/contact",
           {
             headers: {
-Authorization:`Bearer ${localStorage.getItem("token")}`            },
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            },
           }
         );
 
@@ -87,33 +89,33 @@ Authorization:`Bearer ${localStorage.getItem("token")}`            },
     };
 
     const fetchTickets = async () => {
-  try {
+      try {
 
-    const response = await fetch(
-      "https://ods-network-backend.onrender.com/api/tickets/admin/all",
-      {
-        headers:{
-          Authorization:`Bearer ${localStorage.getItem("token")}`
+        const response = await fetch(
+          "https://ods-network-backend.onrender.com/api/tickets/admin/all",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          }
+        );
+
+        const data = await response.json();
+
+        console.log("TICKETS:", data);
+
+        if (data.success) {
+          setTickets(data.tickets);
         }
+
+      } catch (error) {
+        console.log(error);
       }
-    );
-
-    const data = await response.json();
-
-    console.log("TICKETS:", data);
-
-    if(data.success){
-      setTickets(data.tickets);
-    }
-
-  } catch(error){
-    console.log(error);
-  }
-};
+    };
 
 
-fetchContacts();
-fetchTickets();
+    fetchContacts();
+    fetchTickets();
   }, []);
 
   return (
@@ -146,6 +148,11 @@ fetchTickets();
           </li>
           <li onClick={() => navigate("/admin/tickets")}>
             🎫 Manage Support Tickets
+          </li>
+          <li
+            onClick={() => navigate("/admin/subscribers")}
+          >
+            📧 Manage Subscribers
           </li>
         </ul>
       </div>
@@ -233,6 +240,14 @@ fetchTickets();
           >
             <h3>Support Tickets</h3>
             <h1>🎫</h1>
+          </div>
+           <div
+            className="card"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/admin/subscribers")}
+          >
+            <h3>Manage Subscribers</h3>
+            <h1>📧</h1>
           </div>
         </div>
 
