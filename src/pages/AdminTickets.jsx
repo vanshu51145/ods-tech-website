@@ -13,6 +13,7 @@ const navigate = useNavigate();
 
   const fetchTickets = async () => {
     try {
+        const token = localStorage.getItem("token");
          console.log(
       "TOKEN:",
       localStorage.getItem("token")
@@ -21,7 +22,7 @@ const navigate = useNavigate();
   "https://ods-network-backend.onrender.com/api/tickets/admin/all",
   {
     headers: {
-Authorization: `Bearer ${localStorage.getItem("adminToken")}`,    },
+Authorization: `Bearer ${token}`,    },
   }
 );
       const data = await response.json();
@@ -42,7 +43,7 @@ Authorization: `Bearer ${localStorage.getItem("adminToken")}`,    },
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-Authorization: `Bearer ${localStorage.getItem("adminToken")}`,    },
+Authorization: `Bearer ${localStorage.getItem("token")}`,    },
     body: JSON.stringify({
       status,
     }),

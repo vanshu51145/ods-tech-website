@@ -19,14 +19,13 @@ function ClientTickets() {
 
     const fetchTickets = async () => {
         try {
-           const response = await fetch(
-  "https://ods-network-backend.onrender.com/api/tickets",
-  {
-    headers: {
-      Authorization: localStorage.getItem("clientToken"),
-    },
-  }
-);
+            const response = await fetch(
+                "https://ods-network-backend.onrender.com/api/tickets",{
+                 headers: {
+                          Authorization: localStorage.getItem("clientToken"),
+
+                    },}
+            );
 
             const data = await response.json();
 
