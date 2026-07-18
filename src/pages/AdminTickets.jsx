@@ -17,8 +17,7 @@ const navigate = useNavigate();
   "https://ods-network-backend.onrender.com/api/tickets/admin/all",
   {
     headers: {
-      Authorization: localStorage.getItem("token"),
-    },
+Authorization: `Bearer ${localStorage.getItem("token")}`,    },
   }
 );
       const data = await response.json();
@@ -39,8 +38,7 @@ const navigate = useNavigate();
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: localStorage.getItem("token"),
-    },
+Authorization: `Bearer ${localStorage.getItem("token")}`,    },
     body: JSON.stringify({
       status,
     }),
