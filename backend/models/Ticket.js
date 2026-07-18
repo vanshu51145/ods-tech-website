@@ -1,21 +1,18 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const ticketSchema = new mongoose.Schema(
   {
     clientId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
     },
     subject: {
       type: String,
       required: true,
-      trim: true,
     },
     description: {
       type: String,
       required: true,
-      trim: true,
     },
     priority: {
       type: String,
@@ -28,7 +25,9 @@ const ticketSchema = new mongoose.Schema(
       default: "Open",
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-export default mongoose.model("Ticket", ticketSchema);
+module.exports = mongoose.model("Ticket", ticketSchema);
