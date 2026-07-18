@@ -18,7 +18,8 @@ const Job = require("./models/Job");
 const Application = require("./models/Application");
 const ticketRoutes = require("./routes/ticketRoutes");
 const clientRoutes=require("./routes/clientRoutes");
-
+const newsletterRoutes =
+require("./routes/newsletterRoutes");
 
 const app = express();
 
@@ -847,6 +848,10 @@ app.delete("/api/admin/testimonials/:id", auth, async (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.use("/api/tickets", ticketRoutes);
 app.use("/api/client",clientRoutes);
+app.use(
+"/api/newsletter",
+newsletterRoutes
+);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
