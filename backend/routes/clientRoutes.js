@@ -7,25 +7,13 @@ const nodemailer = require("nodemailer");
 const Client = require("../models/Client");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  family: 4,
+  service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  tls: {
-    rejectUnauthorized: false,
-  },
 });
-transporter.verify((err, success) => {
-  if (err) {
-    console.log("SMTP VERIFY ERROR:", err);
-  } else {
-    console.log("SMTP READY");
-  }
-});
+
 router.post("/register", async (req, res) => {
   try {
 
