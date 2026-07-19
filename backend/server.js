@@ -21,6 +21,7 @@ const clientRoutes=require("./routes/clientRoutes");
 const newsletterRoutes =
 require("./routes/newsletterRoutes");
 
+
 const app = express();
 
 app.use(
@@ -658,6 +659,35 @@ app.post(
               });
 
             await application.save();
+            try {
+  await transporter.sendMail({
+    from: `"ODS Network" <${process.env.EMAIL_USER}>`,
+    to: email,
+    subject: "Application Received - ODS Network",
+    html: `
+      <div style="font-family: Arial, sans-serif; padding:20px;">
+        <h2>Application Received ✅</h2>
+
+        <p>Hello <b>${name}</b>,</p>
+
+        <p>Thank you for applying at <b>ODS Network</b>.</p>
+
+        <p>We have successfully received your application.</p>
+
+        <p>Our recruitment team will review your profile and contact you if you are shortlisted.</p>
+
+        <br>
+
+        <p>Regards,</p>
+        <b>ODS Network Team</b>
+      </div>
+    `,
+  });
+
+  console.log("Application email sent");
+} catch (mailError) {
+  console.log("Application Email Error:", mailError.message);
+}
 
             res.status(201).json({
               success: true,
