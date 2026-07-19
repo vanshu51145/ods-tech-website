@@ -8,8 +8,8 @@ const Client = require("../models/Client");
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
@@ -18,11 +18,11 @@ const transporter = nodemailer.createTransport({
     rejectUnauthorized: false,
   },
 });
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log("SMTP Error:", error);
+transporter.verify((err, success) => {
+  if (err) {
+    console.log("SMTP VERIFY ERROR:", err);
   } else {
-    console.log("SMTP Server Ready");
+    console.log("SMTP READY");
   }
 });
 router.post("/register", async (req, res) => {
@@ -35,13 +35,10 @@ console.log("EMAIL:", email);
 
 const exists = await Client.findOne({ email });
 
-console.log("FOUND USER:", exists);
-    if (exists) {
-      return res.status(400).json({
-        success: false,
-        message: "Email already exists",
-      });
-    }
+return res.json({
+  email,
+  exists,
+});
 
     const hash = await bcrypt.hash(password, 10);
 
