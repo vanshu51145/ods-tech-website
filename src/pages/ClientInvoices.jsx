@@ -34,6 +34,7 @@ function ClientInvoices() {
   return (
     <section className="page">
       <h1>My Invoices</h1>
+      <div className="table-wrapper">
 
       <table>
         <thead>
@@ -72,6 +73,7 @@ function ClientInvoices() {
           )}
         </tbody>
       </table>
+      </div>
     </section>
   );
 }
