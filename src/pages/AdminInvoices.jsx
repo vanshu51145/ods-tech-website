@@ -26,7 +26,7 @@ function AdminInvoices() {
 
   const fetchClients = async () => {
     try {
-      const token = localStorage.getItem("adminToken");
+      const token = localStorage.getItem("token");
 
       const response = await fetch(
         "https://ods-network-backend.onrender.com/api/clients",
@@ -41,15 +41,18 @@ function AdminInvoices() {
 
       if (data.success) {
         setClients(data.clients);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Failed to load clients");
     }
   };
 
   const fetchInvoices = async () => {
     try {
-      const token = localStorage.getItem("adminToken");
+      const token = localStorage.getItem("token");
 
       const response = await fetch(
         "https://ods-network-backend.onrender.com/api/invoices",
@@ -64,8 +67,11 @@ function AdminInvoices() {
 
       if (data.success) {
         setInvoices(data.invoices);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Failed to load invoices");
     }
   };
@@ -80,18 +86,29 @@ function AdminInvoices() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("adminToken");
-
-    const fd = new FormData();
-
-    fd.append("clientId", formData.clientId);
-    fd.append("invoiceNumber", formData.invoiceNumber);
-    fd.append("amount", formData.amount);
-    fd.append("description", formData.description);
-    fd.append("status", formData.status);
-    fd.append("invoice", pdf);
+    if (
+      !formData.clientId ||
+      !formData.invoiceNumber ||
+      !formData.amount ||
+      !formData.description ||
+      !pdf
+    ) {
+      toast.error("Please fill all fields");
+      return;
+    }
 
     try {
+      const token = localStorage.getItem("token");
+
+      const fd = new FormData();
+
+      fd.append("clientId", formData.clientId);
+      fd.append("invoiceNumber", formData.invoiceNumber);
+      fd.append("amount", formData.amount);
+      fd.append("description", formData.description);
+      fd.append("status", formData.status);
+      fd.append("invoice", pdf);
+
       const response = await fetch(
         "https://ods-network-backend.onrender.com/api/invoices",
         {
@@ -119,34 +136,39 @@ function AdminInvoices() {
         });
 
         setPdf(null);
+
+        const fileInput = document.querySelector(
+          'input[type="file"]'
+        );
+
+        if (fileInput) {
+          fileInput.value = "";
+        }
       } else {
         toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Server Error");
     }
   };
 
   return (
     <div className="page">
-
       <div className="page-header">
-  <button
-    className="back-btn"
-    onClick={() => navigate("/admin/dashboard")}
-  >
-    ← Dashboard
-  </button>
+        <button
+          className="back-btn"
+          onClick={() => navigate("/admin/dashboard")}
+        >
+          ← Dashboard
+        </button>
 
-  <h1>Invoice Management</h1>
+        <h1>Invoice Management</h1>
 
-  <div className="header-space"></div>
-</div>
+        <div className="header-space"></div>
+      </div>
 
-      <form
-        className="invoice-form"
-        onSubmit={handleSubmit}
-      >
+      <form className="invoice-form" onSubmit={handleSubmit}>
         <select
           name="clientId"
           value={formData.clientId}
@@ -155,10 +177,7 @@ function AdminInvoices() {
           <option value="">Select Client</option>
 
           {clients.map((client) => (
-            <option
-              key={client._id}
-              value={client._id}
-            >
+            <option key={client._id} value={client._id}>
               {client.name} ({client.company})
             </option>
           ))}
@@ -208,13 +227,11 @@ function AdminInvoices() {
       </form>
 
       <div className="table-container">
-
         <table className="invoice-table">
-
           <thead>
             <tr>
               <th>Client</th>
-              <th>Invoice</th>
+              <th>Invoice No.</th>
               <th>Amount</th>
               <th>Status</th>
               <th>PDF</th>
@@ -222,41 +239,44 @@ function AdminInvoices() {
           </thead>
 
           <tbody>
-            {invoices.map((invoice) => (
-              <tr key={invoice._id}>
-                <td>{invoice.clientId?.name}</td>
-
-                <td>{invoice.invoiceNumber}</td>
-
-                <td>₹{invoice.amount}</td>
-
-                <td
-                  className={
-                    invoice.status === "Paid"
-                      ? "status-paid"
-                      : "status-unpaid"
-                  }
-                >
-                  {invoice.status}
-                </td>
-
-                <td>
-                  <a
-                    href={invoice.pdfUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Download
-                  </a>
-                </td>
+            {invoices.length === 0 ? (
+              <tr>
+                <td colSpan="5">No invoices found.</td>
               </tr>
-            ))}
+            ) : (
+              invoices.map((invoice) => (
+                <tr key={invoice._id}>
+                  <td>{invoice.clientId?.name}</td>
+
+                  <td>{invoice.invoiceNumber}</td>
+
+                  <td>₹{invoice.amount}</td>
+
+                  <td
+                    className={
+                      invoice.status === "Paid"
+                        ? "status-paid"
+                        : "status-unpaid"
+                    }
+                  >
+                    {invoice.status}
+                  </td>
+
+                  <td>
+                    <a
+                      href={invoice.pdfUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Download
+                    </a>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
-
         </table>
-
       </div>
-
     </div>
   );
 }
