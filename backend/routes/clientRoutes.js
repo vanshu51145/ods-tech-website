@@ -7,19 +7,35 @@ const nodemailer = require("nodemailer");
 const Client = require("../models/Client");
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  tls: {
+    rejectUnauthorized: false,
+  },
 });
-
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log("SMTP Error:", error);
+  } else {
+    console.log("SMTP Server Ready");
+  }
+});
 router.post("/register", async (req, res) => {
   try {
-    const { name, company, email, password } = req.body;
+   console.log("REQUEST BODY:", req.body);
 
-    const exists = await Client.findOne({ email });
+const { name, company, email, password } = req.body;
 
+console.log("EMAIL:", email);
+
+const exists = await Client.findOne({ email });
+
+console.log("FOUND USER:", exists);
     if (exists) {
       return res.status(400).json({
         success: false,

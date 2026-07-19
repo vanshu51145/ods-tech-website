@@ -80,7 +80,7 @@ function ClientRegister() {
           required
         />
 
-        <button>Register</button>
+        <button type="submit">Register</button>
 
         <p>
           Already have an account?{" "}
