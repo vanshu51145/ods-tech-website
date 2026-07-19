@@ -154,6 +154,11 @@ function AdminDashboard() {
           >
             📧 Manage Subscribers
           </li>
+          <li
+            onClick={() => navigate("/admin/invoices")}
+          >
+            🧾 Manage Invoices
+          </li>
         </ul>
       </div>
 
@@ -241,13 +246,21 @@ function AdminDashboard() {
             <h3>Support Tickets</h3>
             <h1>🎫</h1>
           </div>
-           <div
+          <div
             className="card"
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/admin/subscribers")}
           >
             <h3>Manage Subscribers</h3>
             <h1>📧</h1>
+          </div>
+          <div
+            className="card"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/admin/invoices")}
+          >
+            <h3>Manage Invoices</h3>
+            <h1>🧾</h1>
           </div>
         </div>
 

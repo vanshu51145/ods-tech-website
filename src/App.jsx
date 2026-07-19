@@ -29,6 +29,8 @@ import ClientLogin from "./pages/ClientLogin";
 import ClientRegister from "./pages/ClientRegister";
 import ClientDashboard from "./pages/ClientDashboard";
 import AdminSubscribers from "./pages/AdminSubscribers";
+import MyInvoices from "./pages/ClientInvoices";
+import AdminInvoices from "./pages/AdminInvoices";
 function App() {
 
   const location = useLocation();
@@ -129,6 +131,14 @@ element={<ClientTickets/>}
      <AdminSubscribers />
    </ProtectedRoute>
  }
+/>
+<Route
+  path="/client/invoices"
+  element={<ClientInvoices />}
+/>
+<Route
+  path="/admin/invoices"
+  element={<AdminInvoices />}
 />
         <Route path="*" element={<NotFound />} />
 

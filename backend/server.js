@@ -17,9 +17,12 @@ const Testimonial = require("./models/Testimonial");
 const Job = require("./models/Job");
 const Application = require("./models/Application");
 const ticketRoutes = require("./routes/ticketRoutes");
-const clientRoutes=require("./routes/clientRoutes");
-const newsletterRoutes =
-require("./routes/newsletterRoutes");
+const clientRoutes = require("./routes/clientRoutes");
+const newsletterRoutes = require("./routes/newsletterRoutes");
+const Invoice = require("./models/Invoice");
+const clientAuth = require("./middleware/clientAuth");
+const Client = require("./models/Client");
+
 
 
 const app = express();
@@ -156,17 +159,17 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
     const serviceRequested = xss(req.body.serviceRequested);
     const message = xss(req.body.message);
     if (!name || !email || !serviceRequested || !message) {
-  return res.status(400).json({
-    success: false,
-    message: "All fields are required",
-  });
-}
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
     const newContact = new Contact({
-  name,
-  email,
-  serviceRequested,
-  message,
-});
+      name,
+      email,
+      serviceRequested,
+      message,
+    });
     await newContact.save();
 
 
@@ -430,7 +433,7 @@ app.post(
       const title = xss(req.body.title);
       const author = xss(req.body.author);
       const content = xss(req.body.content);
-           console.log("Sanitized:", { title, author, content });
+      console.log("Sanitized:", { title, author, content });
 
       if (!title || !author || !content) {
         return res.status(400).json({
@@ -485,12 +488,12 @@ app.post(
         .pipe(uploadStream);
 
     } catch (error) {
-     console.error("BLOG ERROR:", error);
+      console.error("BLOG ERROR:", error);
 
-  res.status(500).json({
-    success: false,
-    message: error.message,
-  });
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
     }
   }
 );
@@ -557,11 +560,11 @@ app.post("/api/testimonials", async (req, res) => {
       });
     }
     if (rating < 1 || rating > 5) {
-  return res.status(400).json({
-    success: false,
-    message: "Rating must be between 1 and 5",
-  });
-}
+      return res.status(400).json({
+        success: false,
+        message: "Rating must be between 1 and 5",
+      });
+    }
 
     const testimonial = new Testimonial({
       clientName,
@@ -637,9 +640,9 @@ app.post(
           {
             folder: "ods-resumes",
             resource_type: "raw",
-             public_id: req.file.originalname,
-    use_filename: true,
-    unique_filename: true,
+            public_id: req.file.originalname,
+            use_filename: true,
+            unique_filename: true,
           },
           async (error, result) => {
 
@@ -660,11 +663,11 @@ app.post(
 
             await application.save();
             try {
-  await transporter.sendMail({
-    from: `"ODS Network" <${process.env.EMAIL_USER}>`,
-    to: email,
-    subject: "Application Received - ODS Network",
-    html: `
+              await transporter.sendMail({
+                from: `"ODS Network" <${process.env.EMAIL_USER}>`,
+                to: email,
+                subject: "Application Received - ODS Network",
+                html: `
       <div style="font-family: Arial, sans-serif; padding:20px;">
         <h2>Application Received ✅</h2>
 
@@ -682,12 +685,12 @@ app.post(
         <b>ODS Network Team</b>
       </div>
     `,
-  });
+              });
 
-  console.log("Application email sent");
-} catch (mailError) {
-  console.log("Application Email Error:", mailError.message);
-}
+              console.log("Application email sent");
+            } catch (mailError) {
+              console.log("Application Email Error:", mailError.message);
+            }
 
             res.status(201).json({
               success: true,
@@ -741,18 +744,18 @@ app.put("/api/admin/testimonials/:id", auth, async (req, res) => {
 app.put("/api/jobs/:id", auth, async (req, res) => {
   try {
 
-   const job = await Job.findById(req.params.id);
+    const job = await Job.findById(req.params.id);
 
-if (!job) {
-  return res.status(404).json({
-    success:false,
-    message:"Job not found"
-  });
-}
+    if (!job) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found"
+      });
+    }
 
-job.isActive = !job.isActive;
+    job.isActive = !job.isActive;
 
-await job.save();
+    await job.save();
 
     res.json({
       success: true,
@@ -875,12 +878,148 @@ app.delete("/api/admin/testimonials/:id", auth, async (req, res) => {
     });
   }
 });
+app.post(
+  "/api/invoices",
+  auth,
+  Upload.single("invoice"),
+  async (req, res) => {
+    try {
+      const clientId = req.body.clientId;
+      const invoiceNumber = xss(req.body.invoiceNumber);
+      const amount = Number(req.body.amount);
+      const description = xss(req.body.description);
+      const status = xss(req.body.status);
+
+      if (
+        !clientId ||
+        !invoiceNumber ||
+        !amount ||
+        !description ||
+        !status
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "All fields are required",
+        });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Invoice PDF is required",
+        });
+      }
+
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: "ods-invoices",
+          resource_type: "raw",
+          public_id: req.file.originalname,
+          use_filename: true,
+          unique_filename: true,
+        },
+        async (error, result) => {
+          if (error) {
+            return res.status(500).json({
+              success: false,
+              message: "Invoice Upload Failed",
+            });
+          }
+
+          const invoice = new Invoice({
+            clientId,
+            invoiceNumber,
+            amount,
+            description,
+            status,
+            pdfUrl: result.secure_url,
+          });
+
+          await invoice.save();
+
+          res.status(201).json({
+            success: true,
+            message: "Invoice Created Successfully",
+            invoice,
+          });
+        }
+      );
+
+      streamifier
+        .createReadStream(req.file.buffer)
+        .pipe(uploadStream);
+
+    } catch (error) {
+      console.log(error);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+app.get("/api/client/invoices", clientAuth, async (req, res) => {
+  try {
+    const invoices = await Invoice.find({
+      clientId: req.client._id,
+    }).sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      invoices,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.get("/api/clients", auth, async (req, res) => {
+  try {
+    const clients = await Client.find()
+      .select("name company email")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      clients,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.get("/api/invoices", auth, async (req, res) => {
+  try {
+    const invoices = await Invoice.find()
+      .populate("clientId", "name company email")
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      invoices,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 const PORT = process.env.PORT || 5000;
 app.use("/api/tickets", ticketRoutes);
-app.use("/api/client",clientRoutes);
+app.use("/api/client", clientRoutes);
 app.use(
-"/api/newsletter",
-newsletterRoutes
+  "/api/newsletter",
+  newsletterRoutes
 );
 
 app.listen(PORT, () => {
