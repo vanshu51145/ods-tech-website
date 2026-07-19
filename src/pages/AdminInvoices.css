@@ -197,6 +197,7 @@
   position:static;
   transform:none;
   align-self:center;
+  padding-left: 100px;
 }
 
 .page-header h1{
