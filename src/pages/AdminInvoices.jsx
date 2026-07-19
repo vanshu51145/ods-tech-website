@@ -1,0 +1,264 @@
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import "./AdminInvoices.css";
+
+function AdminInvoices() {
+  const navigate = useNavigate();
+
+  const [clients, setClients] = useState([]);
+  const [invoices, setInvoices] = useState([]);
+
+  const [formData, setFormData] = useState({
+    clientId: "",
+    invoiceNumber: "",
+    amount: "",
+    description: "",
+    status: "Unpaid",
+  });
+
+  const [pdf, setPdf] = useState(null);
+
+  useEffect(() => {
+    fetchClients();
+    fetchInvoices();
+  }, []);
+
+  const fetchClients = async () => {
+    try {
+      const token = localStorage.getItem("adminToken");
+
+      const response = await fetch(
+        "https://ods-network-backend.onrender.com/api/clients",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setClients(data.clients);
+      }
+    } catch (error) {
+      toast.error("Failed to load clients");
+    }
+  };
+
+  const fetchInvoices = async () => {
+    try {
+      const token = localStorage.getItem("adminToken");
+
+      const response = await fetch(
+        "https://ods-network-backend.onrender.com/api/invoices",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setInvoices(data.invoices);
+      }
+    } catch (error) {
+      toast.error("Failed to load invoices");
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("adminToken");
+
+    const fd = new FormData();
+
+    fd.append("clientId", formData.clientId);
+    fd.append("invoiceNumber", formData.invoiceNumber);
+    fd.append("amount", formData.amount);
+    fd.append("description", formData.description);
+    fd.append("status", formData.status);
+    fd.append("invoice", pdf);
+
+    try {
+      const response = await fetch(
+        "https://ods-network-backend.onrender.com/api/invoices",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: fd,
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success(data.message);
+
+        fetchInvoices();
+
+        setFormData({
+          clientId: "",
+          invoiceNumber: "",
+          amount: "",
+          description: "",
+          status: "Unpaid",
+        });
+
+        setPdf(null);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Server Error");
+    }
+  };
+
+  return (
+    <div className="page">
+
+      <div className="page-header">
+  <button
+    className="back-btn"
+    onClick={() => navigate("/admin/dashboard")}
+  >
+    ← Dashboard
+  </button>
+
+  <h1>Invoice Management</h1>
+
+  <div className="header-space"></div>
+</div>
+
+      <form
+        className="invoice-form"
+        onSubmit={handleSubmit}
+      >
+        <select
+          name="clientId"
+          value={formData.clientId}
+          onChange={handleChange}
+        >
+          <option value="">Select Client</option>
+
+          {clients.map((client) => (
+            <option
+              key={client._id}
+              value={client._id}
+            >
+              {client.name} ({client.company})
+            </option>
+          ))}
+        </select>
+
+        <input
+          type="text"
+          name="invoiceNumber"
+          placeholder="Invoice Number"
+          value={formData.invoiceNumber}
+          onChange={handleChange}
+        />
+
+        <input
+          type="number"
+          name="amount"
+          placeholder="Amount"
+          value={formData.amount}
+          onChange={handleChange}
+        />
+
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+        />
+
+        <select
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+        >
+          <option value="Paid">Paid</option>
+          <option value="Unpaid">Unpaid</option>
+        </select>
+
+        <input
+          type="file"
+          accept=".pdf"
+          onChange={(e) => setPdf(e.target.files[0])}
+        />
+
+        <button type="submit">
+          Upload Invoice
+        </button>
+      </form>
+
+      <div className="table-container">
+
+        <table className="invoice-table">
+
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Invoice</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>PDF</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {invoices.map((invoice) => (
+              <tr key={invoice._id}>
+                <td>{invoice.clientId?.name}</td>
+
+                <td>{invoice.invoiceNumber}</td>
+
+                <td>₹{invoice.amount}</td>
+
+                <td
+                  className={
+                    invoice.status === "Paid"
+                      ? "status-paid"
+                      : "status-unpaid"
+                  }
+                >
+                  {invoice.status}
+                </td>
+
+                <td>
+                  <a
+                    href={invoice.pdfUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Download
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  );
+}
+
+export default AdminInvoices;

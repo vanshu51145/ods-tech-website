@@ -1,0 +1,98 @@
+.page {
+  width: 95%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.page h1 {
+  text-align: center;
+  color: #1e3a8a;
+  margin-bottom: 30px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+thead {
+  background: #1e3a8a;
+  color: #fff;
+}
+
+thead th {
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: 0.3s;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+tbody td {
+  padding: 16px;
+  color: #374151;
+  font-size: 15px;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody a {
+  display: inline-block;
+  text-decoration: none;
+  background: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+tbody a:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .page {
+    width: 95%;
+    padding: 20px;
+    overflow-x: auto;
+  }
+
+  .page h1 {
+    font-size: 26px;
+  }
+
+  table {
+    min-width: 700px;
+  }
+
+  thead th,
+  tbody td {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  tbody a {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
