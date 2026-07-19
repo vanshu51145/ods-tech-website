@@ -35,10 +35,12 @@ console.log("EMAIL:", email);
 
 const exists = await Client.findOne({ email });
 
-return res.json({
-  email,
-  exists,
-});
+if (exists) {
+  return res.status(400).json({
+    success: false,
+    message: "Email already exists",
+  });
+}
 
     const hash = await bcrypt.hash(password, 10);
 
