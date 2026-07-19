@@ -29,7 +29,7 @@ import ClientLogin from "./pages/ClientLogin";
 import ClientRegister from "./pages/ClientRegister";
 import ClientDashboard from "./pages/ClientDashboard";
 import AdminSubscribers from "./pages/AdminSubscribers";
-import MyInvoices from "./pages/ClientInvoices";
+import ClientInvoices from "./pages/ClientInvoices";
 import AdminInvoices from "./pages/AdminInvoices";
 function App() {
 
