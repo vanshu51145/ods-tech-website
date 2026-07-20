@@ -120,8 +120,11 @@ function AdminInvoices() {
         }
       );
 
-      const data = await response.json();
+console.log("Status:", response.status);
 
+const data = await response.json();
+
+console.log("Response:", data);
       if (data.success) {
         toast.success(data.message);
 
