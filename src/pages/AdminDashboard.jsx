@@ -232,7 +232,7 @@ function AdminDashboard() {
             🧾 Manage Invoices
           </li>
           <li
-            onClick={() => navigate("/admin/invoices")}
+            onClick={() => navigate("/admin/milestones")}
           >
            📊 Project Milestones
           </li>
