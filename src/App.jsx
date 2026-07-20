@@ -31,6 +31,7 @@ import ClientDashboard from "./pages/ClientDashboard";
 import AdminSubscribers from "./pages/AdminSubscribers";
 import ClientInvoices from "./pages/ClientInvoices";
 import AdminInvoices from "./pages/AdminInvoices";
+import WhatsAppWidget from "./components/WhatsAppWidget";
 function App() {
 
   const location = useLocation();
@@ -145,6 +146,7 @@ element={<ClientTickets/>}
       </Routes>
 
       {!isAdminPage && <Footer />}
+       <WhatsAppWidget />
 
     </>
   );
