@@ -2,7 +2,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import "./WhatsAppWidget.css";
 
 function WhatsAppWidget() {
-  const phone = "+91 98013 51931"; // 
+  const phone = "919801351931"; 
   const message = encodeURIComponent(
     "Hi ODS Network, I would like to inquire about your services."
   );
