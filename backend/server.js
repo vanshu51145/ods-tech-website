@@ -22,6 +22,7 @@ const newsletterRoutes = require("./routes/newsletterRoutes");
 const Invoice = require("./models/Invoice");
 const clientAuth = require("./middleware/clientAuth");
 const Client = require("./models/Client");
+const Ticket = require("./models/Ticket");
 
 
 
@@ -1006,6 +1007,38 @@ app.get("/api/invoices", auth, async (req, res) => {
       success: true,
       invoices,
     });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.get("/api/admin/analytics", auth, async (req, res) => {
+  try {
+    const contacts = await Contact.find();
+    const tickets = await Ticket.find();
+
+    const leadAnalytics = {
+      New: contacts.filter(c => c.status === "New").length,
+      Contacted: contacts.filter(c => c.status === "Contacted").length,
+      Converted: contacts.filter(c => c.status === "Converted").length,
+    };
+
+    const ticketAnalytics = {
+      Open: tickets.filter(t => t.status === "Open").length,
+      "In Progress": tickets.filter(t => t.status === "In Progress").length,
+      Resolved: tickets.filter(t => t.status === "Resolved").length,
+    };
+
+    res.json({
+      success: true,
+      leadAnalytics,
+      ticketAnalytics,
+    });
+
   } catch (error) {
     console.log(error);
 
