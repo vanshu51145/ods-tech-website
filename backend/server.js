@@ -889,7 +889,8 @@ app.post(
       const amount = Number(req.body.amount);
       const description = xss(req.body.description);
       const status = xss(req.body.status);
-
+console.log("BODY:", req.body);
+console.log("FILE:", req.file);
       if (
         !clientId ||
         !invoiceNumber ||
