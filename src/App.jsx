@@ -32,6 +32,7 @@ import AdminSubscribers from "./pages/AdminSubscribers";
 import ClientInvoices from "./pages/ClientInvoices";
 import AdminInvoices from "./pages/AdminInvoices";
 import WhatsAppWidget from "./components/WhatsAppWidget";
+import ProjectProgress from "./pages/ProjectProgress";
 function App() {
 
   const location = useLocation();
@@ -104,49 +105,53 @@ function App() {
           element={<Careers />}
         />
         <Route path="/resources" element={<Resources />} />
-       <Route
-  path="/admin/jobs"
-  element={
-    <ProtectedRoute>
-      <AdminJobs />
-    </ProtectedRoute>
-  }
-/>
-<Route
-path="/client/tickets"
-element={<ClientTickets/>}
-/>
-<Route
-  path="/admin/tickets"
-  element={ <ProtectedRoute>
-      <AdminTickets />
-    </ProtectedRoute>}
-/>
-<Route path="/client/login" element={<ClientLogin />} />
-<Route path="/client/register" element={<ClientRegister />} />
-<Route path="/client/dashboard" element={<ClientDashboard />} />
-<Route
- path="/admin/subscribers"
- element={
-   <ProtectedRoute>
-     <AdminSubscribers />
-   </ProtectedRoute>
- }
-/>
-<Route
-  path="/client/invoices"
-  element={<ClientInvoices />}
-/>
-<Route
-  path="/admin/invoices"
-  element={<AdminInvoices />}
-/>
+        <Route
+          path="/admin/jobs"
+          element={
+            <ProtectedRoute>
+              <AdminJobs />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/client/tickets"
+          element={<ClientTickets />}
+        />
+        <Route
+          path="/admin/tickets"
+          element={<ProtectedRoute>
+            <AdminTickets />
+          </ProtectedRoute>}
+        />
+        <Route path="/client/login" element={<ClientLogin />} />
+        <Route path="/client/register" element={<ClientRegister />} />
+        <Route path="/client/dashboard" element={<ClientDashboard />} />
+        <Route
+          path="/admin/subscribers"
+          element={
+            <ProtectedRoute>
+              <AdminSubscribers />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/client/invoices"
+          element={<ClientInvoices />}
+        />
+        <Route
+          path="/admin/invoices"
+          element={<AdminInvoices />}
+        />
+        <Route
+          path="/client/progress"
+          element={<ProjectProgress />}
+        />
         <Route path="*" element={<NotFound />} />
 
       </Routes>
 
       {!isAdminPage && <Footer />}
-       <WhatsAppWidget />
+      <WhatsAppWidget />
 
     </>
   );
