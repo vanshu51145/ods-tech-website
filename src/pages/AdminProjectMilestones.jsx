@@ -243,20 +243,22 @@ function AdminProjectMilestones() {
                             <p>
                                 {item.description}
                             </p>
-                            <p>
-                                Client: {item.clientId?.name}
-                            </p>
+                            <p><strong>Client:</strong> {item.clientId?.name}</p>
 
-
-                            <p>
-                                Due: {new Date(item.dueDate).toLocaleDateString()}
-                            </p>
+                            <p><strong>Due:</strong> {new Date(item.dueDate).toLocaleDateString()}</p>
 
 
                             <p>
                                 Status:
-                                <span className={item.isCompleted ? "completed" : "pending"}>
-                                    {item.isCompleted ? " Completed" : " Pending"}
+                                {" "}
+                                <span
+                                    className={
+                                        item.isCompleted
+                                            ? "status completed"
+                                            : "status pending"
+                                    }
+                                >
+                                    {item.isCompleted ? "Completed" : "Pending"}
                                 </span>
                             </p>
 
