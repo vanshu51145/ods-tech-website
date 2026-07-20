@@ -1098,16 +1098,19 @@ app.post(
 
 
     }
-   catch(error){
+    catch (error) {
 
- console.log("MILESTONE ERROR:", error);
+      console.log(error);
 
- res.status(500).json({
-  success:false,
-  message:error.message
- });
+      res.status(500).json({
 
-}
+        success: false,
+
+        message: "Server Error"
+
+      });
+
+    }
 
   });
 app.get(

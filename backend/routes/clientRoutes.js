@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-
+const clientAuth = require("../middleware/clientAuth");
 const Client = require("../models/Client");
 
 const transporter = nodemailer.createTransport({
@@ -142,5 +142,32 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+router.get("/profile", clientAuth, async(req,res)=>{
+
+try{
+
+const client = await Client.findById(req.client._id)
+.select("-password");
+
+
+res.json({
+ success:true,
+ client
+});
+
+
+}catch(error){
+
+console.log(error);
+
+res.status(500).json({
+ success:false,
+ message:"Server Error"
+});
+
+}
+
+});
+
 
 module.exports = router;
