@@ -253,15 +253,22 @@ function AdminProjectMilestones() {
                             </p>
 
 
-                            <input
-                                type="checkbox"
-                                checked={item.isCompleted}
-                                onChange={() =>
-                                    updateStatus(item._id)
-                                }
-                            />
+                            <p>
+                                Status:
+                                <span className={item.isCompleted ? "completed" : "pending"}>
+                                    {item.isCompleted ? " Completed" : " Pending"}
+                                </span>
+                            </p>
 
-                            Completed
+                            <label className="checkbox-row">
+                                <input
+                                    type="checkbox"
+                                    checked={item.isCompleted}
+                                    onChange={() => updateStatus(item._id)}
+                                    disabled={item.isCompleted}
+                                />
+                                Mark Completed
+                            </label>
 
 
                         </div>
