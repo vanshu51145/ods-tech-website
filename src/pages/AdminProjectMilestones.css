@@ -76,3 +76,92 @@
     }
 
 }
+.page{
+    min-height:100vh;
+    padding:40px;
+    background:#f4f7fc;
+}
+
+.milestone-form{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:40px;
+    align-items:end;
+}
+
+.milestone-form select,
+.milestone-form input,
+.milestone-form textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+.milestone-form textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.milestone-form button{
+    padding:12px;
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.milestone-form button:hover{
+    background:#1d4ed8;
+}
+
+.milestone-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+.milestone-card{
+    background:#fff;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.milestone-card h3{
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.milestone-card p{
+    margin:8px 0;
+    color:#444;
+}
+
+.milestone-card input[type="checkbox"]{
+    margin-right:8px;
+    transform:scale(1.2);
+}
+
+@media(max-width:768px){
+
+    .page{
+        padding:20px;
+    }
+
+    .milestone-form{
+        grid-template-columns:1fr;
+    }
+
+    .milestone-list{
+        grid-template-columns:1fr;
+    }
+
+}

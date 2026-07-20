@@ -5,263 +5,275 @@ import "./AdminProjectMilestones.css";
 function AdminProjectMilestones() {
     const navigate = useNavigate();
 
-  const [clients, setClients] = useState([]);
-  const [clientId, setClientId] = useState("");
+    const [clients, setClients] = useState([]);
+    const [clientId, setClientId] = useState("");
 
-  const [milestone, setMilestone] = useState({
-    title:"",
-    description:"",
-    dueDate:""
-  });
+    const [milestone, setMilestone] = useState({
+        title: "",
+        description: "",
+        dueDate: ""
+    });
 
-  const [milestones, setMilestones] = useState([]);
+    const [milestones, setMilestones] = useState([]);
 
 
-  // Fetch Clients
-  useEffect(() => {
+    // Fetch Clients
+    useEffect(() => {
 
-    fetch("https://ods-network-backend.onrender.com/api/clients")
-      .then(res => res.json())
-      .then(data => {
-        setClients(data.clients || []);
-      });
+        fetch(
+            "https://ods-network-backend.onrender.com/api/clients",
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        )
+            .then(res => res.json())
+            .then(data => {
+                setClients(data.clients || []);
+            });
 
-  }, []);
+    }, []);
 
 
 
-  // Fetch Milestones
-  const getMilestones = async()=>{
+    // Fetch Milestones
+    const getMilestones = async () => {
 
-    const res = await fetch(
-      "https://ods-network-backend.onrender.com/api/milestones/admin",
-      {
-        headers:{
-          Authorization:
-          `Bearer ${localStorage.getItem("token")}`
-        }
-      }
-    );
+        const res = await fetch(
+            "https://ods-network-backend.onrender.com/api/milestones",
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${localStorage.getItem("token")}`
+                }
+            }
+        );
 
-    const data = await res.json();
+        const data = await res.json();
 
-    setMilestones(data.milestones || []);
+        setMilestones(data.milestones || []);
 
-  };
+    };
 
 
-  useEffect(()=>{
-    getMilestones();
-  },[]);
+    useEffect(() => {
+        getMilestones();
+    }, []);
 
 
 
-  // Create Milestone
-  const createMilestone = async(e)=>{
+    // Create Milestone
+    const createMilestone = async (e) => {
 
-    e.preventDefault();
+        e.preventDefault();
 
 
-    await fetch(
-      "https://ods-network-backend.onrender.com/api/milestones",
-      {
-        method:"POST",
+        await fetch(
+            "https://ods-network-backend.onrender.com/api/milestones",
+            {
+                method: "POST",
 
-        headers:{
-          "Content-Type":"application/json",
+                headers: {
+                    "Content-Type": "application/json",
 
-          Authorization:
-          `Bearer ${localStorage.getItem("token")}`
-        },
+                    Authorization:
+                        `Bearer ${localStorage.getItem("token")}`
+                },
 
-        body:JSON.stringify({
-          clientId,
-          ...milestone
-        })
+                body: JSON.stringify({
+                    clientId,
+                    ...milestone
+                })
 
-      }
-    );
+            }
+        );
 
 
-    getMilestones();
+        getMilestones();
 
-  };
+    };
 
 
 
-  // Update Status
-  const updateStatus = async(id)=>{
+    // Update Status
+    const updateStatus = async (id) => {
 
 
-    await fetch(
-      `https://ods-network-backend.onrender.com/api/milestones/${id}`,
-      {
-        method:"PUT",
+        await fetch(
+            `https://ods-network-backend.onrender.com/api/milestones/${id}`,
+            {
+                method: "PUT",
 
-        headers:{
-          "Content-Type":"application/json",
+                headers: {
+                    "Content-Type": "application/json",
 
-          Authorization:
-          `Bearer ${localStorage.getItem("token")}`
-        },
+                    Authorization:
+                        `Bearer ${localStorage.getItem("token")}`
+                },
 
-        body:JSON.stringify({
-          isCompleted:true
-        })
+                body: JSON.stringify({
+                    isCompleted: true
+                })
 
-      }
-    );
+            }
+        );
 
 
-    getMilestones();
+        getMilestones();
 
-  };
+    };
 
 
 
-return (
+    return (
 
-<div className="page">
+        <div className="page">
 
-<div className="page-header">
+            <div className="page-header">
 
-  <h1>Project Milestones</h1>
+                <h1>Project Milestones</h1>
 
-  <button
-    className="dashboard-btn"
-    onClick={() => navigate("/admin")}
-  >
-    Dashboard
-  </button>
+                <button
+                    className="dashboard-btn"
+                    onClick={() => navigate("/admin")}
+                >
+                    Dashboard
+                </button>
 
-</div>
+            </div>
 
-<form onSubmit={createMilestone}>
+            <form
+                className="milestone-form"
+                onSubmit={createMilestone}
+            >
 
+                <select
+                    value={clientId}
+                    onChange={(e) => setClientId(e.target.value)}
+                >
 
-<select
-value={clientId}
-onChange={(e)=>setClientId(e.target.value)}
->
+                    <option>
+                        Select Client
+                    </option>
 
-<option>
-Select Client
-</option>
 
+                    {
+                        clients.map(client => (
 
-{
-clients.map(client=>(
+                            <option
+                                key={client._id}
+                                value={client._id}
+                            >
+                                {client.name}
 
-<option
-key={client._id}
-value={client._id}
->
-{client.name}
+                            </option>
 
-</option>
+                        ))
+                    }
 
-))
-}
 
+                </select>
 
-</select>
 
 
+                <input
+                    placeholder="Milestone Title"
 
-<input
-placeholder="Milestone Title"
+                    onChange={(e) =>
+                        setMilestone({
+                            ...milestone,
+                            title: e.target.value
+                        })
+                    }
+                />
 
-onChange={(e)=>
-setMilestone({
-...milestone,
-title:e.target.value
-})
-}
-/>
 
 
+                <textarea
+                    placeholder="Description"
 
-<textarea
-placeholder="Description"
+                    onChange={(e) =>
+                        setMilestone({
+                            ...milestone,
+                            description: e.target.value
+                        })
+                    }
+                />
 
-onChange={(e)=>
-setMilestone({
-...milestone,
-description:e.target.value
-})
-}
-/>
 
 
+                <input
+                    type="date"
 
-<input
-type="date"
+                    onChange={(e) =>
+                        setMilestone({
+                            ...milestone,
+                            dueDate: e.target.value
+                        })
+                    }
+                />
 
-onChange={(e)=>
-setMilestone({
-...milestone,
-dueDate:e.target.value
-})
-}
-/>
 
 
+                <button>
+                    Create Milestone
+                </button>
 
-<button>
-Create Milestone
-</button>
 
+            </form>
 
-</form>
 
 
 
+            <h2>
+                Existing Milestones
+            </h2>
+            <div className="milestone-list">
 
-<h2>
-Existing Milestones
-</h2>
+                {
+                    milestones.map(item => (
 
+                        <div key={item._id}>
 
-{
-milestones.map(item=>(
+                            <h3>
+                                {item.title}
+                            </h3>
 
-<div key={item._id}>
+                            <p>
+                                {item.description}
+                            </p>
+                            <p>
+                                Client: {item.clientId?.name}
+                            </p>
 
-<h3>
-{item.title}
-</h3>
 
-<p>
-{item.description}
-</p>
+                            <p>
+                                Due: {new Date(item.dueDate).toLocaleDateString()}
+                            </p>
 
 
-<p>
-Due: {item.dueDate}
-</p>
+                            <input
+                                type="checkbox"
+                                checked={item.isCompleted}
+                                onChange={() =>
+                                    updateStatus(item._id)
+                                }
+                            />
 
+                            Completed
 
-<input
-type="checkbox"
-checked={item.isCompleted}
-onChange={()=>
-updateStatus(item._id)
-}
-/>
 
-Completed
+                        </div>
 
+                    ))
+                }
 
-</div>
+            </div>
 
-))
-}
+        </div>
 
-
-
-</div>
-
-)
+    )
 
 }
 
