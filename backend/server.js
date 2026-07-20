@@ -176,9 +176,10 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
 
 
     try {
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
+       const mailResponse =  await transporter.sendMail({
+        from: `"ODS Network Contact" <${process.env.EMAIL_USER}>`, 
         to: process.env.EMAIL_USER,
+         replyTo:email,
         subject: "New Contact Form Submission",
         html: `
         <h2>New Contact Message</h2>
@@ -188,8 +189,11 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
         <p><strong>Message:</strong> ${message}</p>
       `,
       });
-      console.log("Email sent successfully");
 
+      console.log(
+        "EMAIL SENT:",
+        mailResponse.messageId
+      );
     } catch (mailError) {
 
       console.log("MAIL ERROR:", mailError.message);
@@ -890,8 +894,8 @@ app.post(
       const amount = Number(req.body.amount);
       const description = xss(req.body.description);
       const status = xss(req.body.status);
-console.log("BODY:", req.body);
-console.log("FILE:", req.file);
+      console.log("BODY:", req.body);
+      console.log("FILE:", req.file);
       if (
         !clientId ||
         !invoiceNumber ||
