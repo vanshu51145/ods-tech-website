@@ -33,6 +33,7 @@ import ClientInvoices from "./pages/ClientInvoices";
 import AdminInvoices from "./pages/AdminInvoices";
 import WhatsAppWidget from "./components/WhatsAppWidget";
 import ProjectProgress from "./pages/ProjectProgress";
+import AdminProjectMilestones from "./pages/AdminProjectMilestones";
 function App() {
 
   const location = useLocation();
@@ -146,6 +147,10 @@ function App() {
           path="/client/progress"
           element={<ProjectProgress />}
         />
+        <Route 
+ path="/admin/milestones"
+ element={<AdminProjectMilestones/>}
+/>
         <Route path="*" element={<NotFound />} />
 
       </Routes>
