@@ -419,7 +419,7 @@ function AdminDashboard() {
             </CSVLink>
 
           </div>
-
+<div className="table-scroll">
           <table>
             <thead>
               <tr>
@@ -477,6 +477,7 @@ function AdminDashboard() {
               )}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>

@@ -106,11 +106,19 @@
     border-radius:15px;
     padding:25px;
     box-shadow:0 10px 25px rgba(0,0,0,.08);
+    width:100%;
+    overflow:hidden;
+}
+
+.table-scroll{
+    width:100%;
     overflow-x:auto;
 }
 
+
 table{
     width:100%;
+    min-width:950px;
     border-collapse:collapse;
 }
 table select {
@@ -121,21 +129,17 @@ table select {
   outline: none;
 }
 .table-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
-  flex-wrap:wrap;
-  gap:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    margin-bottom:25px;
     width:100%;
-
 }
 
+
 .table-header h2{
-  margin:0;
-  color:#1e3a8a;
-  font-size:24px;
-  font-weight:700;
+    flex:1;
 }
 
 .export-btn{
@@ -147,9 +151,12 @@ table select {
   font-weight:600;
   display:flex;
   align-items:center;
+  justify-content:center;
+  white-space:nowrap;
   gap:8px;
   transition:.3s;
   box-shadow:0 5px 15px rgba(22,163,74,.25);
+   flex-shrink:0;
 }
 
 .export-btn:hover{
