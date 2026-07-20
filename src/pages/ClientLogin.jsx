@@ -36,21 +36,32 @@ function ClientLogin() {
     );
 
     const data = await response.json();
+if (data.success) {
 
-    if (data.success) {
+  console.log("TOKEN BEFORE SAVE:", data.token);
 
-      localStorage.setItem("token", data.token);
+  localStorage.setItem(
+    "token",
+    data.token
+  );
 
-      localStorage.setItem(
-        "client",
-        JSON.stringify(data.client)
-      );
+  console.log(
+    "TOKEN AFTER SAVE:",
+    localStorage.getItem("token")
+  );
 
-      toast.success("Login Successful");
 
-      navigate("/client/dashboard");
+  localStorage.setItem(
+    "client",
+    JSON.stringify(data.client)
+  );
 
-    } else {
+
+  toast.success("Login Successful");
+
+  navigate("/client/dashboard");
+
+}else {
 
       toast.error(data.message);
 
