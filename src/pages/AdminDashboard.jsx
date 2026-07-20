@@ -232,7 +232,7 @@ function AdminDashboard() {
             🧾 Manage Invoices
           </li>
           <li
-            onClick={() => navigate("/admin/milestones")}
+            onClick={() => navigate("admin/milestones")}
           >
            📊 Project Milestones
           </li>
@@ -343,7 +343,7 @@ function AdminDashboard() {
            <div
             className="card"
             style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/invoices")}
+            onClick={() => navigate("/admin/milestones")}
           >
             <h3>Project Milestones</h3>
             <h1>📊</h1>
