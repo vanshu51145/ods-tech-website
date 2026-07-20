@@ -7,10 +7,25 @@ function ClientDashboard() {
     localStorage.getItem("client")
   );
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("client");
+    navigate("/client/login");
+  };
+
   return (
     <section className="page">
 
-      <h1>Welcome, {client?.name}</h1>
+      <div className="page-header">
+        <h1>Welcome, {client?.name}</h1>
+
+        <button
+          className="logout-btn"
+          onClick={logout}
+        >
+          Logout
+        </button>
+      </div>
 
       <div className="cards">
 

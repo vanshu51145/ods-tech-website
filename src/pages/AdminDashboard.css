@@ -127,26 +127,34 @@ table select {
   margin-bottom:20px;
   flex-wrap:wrap;
   gap:20px;
-    width:100px;
+    width:100%;
 
+}
+
+.table-header h2{
+  margin:0;
+  color:#1e3a8a;
+  font-size:24px;
+  font-weight:700;
 }
 
 .export-btn{
   background:#16a34a;
   color:#fff;
-  padding:10px 18px;
-  border-radius:8px;
+  padding:12px 22px;
+  border-radius:10px;
   text-decoration:none;
   font-weight:600;
-  transition:.3s;
-  display:inline-flex;
+  display:flex;
   align-items:center;
-  justify-content:center;
-  white-space:nowrap;
+  gap:8px;
+  transition:.3s;
+  box-shadow:0 5px 15px rgba(22,163,74,.25);
 }
 
 .export-btn:hover{
   background:#15803d;
+  transform:translateY(-2px);
 }
 th{
     background:#0ea5e9;
