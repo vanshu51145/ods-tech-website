@@ -1098,19 +1098,16 @@ app.post(
 
 
     }
-    catch (error) {
+   catch(error){
 
-      console.log(error);
+ console.log("MILESTONE ERROR:", error);
 
-      res.status(500).json({
+ res.status(500).json({
+  success:false,
+  message:error.message
+ });
 
-        success: false,
-
-        message: "Server Error"
-
-      });
-
-    }
+}
 
   });
 app.get(
@@ -1220,52 +1217,52 @@ app.put(
 
 
   });
-  app.get(
-"/api/client/milestones",
-clientAuth,
-async(req,res)=>{
+app.get(
+  "/api/client/milestones",
+  clientAuth,
+  async (req, res) => {
 
-try{
-
-
-const milestones =
-await Milestone.find({
-
-clientId:req.client._id
-
-})
-.sort({
-createdAt:1
-});
+    try {
 
 
-res.json({
+      const milestones =
+        await Milestone.find({
 
-success:true,
+          clientId: req.client._id
 
-milestones
-
-});
-
-
-}
-catch(error){
-
-console.log(error);
+        })
+          .sort({
+            createdAt: 1
+          });
 
 
-res.status(500).json({
+      res.json({
 
-success:false,
+        success: true,
 
-message:"Server Error"
+        milestones
 
-});
-
-}
+      });
 
 
-});
+    }
+    catch (error) {
+
+      console.log(error);
+
+
+      res.status(500).json({
+
+        success: false,
+
+        message: "Server Error"
+
+      });
+
+    }
+
+
+  });
 const PORT = process.env.PORT || 5000;
 app.use("/api/tickets", ticketRoutes);
 app.use("/api/client", clientRoutes);
