@@ -23,7 +23,7 @@ const Invoice = require("./models/Invoice");
 const clientAuth = require("./middleware/clientAuth");
 const Client = require("./models/Client");
 const Ticket = require("./models/Ticket");
-
+const Milestone = require("./models/Milestone");
 
 
 const app = express();
@@ -72,32 +72,13 @@ mongoose
   });
 
 const transporter = nodemailer.createTransport({
-
-  host: "smtp.gmail.com",
-
-  port: 587,
-
-  secure: false,
-
+  service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-
-  tls: {
-    rejectUnauthorized: false,
-  },
-
 });
-transporter.verify((error, success) => {
 
-  if (error) {
-    console.log("SMTP ERROR:", error);
-  } else {
-    console.log("SMTP READY");
-  }
-
-});
 app.get("/", (req, res) => {
   res.send("Backend Running Successfully");
 });
@@ -195,10 +176,9 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
 
 
     try {
-       const mailResponse =  await transporter.sendMail({
-        from: `"ODS Network Contact" <${process.env.EMAIL_USER}>`, 
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
-         replyTo:email,
         subject: "New Contact Form Submission",
         html: `
         <h2>New Contact Message</h2>
@@ -208,11 +188,8 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
         <p><strong>Message:</strong> ${message}</p>
       `,
       });
+      console.log("Email sent successfully");
 
-      console.log(
-        "EMAIL SENT:",
-        mailResponse.messageId
-      );
     } catch (mailError) {
 
       console.log("MAIL ERROR:", mailError.message);
@@ -1070,6 +1047,224 @@ app.get("/api/admin/analytics", auth, async (req, res) => {
       message: "Server Error",
     });
   }
+});
+app.post(
+  "/api/milestones",
+  auth,
+  async (req, res) => {
+
+    try {
+
+      const {
+        clientId,
+        title,
+        description,
+        dueDate
+      } = req.body;
+
+
+      if (!clientId || !title) {
+
+        return res.status(400).json({
+          success: false,
+          message: "Client and title required"
+        });
+
+      }
+
+
+      const milestone = new Milestone({
+
+        clientId,
+        title,
+        description,
+        dueDate
+
+      });
+
+
+      await milestone.save();
+
+
+      res.status(201).json({
+
+        success: true,
+
+        message: "Milestone Created",
+
+        milestone
+
+      });
+
+
+    }
+    catch (error) {
+
+      console.log(error);
+
+      res.status(500).json({
+
+        success: false,
+
+        message: "Server Error"
+
+      });
+
+    }
+
+  });
+app.get(
+  "/api/milestones",
+  auth,
+  async (req, res) => {
+
+    try {
+
+      const milestones =
+        await Milestone.find()
+          .populate(
+            "clientId",
+            "name email company"
+          )
+          .sort({
+            createdAt: -1
+          });
+
+
+      res.json({
+
+        success: true,
+
+        milestones
+
+      });
+
+
+    }
+    catch (error) {
+
+      console.log(error);
+
+      res.status(500).json({
+
+        success: false,
+
+        message: "Server Error"
+
+      });
+
+    }
+
+  });
+app.put(
+  "/api/milestones/:id",
+  auth,
+  async (req, res) => {
+
+
+    try {
+
+      const milestone =
+        await Milestone.findById(
+          req.params.id
+        );
+
+
+      if (!milestone) {
+
+        return res.status(404).json({
+
+          success: false,
+
+          message: "Milestone not found"
+
+        });
+
+      }
+
+
+      milestone.isCompleted =
+        req.body.isCompleted;
+
+
+      await milestone.save();
+
+
+      res.json({
+
+        success: true,
+
+        message: "Milestone Updated",
+
+        milestone
+
+      });
+
+
+    }
+    catch (error) {
+
+      console.log(error);
+
+
+      res.status(500).json({
+
+        success: false,
+
+        message: "Server Error"
+
+      });
+
+
+    }
+
+
+  });
+  app.get(
+"/api/client/milestones",
+clientAuth,
+async(req,res)=>{
+
+try{
+
+
+const milestones =
+await Milestone.find({
+
+clientId:req.client._id
+
+})
+.sort({
+createdAt:1
+});
+
+
+res.json({
+
+success:true,
+
+milestones
+
+});
+
+
+}
+catch(error){
+
+console.log(error);
+
+
+res.status(500).json({
+
+success:false,
+
+message:"Server Error"
+
+});
+
+}
+
+
 });
 const PORT = process.env.PORT || 5000;
 app.use("/api/tickets", ticketRoutes);
