@@ -13,14 +13,14 @@ function ProjectProgress() {
             try {
 
                 const token =
-                    localStorage.getItem("clientToken");
+                    localStorage.getItem("token");
 
 
                 const res = await fetch(
                     "https://ods-network-backend.onrender.com/api/client/milestones",
                     {
                         headers: {
-                            Authorization: `Bearer ${clientToken}`
+                            Authorization: `Bearer ${token}`
                         }
                     }
                 );
