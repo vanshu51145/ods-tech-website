@@ -2,6 +2,19 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
 import { CSVLink } from "react-csv";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
 
 
 function AdminDashboard() {
@@ -11,6 +24,10 @@ function AdminDashboard() {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [analytics, setAnalytics] = useState({
+    leadAnalytics: {},
+    ticketAnalytics: {},
+  });
   const headers = [
     { label: "Name", key: "name" },
     { label: "Email", key: "email" },
@@ -31,6 +48,37 @@ function AdminDashboard() {
     localStorage.removeItem("token");
     navigate("/admin/login");
   };
+  const leadData = [
+    {
+      name: "New",
+      value: analytics.leadAnalytics.New || 0,
+    },
+    {
+      name: "Contacted",
+      value: analytics.leadAnalytics.Contacted || 0,
+    },
+    {
+      name: "Converted",
+      value: analytics.leadAnalytics.Converted || 0,
+    },
+  ];
+
+  const ticketData = [
+    {
+      status: "Open",
+      count: analytics.ticketAnalytics.Open || 0,
+    },
+    {
+      status: "In Progress",
+      count: analytics.ticketAnalytics["In Progress"] || 0,
+    },
+    {
+      status: "Resolved",
+      count: analytics.ticketAnalytics.Resolved || 0,
+    },
+  ];
+
+  const COLORS = ["#2563eb", "#f59e0b", "#10b981"];
   const updateStatus = async (id, status) => {
     try {
       const response = await fetch(
@@ -48,6 +96,7 @@ function AdminDashboard() {
       const data = await response.json();
 
       if (data.success) {
+
         setContacts((prev) =>
           prev.map((contact) =>
             contact._id === id
@@ -55,6 +104,9 @@ function AdminDashboard() {
               : contact
           )
         );
+
+        fetchAnalytics();
+
       } else {
         alert(data.message);
       }
@@ -63,7 +115,26 @@ function AdminDashboard() {
       alert("Failed to update status");
     }
   };
+  const fetchAnalytics = async () => {
+    try {
+      const response = await fetch(
+        "https://ods-network-backend.onrender.com/api/admin/analytics",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
+      const data = await response.json();
+
+      if (data.success) {
+        setAnalytics(data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -116,6 +187,7 @@ function AdminDashboard() {
 
     fetchContacts();
     fetchTickets();
+    fetchAnalytics();
   }, []);
 
   return (
@@ -262,6 +334,74 @@ function AdminDashboard() {
             <h3>Manage Invoices</h3>
             <h1>🧾</h1>
           </div>
+        </div>
+        <div className="analytics-header">
+          <h2>Analytics Dashboard</h2>
+          <p>Overview of Leads and Support Tickets</p>
+        </div>
+        <div className="charts-container">
+
+          <div className="chart-card">
+
+            <h2>Lead Analytics</h2>
+
+            <ResponsiveContainer width="100%" height={320}>
+              <PieChart>
+                <Pie
+                  data={leadData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={90}
+                  label={({ name, percent }) =>
+                    `${name} ${(percent * 100).toFixed(0)}%`
+                  }
+                >
+                  {leadData.map((entry, index) => (
+                    <Cell
+                      key={index}
+                      fill={COLORS[index]}
+                    />
+                  ))}
+                </Pie>
+
+                <Tooltip />
+                <Legend />
+
+              </PieChart>
+            </ResponsiveContainer>
+
+          </div>
+
+          <div className="chart-card">
+
+            <h2>Support Tickets</h2>
+
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart data={ticketData}>
+
+                <CartesianGrid strokeDasharray="3 3" />
+
+                <XAxis dataKey="status" />
+
+                <YAxis />
+
+                <Tooltip />
+
+                <Legend />
+
+                <Bar
+                  dataKey="count"
+                  radius={[8, 8, 0, 0]}
+                  fill="#2563eb"
+                />
+
+              </BarChart>
+            </ResponsiveContainer>
+
+          </div>
+
         </div>
 
         <div className="table-container" id="messages">
