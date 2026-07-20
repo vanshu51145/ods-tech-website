@@ -39,7 +39,7 @@ function ClientLogin() {
 
     if (data.success) {
 
-      localStorage.setItem("clientToken", data.token);
+      localStorage.setItem("token", data.token);
 
       localStorage.setItem(
         "client",
