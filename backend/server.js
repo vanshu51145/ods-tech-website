@@ -25,6 +25,7 @@ const Client = require("./models/Client");
 const Ticket = require("./models/Ticket");
 const Milestone = require("./models/Milestone");
 const TeamMember = require("./models/TeamMember");
+const Notification = require("./models/Notification");
 
 const app = express();
 
@@ -174,7 +175,10 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
     await newContact.save();
 
 
-
+    await Notification.create({
+      message: `New lead received from ${name}`,
+      type: "Lead",
+    });
     try {
       await transporter.sendMail({
         from: process.env.EMAIL_USER,
@@ -1266,7 +1270,7 @@ app.get(
 
 
   });
-  app.get("/api/team", async (req, res) => {
+app.get("/api/team", async (req, res) => {
   try {
     const teamMembers = await TeamMember.find()
       .sort({ createdAt: -1 });
@@ -1467,6 +1471,68 @@ app.put(
     } catch (error) {
 
       console.log("UPDATE TEAM ERROR:", error);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+app.get("/api/admin/notifications", auth, async (req, res) => {
+  try {
+    const notifications = await Notification.find()
+      .sort({ createdAt: -1 })
+      .limit(20);
+
+    const unreadCount = await Notification.countDocuments({
+      isRead: false,
+    });
+
+    res.json({
+      success: true,
+      notifications,
+      unreadCount,
+    });
+  } catch (error) {
+    console.log("NOTIFICATION ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.put(
+  "/api/admin/notifications/:id/read",
+  auth,
+  async (req, res) => {
+    try {
+      const notification =
+        await Notification.findByIdAndUpdate(
+          req.params.id,
+          {
+            isRead: true,
+          },
+          {
+            new: true,
+          }
+        );
+
+      if (!notification) {
+        return res.status(404).json({
+          success: false,
+          message: "Notification not found",
+        });
+      }
+
+      res.json({
+        success: true,
+        message: "Notification marked as read",
+        notification,
+      });
+    } catch (error) {
+      console.log("READ NOTIFICATION ERROR:", error);
 
       res.status(500).json({
         success: false,

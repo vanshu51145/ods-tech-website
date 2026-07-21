@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Ticket = require("../models/Ticket");
+const Notification = require("../models/Notification");
 const auth = require("../middleware/auth");
 const clientAuth = require("../middleware/clientAuth");
 
@@ -30,7 +31,10 @@ const ticket = new Ticket({
   priority: req.body.priority,
 });
     await ticket.save();
-
+await Notification.create({
+  message: `New support ticket received: ${ticket.subject}`,
+  type: "Ticket",
+});
     res.status(201).json({
       success: true,
       message: "Ticket created successfully",
