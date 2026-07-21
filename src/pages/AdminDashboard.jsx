@@ -19,13 +19,14 @@ import {
 
 function AdminDashboard() {
   const navigate = useNavigate();
-  const [notifications, setNotifications] = useState([]);
-  const [notificationOpen, setNotificationOpen] = useState(false);
+  
 
   const [contacts, setContacts] = useState([]);
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [notificationOpen, setNotificationOpen] = useState(false);
   const [analytics, setAnalytics] = useState({
     leadAnalytics: {},
     ticketAnalytics: {},
@@ -284,12 +285,12 @@ function AdminDashboard() {
             🧾 Manage Invoices
           </li>
           <li
-            onClick={() => navigate("admin/milestones")}
+            onClick={() => navigate("/admin/milestones")}
           >
             📊 Project Milestones
           </li>
           <li
-            onClick={() => navigate("admin/team")}
+            onClick={() => navigate("/admin/team")}
           >
             Manage Team
           </li>
