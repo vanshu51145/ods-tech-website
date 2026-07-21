@@ -143,7 +143,7 @@ function AdminDashboard() {
   const markNotificationAsRead = async (id) => {
     try {
       const response = await fetch(
-        `https://ods-network-backend.onrender.com/api/admin/notifications/${id}`,
+        `https://ods-network-backend.onrender.com/api/admin/notifications/${id}/read`,
         {
           method: "PUT",
           headers: {
@@ -153,6 +153,7 @@ function AdminDashboard() {
       );
 
       const data = await response.json();
+    console.log("Mark Read Response:", data);
 
       if (data.success) {
         setNotifications((prev) =>
