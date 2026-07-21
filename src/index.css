@@ -662,3 +662,194 @@ width:100%;
 }
 
 }
+/* =========================
+   TEAM SECTION
+========================= */
+
+.team-section {
+  margin-top: 80px;
+  padding: 70px 20px;
+  background: #f8fafc;
+  border-radius: 20px;
+}
+
+.team-heading {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.team-heading h2 {
+  margin-bottom: 10px;
+  font-size: 36px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.team-heading p {
+  color: #64748b;
+  font-size: 16px;
+}
+
+
+/* Team Grid */
+
+.team-grid {
+  max-width: 1150px;
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(250px, 1fr));
+
+  gap: 28px;
+}
+
+
+/* Team Card */
+
+.team-card {
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  overflow: hidden;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 8px 25px rgba(15, 23, 42, 0.07);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 15px 35px rgba(15, 23, 42, 0.12);
+}
+
+
+/* Profile Image */
+
+.team-card img {
+  width: 100%;
+  height: 270px;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+/* Content */
+
+.team-card-content {
+  padding: 25px;
+
+  text-align: center;
+}
+
+.team-card-content h3 {
+  margin: 0 0 8px;
+
+  font-size: 22px;
+
+  color: #1e293b;
+}
+
+.team-designation {
+  margin-bottom: 15px;
+
+  color: #2563eb;
+
+  font-size: 15px;
+
+  font-weight: 600;
+}
+
+.team-bio {
+  margin-bottom: 18px;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* LinkedIn */
+
+.linkedin-link {
+  display: inline-block;
+
+  color: #2563eb;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.linkedin-link:hover {
+  text-decoration: underline;
+}
+
+
+/* Empty State */
+
+.no-team-members {
+  grid-column: 1 / -1;
+
+  text-align: center;
+
+  padding: 30px;
+
+  color: #64748b;
+
+  font-size: 16px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .team-section {
+    margin-top: 60px;
+    padding: 50px 20px;
+  }
+
+  .team-heading h2 {
+    font-size: 30px;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .team-section {
+    padding: 40px 15px;
+  }
+
+  .team-heading h2 {
+    font-size: 26px;
+  }
+
+  .team-card img {
+    height: 250px;
+  }
+
+}
