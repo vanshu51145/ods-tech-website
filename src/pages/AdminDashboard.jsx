@@ -121,7 +121,7 @@ function AdminDashboard() {
   const fetchNotifications = async () => {
     try {
       const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/notifications",
+        "https://ods-network-backend.onrender.com/api/admin/notifications",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -143,7 +143,7 @@ function AdminDashboard() {
   const markNotificationAsRead = async (id) => {
     try {
       const response = await fetch(
-        `https://ods-network-backend.onrender.com/api/notifications/${id}`,
+        `https://ods-network-backend.onrender.com/api/admin/notifications/${id}`,
         {
           method: "PUT",
           headers: {
