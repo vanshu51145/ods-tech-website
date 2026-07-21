@@ -19,6 +19,8 @@ import {
 
 function AdminDashboard() {
   const navigate = useNavigate();
+  const [notifications, setNotifications] = useState([]);
+  const [notificationOpen, setNotificationOpen] = useState(false);
 
   const [contacts, setContacts] = useState([]);
   const [tickets, setTickets] = useState([]);
@@ -115,6 +117,55 @@ function AdminDashboard() {
       alert("Failed to update status");
     }
   };
+  const fetchNotifications = async () => {
+    try {
+      const response = await fetch(
+        "https://ods-network-backend.onrender.com/api/notifications",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setNotifications(data.notifications || []);
+      }
+    } catch (error) {
+      console.log("Notification Error:", error);
+    }
+  };
+
+
+  const markNotificationAsRead = async (id) => {
+    try {
+      const response = await fetch(
+        `https://ods-network-backend.onrender.com/api/notifications/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setNotifications((prev) =>
+          prev.map((notification) =>
+            notification._id === id
+              ? { ...notification, isRead: true }
+              : notification
+          )
+        );
+      }
+    } catch (error) {
+      console.log("Mark Read Error:", error);
+    }
+  };
   const fetchAnalytics = async () => {
     try {
       const response = await fetch(
@@ -188,6 +239,7 @@ function AdminDashboard() {
     fetchContacts();
     fetchTickets();
     fetchAnalytics();
+    fetchNotifications();
   }, []);
 
   return (
@@ -234,37 +286,123 @@ function AdminDashboard() {
           <li
             onClick={() => navigate("admin/milestones")}
           >
-           📊 Project Milestones
+            📊 Project Milestones
           </li>
-           <li
+          <li
             onClick={() => navigate("admin/team")}
           >
-           Manage Team
+            Manage Team
           </li>
         </ul>
       </div>
 
       <div className="main-content">
-        <div className="topbar">
+<div className="topbar">
 
-          <button
-            className="menu-btn"
-            onClick={() => setMenuOpen(true)}
-          >
-            ☰
-          </button>
+  <button
+    className="menu-btn"
+    onClick={() => setMenuOpen(true)}
+  >
+    ☰
+  </button>
 
-          <h1>Admin Dashboard</h1>
+  <h1>Admin Dashboard</h1>
 
-          <button
-            className="logout-btn"
-            onClick={logout}
-          >
-            Logout
-          </button>
+  <div className="topbar-actions">
+
+    <div className="notification-wrapper">
+
+      <button
+        className="notification-btn"
+        onClick={() =>
+          setNotificationOpen(!notificationOpen)
+        }
+      >
+        🔔
+
+        {notifications.filter(
+          (notification) => !notification.isRead
+        ).length > 0 && (
+          <span className="notification-badge">
+            {
+              notifications.filter(
+                (notification) => !notification.isRead
+              ).length
+            }
+          </span>
+        )}
+      </button>
+
+
+      {notificationOpen && (
+
+        <div className="notification-dropdown">
+
+          <div className="notification-header">
+            <h3>Notifications</h3>
+          </div>
+
+          {notifications.length === 0 ? (
+
+            <p className="no-notifications">
+              No notifications
+            </p>
+
+          ) : (
+
+            notifications.map((notification) => (
+
+              <div
+                key={notification._id}
+                className={`notification-item ${
+                  notification.isRead
+                    ? "read"
+                    : "unread"
+                }`}
+                onClick={() =>
+                  markNotificationAsRead(
+                    notification._id
+                  )
+                }
+              >
+
+                <strong>
+                  {notification.type}
+                </strong>
+
+                <p>
+                  {notification.message}
+                </p>
+
+                <small>
+                  {new Date(
+                    notification.createdAt
+                  ).toLocaleString()}
+                </small>
+
+              </div>
+
+            ))
+
+          )}
 
         </div>
 
+      )}
+
+    </div>
+
+
+    <button
+      className="logout-btn"
+      onClick={logout}
+    >
+      Logout
+    </button>
+
+  </div>
+
+</div>
         <div className="cards">
           <div className="card">
             <h3>Total Messages</h3>
@@ -345,7 +483,7 @@ function AdminDashboard() {
             <h1>🧾</h1>
 
           </div>
-           <div
+          <div
             className="card"
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/admin/milestones")}
@@ -354,13 +492,13 @@ function AdminDashboard() {
             <h1>📊</h1>
 
           </div>
-         <div
+          <div
             className="card"
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/admin/team")}
           >
             <h3>Manage Team</h3>
-  <p>Add, edit and manage team members</p>
+            <p>Add, edit and manage team members</p>
 
           </div>
         </div>
@@ -448,64 +586,64 @@ function AdminDashboard() {
             </CSVLink>
 
           </div>
-<div className="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Service</th>
-                <th>Message</th>
-                <th>Date</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {loading ? (
+          <div className="table-scroll">
+            <table>
+              <thead>
                 <tr>
-                  <td colSpan="5">Loading...</td>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Service</th>
+                  <th>Message</th>
+                  <th>Date</th>
+                  <th>Status</th>
                 </tr>
-              ) : contacts.length === 0 ? (
-                <tr>
-                  <td colSpan="5">No Messages Found</td>
-                </tr>
-              ) : (
-                contacts.map((contact) => (
-                  <tr key={contact._id}>
-                    <td>{contact.name}</td>
+              </thead>
 
-                    <td>{contact.email}</td>
-                    <td>{contact.serviceRequested}</td>
-
-                    <td>
-                      {contact.message.length > 50
-                        ? contact.message.substring(0, 50) + "..."
-                        : contact.message}
-                    </td>
-
-                    <td>
-                      {new Date(
-                        contact.createdAt
-                      ).toLocaleDateString()}
-                    </td>
-                    <td>
-                      <select
-                        value={contact.status}
-                        onChange={(e) =>
-                          updateStatus(contact._id, e.target.value)
-                        }
-                      >
-                        <option value="New">New</option>
-                        <option value="Contacted">Contacted</option>
-                        <option value="Converted">Converted</option>
-                      </select>
-                    </td>
+              <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan="5">Loading...</td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : contacts.length === 0 ? (
+                  <tr>
+                    <td colSpan="5">No Messages Found</td>
+                  </tr>
+                ) : (
+                  contacts.map((contact) => (
+                    <tr key={contact._id}>
+                      <td>{contact.name}</td>
+
+                      <td>{contact.email}</td>
+                      <td>{contact.serviceRequested}</td>
+
+                      <td>
+                        {contact.message.length > 50
+                          ? contact.message.substring(0, 50) + "..."
+                          : contact.message}
+                      </td>
+
+                      <td>
+                        {new Date(
+                          contact.createdAt
+                        ).toLocaleDateString()}
+                      </td>
+                      <td>
+                        <select
+                          value={contact.status}
+                          onChange={(e) =>
+                            updateStatus(contact._id, e.target.value)
+                          }
+                        >
+                          <option value="New">New</option>
+                          <option value="Contacted">Contacted</option>
+                          <option value="Converted">Converted</option>
+                        </select>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
