@@ -236,6 +236,11 @@ function AdminDashboard() {
           >
            📊 Project Milestones
           </li>
+           <li
+            onClick={() => navigate("admin/team")}
+          >
+           Manage Team
+          </li>
         </ul>
       </div>
 
@@ -349,7 +354,15 @@ function AdminDashboard() {
             <h1>📊</h1>
 
           </div>
+         <div
+            className="card"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/admin/team")}
+          >
+            <h3>Manage Team</h3>
+  <p>Add, edit and manage team members</p>
 
+          </div>
         </div>
         <div className="analytics-header">
           <h2>Analytics Dashboard</h2>

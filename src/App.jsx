@@ -34,6 +34,7 @@ import AdminInvoices from "./pages/AdminInvoices";
 import WhatsAppWidget from "./components/WhatsAppWidget";
 import ProjectProgress from "./pages/ProjectProgress";
 import AdminProjectMilestones from "./pages/AdminProjectMilestones";
+import AdminTeam from "./pages/AdminTeam";
 function App() {
 
   const location = useLocation();
@@ -150,6 +151,11 @@ function App() {
         <Route 
  path="/admin/milestones"
  element={<AdminProjectMilestones/>}
+/>
+
+<Route
+  path="/admin/team"
+  element={<AdminTeam />}
 />
         <Route path="*" element={<NotFound />} />
 

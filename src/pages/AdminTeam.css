@@ -1,0 +1,503 @@
+/* ================================
+   ADMIN TEAM PAGE
+================================ */
+
+.team-admin-page {
+    min-height: 100vh;
+    padding: 40px;
+    background: #f4f7fc;
+}
+
+
+/* ================================
+   PAGE HEADER
+================================ */
+
+.team-page-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px;
+    margin-bottom: 40px;
+}
+
+.team-page-header h1 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 700;
+    color: #2563eb;
+    text-align: center;
+}
+
+
+/* Dashboard Button */
+
+.team-page-header .dashboard-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    padding: 11px 24px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.team-page-header .dashboard-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-50%) translateY(-2px);
+}
+
+
+/* ================================
+   TEAM FORM
+================================ */
+
+.team-form {
+    max-width: 850px;
+    margin: 0 auto 55px;
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.team-form h2 {
+    margin: 0 0 5px;
+
+    font-size: 24px;
+    color: #1e293b;
+
+    text-align: center;
+}
+
+
+/* Inputs */
+
+.team-form input,
+.team-form textarea {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    background: #ffffff;
+
+    transition: all 0.3s ease;
+}
+
+.team-form input:focus,
+.team-form textarea:focus {
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.team-form textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+
+/* File Input */
+
+.team-form input[type="file"] {
+    padding: 10px;
+
+    cursor: pointer;
+
+    background: #f8fafc;
+}
+
+
+/* ================================
+   FORM BUTTONS
+================================ */
+
+.form-buttons {
+    display: flex;
+    gap: 12px;
+
+    margin-top: 5px;
+}
+
+.save-team-btn,
+.cancel-btn {
+    flex: 1;
+
+    padding: 13px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.save-team-btn {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.save-team-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.cancel-btn:hover {
+    background: #d1d5db;
+}
+
+
+/* ================================
+   TEAM LIST HEADING
+================================ */
+
+.team-list-title {
+    margin: 0 0 25px;
+
+    font-size: 28px;
+
+    color: #1e293b;
+
+    text-align: center;
+}
+
+
+/* ================================
+   TEAM GRID
+================================ */
+
+.team-admin-grid {
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 25px;
+}
+
+
+/* ================================
+   TEAM CARD
+================================ */
+
+.team-admin-card {
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.08);
+
+    transition: all 0.3s ease;
+}
+
+.team-admin-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 30px rgba(37, 99, 235, 0.15);
+}
+
+
+/* Team Image */
+
+.team-admin-card img {
+    width: 100%;
+
+    height: 260px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* Card Content */
+
+.team-card-content {
+    padding: 22px;
+}
+
+.team-card-content h3 {
+    margin: 0 0 7px;
+
+    font-size: 22px;
+
+    color: #1e3a8a;
+}
+
+.team-card-content .designation {
+    margin: 0 0 12px;
+
+    color: #2563eb;
+
+    font-size: 15px;
+
+    font-weight: 600;
+}
+
+.team-card-content p {
+    margin: 8px 0;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* LinkedIn */
+
+.team-card-content a {
+    display: inline-block;
+
+    margin-top: 8px;
+
+    color: #2563eb;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.team-card-content a:hover {
+    text-decoration: underline;
+}
+
+
+/* ================================
+   ACTION BUTTONS
+================================ */
+
+.team-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.edit-btn,
+.delete-btn {
+    flex: 1;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.edit-btn {
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+.edit-btn:hover {
+    background: #1d4ed8;
+}
+
+.delete-btn {
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+.delete-btn:hover {
+    background: #fecaca;
+}
+
+
+/* ================================
+   NO TEAM MESSAGE
+================================ */
+
+.no-team {
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 40px;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    color: #64748b;
+
+    border: 1px solid #e5e7eb;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 768px) {
+
+    .team-admin-page {
+        padding: 25px 20px;
+    }
+
+    .team-page-header {
+        flex-direction: column;
+
+        gap: 18px;
+
+        min-height: auto;
+    }
+
+    .team-page-header h1 {
+        font-size: 34px;
+    }
+
+    .team-page-header .dashboard-btn {
+        position: static;
+
+        transform: none;
+
+        width: 220px;
+    }
+
+    .team-page-header .dashboard-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .team-form {
+        padding: 25px;
+
+        margin-bottom: 40px;
+    }
+
+    .team-admin-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+    }
+
+    .team-admin-card img {
+        height: 220px;
+    }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 520px) {
+
+    .team-admin-page {
+        padding: 20px 15px;
+    }
+
+    .team-page-header h1 {
+        font-size: 28px;
+    }
+
+    .team-page-header .dashboard-btn {
+        width: 100%;
+
+        max-width: 220px;
+    }
+
+    .team-form {
+        padding: 20px;
+
+        border-radius: 12px;
+    }
+
+    .team-form h2 {
+        font-size: 21px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .team-admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-admin-card img {
+        height: 240px;
+    }
+
+    .team-list-title {
+        font-size: 24px;
+    }
+
+    .team-actions {
+        flex-direction: column;
+    }
+
+}

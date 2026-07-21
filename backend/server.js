@@ -24,7 +24,7 @@ const clientAuth = require("./middleware/clientAuth");
 const Client = require("./models/Client");
 const Ticket = require("./models/Ticket");
 const Milestone = require("./models/Milestone");
-
+const TeamMember = require("./models/TeamMember");
 
 const app = express();
 
@@ -1266,6 +1266,215 @@ app.get(
 
 
   });
+  app.get("/api/team", async (req, res) => {
+  try {
+    const teamMembers = await TeamMember.find()
+      .sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      teamMembers,
+    });
+
+  } catch (error) {
+    console.log("GET TEAM ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.post(
+  "/api/team",
+  auth,
+  Upload.single("profileImage"),
+  async (req, res) => {
+    try {
+
+      const name = xss(req.body.name);
+      const designation = xss(req.body.designation);
+      const bio = xss(req.body.bio);
+      const linkedinUrl = xss(req.body.linkedinUrl || "");
+
+      if (!name || !designation || !bio) {
+        return res.status(400).json({
+          success: false,
+          message: "Name, designation and bio are required",
+        });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Profile image is required",
+        });
+      }
+
+      const uploadStream =
+        cloudinary.uploader.upload_stream(
+          {
+            folder: "ods-team",
+          },
+          async (error, result) => {
+
+            if (error) {
+              console.log("CLOUDINARY ERROR:", error);
+
+              return res.status(500).json({
+                success: false,
+                message: "Profile Image Upload Failed",
+              });
+            }
+
+            const teamMember = new TeamMember({
+              name,
+              designation,
+              bio,
+              profileImage: result.secure_url,
+              linkedinUrl,
+            });
+
+            await teamMember.save();
+
+            res.status(201).json({
+              success: true,
+              message: "Team Member Added Successfully",
+              teamMember,
+            });
+          }
+        );
+
+      streamifier
+        .createReadStream(req.file.buffer)
+        .pipe(uploadStream);
+
+    } catch (error) {
+
+      console.log("ADD TEAM ERROR:", error);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+
+app.delete("/api/team/:id", auth, async (req, res) => {
+  try {
+
+    const teamMember =
+      await TeamMember.findByIdAndDelete(req.params.id);
+
+    if (!teamMember) {
+      return res.status(404).json({
+        success: false,
+        message: "Team Member not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Team Member Deleted Successfully",
+    });
+
+  } catch (error) {
+
+    console.log("DELETE TEAM ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+app.put(
+  "/api/team/:id",
+  auth,
+  Upload.single("profileImage"),
+  async (req, res) => {
+    try {
+
+      const teamMember =
+        await TeamMember.findById(req.params.id);
+
+      if (!teamMember) {
+        return res.status(404).json({
+          success: false,
+          message: "Team Member not found",
+        });
+      }
+
+      teamMember.name =
+        xss(req.body.name);
+
+      teamMember.designation =
+        xss(req.body.designation);
+
+      teamMember.bio =
+        xss(req.body.bio);
+
+      teamMember.linkedinUrl =
+        xss(req.body.linkedinUrl || "");
+
+
+      // If new image uploaded
+      if (req.file) {
+
+        const uploadStream =
+          cloudinary.uploader.upload_stream(
+            {
+              folder: "ods-team",
+            },
+            async (error, result) => {
+
+              if (error) {
+                return res.status(500).json({
+                  success: false,
+                  message: "Profile Image Upload Failed",
+                });
+              }
+
+              teamMember.profileImage =
+                result.secure_url;
+
+              await teamMember.save();
+
+              res.json({
+                success: true,
+                message: "Team Member Updated Successfully",
+                teamMember,
+              });
+            }
+          );
+
+        return streamifier
+          .createReadStream(req.file.buffer)
+          .pipe(uploadStream);
+      }
+
+
+      // If image not changed
+      await teamMember.save();
+
+      res.json({
+        success: true,
+        message: "Team Member Updated Successfully",
+        teamMember,
+      });
+
+    } catch (error) {
+
+      console.log("UPDATE TEAM ERROR:", error);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
 const PORT = process.env.PORT || 5000;
 app.use("/api/tickets", ticketRoutes);
 app.use("/api/client", clientRoutes);
