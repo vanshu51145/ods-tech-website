@@ -7,6 +7,8 @@ function AdminTeam() {
   const navigate = useNavigate();
 
   const [teamMembers, setTeamMembers] = useState([]);
+  const adminRole = localStorage.getItem("adminRole");
+const isSuperAdmin = adminRole === "SuperAdmin";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -255,7 +257,7 @@ function AdminTeam() {
         <button
           className="dashboard-btn"
           onClick={() =>
-            navigate("/admin")
+            navigate("/admin/dashboard")
           }
         >
           Dashboard
@@ -425,7 +427,7 @@ function AdminTeam() {
                     Edit
                   </button>
 
-
+{isSuperAdmin && (
                   <button
                     className="delete-btn"
                     onClick={() =>
@@ -433,7 +435,7 @@ function AdminTeam() {
                     }
                   >
                     Delete
-                  </button>
+                  </button>)}
 
                 </div>
 

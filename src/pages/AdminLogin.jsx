@@ -50,6 +50,8 @@ function AdminLogin() {
       if (data.success) {
 
         localStorage.setItem("token", data.token);
+          localStorage.setItem("adminRole", data.role);
+
 
         toast.success("Login Successful");
 

@@ -3,6 +3,8 @@ import "./AdminTestimonials.css";
 import { useNavigate } from "react-router-dom";
 function AdminTestimonials() {
   const [testimonials, setTestimonials] = useState([]);
+  const adminRole = localStorage.getItem("adminRole");
+const isSuperAdmin = adminRole === "SuperAdmin";
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -142,13 +144,14 @@ localStorage.getItem("token")
                       Approve
                     </button>
                   )}
-
+{isSuperAdmin && (
                   <button
                     className="delete-btn"
                     onClick={() => deleteReview(item._id)}
                   >
                     Delete
                   </button>
+)}
 
                 </td>
 
