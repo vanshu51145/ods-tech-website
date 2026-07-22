@@ -2056,27 +2056,3 @@ body.dark-mode .testimonial-section h3 {
   }
 
 }
-body.dark-mode .milestone-card,
-body.dark-mode .milestone,
-body.dark-mode .progress-card {
-  background: #1e293b !important;
-  color: #f8fafc !important;
-}
-
-body.dark-mode .milestone-card h3,
-body.dark-mode .milestone h3,
-body.dark-mode .progress-card h3 {
-  color: #60a5fa !important;
-}
-
-body.dark-mode .milestone-card p,
-body.dark-mode .milestone p,
-body.dark-mode .progress-card p {
-  color: #cbd5e1 !important;
-}
-
-body.dark-mode .milestone-card div,
-body.dark-mode .milestone div,
-body.dark-mode .progress-card div {
-  color: #cbd5e1 !important;
-}
