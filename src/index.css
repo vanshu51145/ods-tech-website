@@ -3859,3 +3859,202 @@ body.dark-mode .secondary-btn:hover {
   }
 
 }
+/* =====================================================
+   FINAL DARK MODE FIX - ACTUAL VISIBLE COMPONENTS
+===================================================== */
+
+
+/* =========================
+   PROJECT PROGRESS
+========================= */
+
+body.dark-mode .project-progress,
+body.dark-mode .progress-page,
+body.dark-mode .progress-container {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+/* Main Progress Title */
+body.dark-mode .project-progress h1,
+body.dark-mode .progress-page h1,
+body.dark-mode .progress-container h1 {
+  color: #f8fafc !important;
+}
+
+/* Progress Cards */
+body.dark-mode .milestone-card,
+body.dark-mode .progress-card,
+body.dark-mode .milestone,
+body.dark-mode .progress-item {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Card Headings */
+body.dark-mode .milestone-card h3,
+body.dark-mode .progress-card h3,
+body.dark-mode .milestone h3,
+body.dark-mode .progress-item h3 {
+  color: #f8fafc !important;
+}
+
+/* Card Paragraph */
+body.dark-mode .milestone-card p,
+body.dark-mode .progress-card p,
+body.dark-mode .milestone p,
+body.dark-mode .progress-item p {
+  color: #cbd5e1 !important;
+}
+
+/* Due Date */
+body.dark-mode .milestone-card small,
+body.dark-mode .progress-card small,
+body.dark-mode .milestone small,
+body.dark-mode .progress-item small {
+  color: #94a3b8 !important;
+}
+
+
+/* =========================
+   GENERIC PROGRESS CARD FIX
+   If card has direct white background
+========================= */
+
+body.dark-mode [class*="milestone"],
+body.dark-mode [class*="progress-card"] {
+  color: #f8fafc;
+}
+
+body.dark-mode [class*="milestone"] h1,
+body.dark-mode [class*="milestone"] h2,
+body.dark-mode [class*="milestone"] h3,
+body.dark-mode [class*="milestone"] h4,
+body.dark-mode [class*="progress-card"] h1,
+body.dark-mode [class*="progress-card"] h2,
+body.dark-mode [class*="progress-card"] h3,
+body.dark-mode [class*="progress-card"] h4 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode [class*="milestone"] p,
+body.dark-mode [class*="progress-card"] p {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================
+   PROJECTS PAGE CTA
+========================= */
+
+body.dark-mode .projects-cta,
+body.dark-mode .project-cta,
+body.dark-mode .projects-page-cta {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+}
+
+body.dark-mode .projects-cta h2,
+body.dark-mode .project-cta h2,
+body.dark-mode .projects-page-cta h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .projects-cta p,
+body.dark-mode .project-cta p,
+body.dark-mode .projects-page-cta p {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================
+   BLOG PAGE CTA
+========================= */
+
+body.dark-mode .blogs-cta,
+body.dark-mode .blog-cta,
+body.dark-mode .blogs-page-cta {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+}
+
+body.dark-mode .blogs-cta h2,
+body.dark-mode .blog-cta h2,
+body.dark-mode .blogs-page-cta h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .blogs-cta p,
+body.dark-mode .blog-cta p,
+body.dark-mode .blogs-page-cta p {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================
+   ALL COMMON CTA BOXES
+========================= */
+
+body.dark-mode .cta-section,
+body.dark-mode .cta-container,
+body.dark-mode .bottom-cta {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+body.dark-mode .cta-section h2,
+body.dark-mode .cta-container h2,
+body.dark-mode .bottom-cta h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .cta-section p,
+body.dark-mode .cta-container p,
+body.dark-mode .bottom-cta p {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================
+   FAQ WHITE BOX FIX
+========================= */
+
+body.dark-mode .faq-item,
+body.dark-mode .faq-question,
+body.dark-mode .faq-answer {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+body.dark-mode .faq-item p,
+body.dark-mode .faq-answer p {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================
+   TESTIMONIAL WHITE BOX FIX
+========================= */
+
+body.dark-mode .testimonial-card,
+body.dark-mode .testimonial-item {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+body.dark-mode .testimonial-card h3,
+body.dark-mode .testimonial-item h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .testimonial-card p,
+body.dark-mode .testimonial-item p {
+  color: #cbd5e1 !important;
+}
