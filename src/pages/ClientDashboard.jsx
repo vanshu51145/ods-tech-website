@@ -12,7 +12,7 @@ function ClientDashboard() {
 
   const logout = () => {
 
-    localStorage.removeItem("token");
+    localStorage.removeItem("token", data.token);
     localStorage.removeItem("client");
 
     navigate("/client/login");

@@ -854,6 +854,18 @@ width:100%;
 
 }
 /* =========================
+   Hamburger
+========================= */
+
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+
+/* =========================
    Dark Mode Toggle
 ========================= */
 
@@ -908,10 +920,247 @@ body.dark-mode header {
 
 @media (max-width: 768px) {
 
+  /* Hamburger visible on mobile */
+  .hamburger {
+    display: block;
+  }
+
+  /* Dark mode button */
   .dark-mode-toggle {
     margin-right: 10px;
     font-size: 20px;
   }
+
+  /* Mobile menu */
+  body.dark-mode .nav-links {
+    background: #0f172a;
+  }
+
+  body.dark-mode .nav-links a {
+    color: #f8fafc;
+  }
+
+}
+/* =================================
+   GLOBAL DARK MODE
+================================= */
+
+body.dark-mode {
+  background: #0f172a;
+  color: #f8fafc;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+
+/* =================================
+   COMMON PAGES
+================================= */
+
+body.dark-mode .page {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+body.dark-mode .page h1 {
+  color: #60a5fa;
+}
+
+
+/* =================================
+   SERVICES / COMMON CARDS
+================================= */
+
+body.dark-mode .card {
+  background: #1e293b;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .card h3 {
+  color: #60a5fa;
+}
+
+body.dark-mode .card p {
+  color: #cbd5e1;
+}
+
+body.dark-mode .card:hover {
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =================================
+   CLIENT PORTAL - LOGIN / REGISTER
+================================= */
+
+body.dark-mode .contact-form input,
+body.dark-mode .contact-form textarea,
+body.dark-mode .contact-form select {
+  background: #1e293b;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+body.dark-mode .contact-form input::placeholder,
+body.dark-mode .contact-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+body.dark-mode .contact-form input:focus,
+body.dark-mode .contact-form textarea:focus,
+body.dark-mode .contact-form select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+}
+
+body.dark-mode .contact-form select option {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+body.dark-mode .contact-form p {
+  color: #cbd5e1;
+}
+
+body.dark-mode .contact-form a {
+  color: #60a5fa;
+}
+
+
+/* =================================
+   CLIENT DASHBOARD HEADER
+================================= */
+
+body.dark-mode .page-header {
+  color: #f8fafc;
+}
+
+body.dark-mode .page-header h1 {
+  color: #60a5fa;
+}
+
+
+/* =================================
+   LOGOUT BUTTON
+================================= */
+
+body.dark-mode .logout-btn {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+}
+
+body.dark-mode .logout-btn:hover {
+  background: #b91c1c;
+}
+
+
+/* =================================
+   ABOUT / CTA SECTIONS
+================================= */
+
+body.dark-mode .about-cta,
+body.dark-mode .contact-cta {
+  background: #1e293b;
+}
+
+body.dark-mode .about-cta h2,
+body.dark-mode .contact-cta h2 {
+  color: #f8fafc;
+}
+
+body.dark-mode .about-cta p,
+body.dark-mode .contact-cta p {
+  color: #cbd5e1;
+}
+
+
+/* =================================
+   ABOUT CONTENT
+================================= */
+
+body.dark-mode .about-content p {
+  color: #cbd5e1;
+}
+
+body.dark-mode .highlight-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+
+body.dark-mode .highlight-card h3 {
+  color: #60a5fa;
+}
+
+body.dark-mode .highlight-card p {
+  color: #cbd5e1;
+}
+
+
+/* =================================
+   WHY CHOOSE US
+================================= */
+
+body.dark-mode .why-choose {
+  background: #1e293b;
+}
+
+body.dark-mode .why-choose h2 {
+  color: #60a5fa;
+}
+
+body.dark-mode .why-choose p {
+  color: #cbd5e1;
+}
+
+
+/* =================================
+   TEAM SECTION
+================================= */
+
+body.dark-mode .team-section {
+  background: #0f172a;
+}
+
+body.dark-mode .team-heading h2 {
+  color: #f8fafc;
+}
+
+body.dark-mode .team-heading p {
+  color: #94a3b8;
+}
+
+body.dark-mode .team-card {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+body.dark-mode .team-card-content h3 {
+  color: #f8fafc;
+}
+
+body.dark-mode .team-bio {
+  color: #cbd5e1;
+}
+
+
+/* =================================
+   API STATUS
+================================= */
+
+body.dark-mode .api-status {
+  background: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+
+/* =================================
+   MOBILE NAVBAR
+================================= */
+
+@media (max-width: 768px) {
 
   body.dark-mode .nav-links {
     background: #0f172a;
