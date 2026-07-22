@@ -4337,172 +4337,176 @@ body.dark-mode .careers-page .careers-cta p,
 body.dark-mode .careers-page .career-cta p {
   color: #cbd5e1 !important;
 }
-/* =========================================================
-   FINAL EXACT FIXES
-   Add at the VERY END of CSS
-========================================================= */
+/* =====================================================
+   PROJECT PROGRESS - FINAL DARK MODE
+===================================================== */
 
-
-/* =========================================================
-   1. PROJECT PROGRESS PAGE
-   Card = Dark
-   Card ke andar ka text = Visible
-========================================================= */
-
-body.dark-mode .project-progress,
-body.dark-mode .project-progress-page,
-body.dark-mode .progress-page,
-body.dark-mode .progress-container {
+body.dark-mode .progress-page {
   background: #0f172a !important;
   color: #f8fafc !important;
 }
 
-/* Progress cards */
+body.dark-mode .progress-page h1 {
+  color: #60a5fa !important;
+}
 
-body.dark-mode .project-progress .milestone-card,
-body.dark-mode .project-progress .progress-card,
-body.dark-mode .project-progress .milestone,
-body.dark-mode .progress-page .milestone-card,
-body.dark-mode .progress-page .progress-card,
-body.dark-mode .progress-container .milestone-card,
-body.dark-mode .progress-container .progress-card {
+body.dark-mode .timeline::before {
+  background: #475569 !important;
+}
+
+/* Timeline card */
+body.dark-mode .progress-page .content {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-mode .progress-page .content h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .progress-page .content p {
+  color: #cbd5e1 !important;
+}
+
+body.dark-mode .progress-page .content span {
+  color: #94a3b8 !important;
+}
+
+/* Completed circle */
+body.dark-mode .progress-page .completed .circle {
+  background: #22c55e !important;
+  color: #ffffff !important;
+}
+
+/* Pending circle */
+body.dark-mode .progress-page .pending .circle {
+  background: #64748b !important;
+  color: #f8fafc !important;
+}
+
+/* Completed card border */
+body.dark-mode .progress-page .completed .content {
+  border-left: 5px solid #22c55e !important;
+}
+
+/* Pending card border */
+body.dark-mode .progress-page .pending .content {
+  border-left: 5px solid #64748b !important;
+}
+/* =====================================================
+   CAREERS - FINAL DARK MODE FIX
+===================================================== */
+
+/* Careers page */
+body.dark-mode .page {
+  background: #0f172a !important;
+}
+
+/* Subtitle */
+body.dark-mode .career-subtitle {
+  color: #cbd5e1 !important;
+}
+
+/* Career card */
+body.dark-mode .career-card {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Job title */
+body.dark-mode .career-card h2 {
+  color: #f8fafc !important;
+}
+
+/* Job description */
+body.dark-mode .career-card p {
+  color: #cbd5e1 !important;
+}
+
+/* Internship / Full Time badge */
+body.dark-mode .career-card h4 {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+}
+
+/* Apply Now button */
+body.dark-mode .career-card button {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+}
+
+/* Career CTA */
+body.dark-mode .career-cta {
   background: #1e293b !important;
   color: #f8fafc !important;
   border: 1px solid #334155 !important;
 }
 
-/* ALL content inside progress card */
-
-body.dark-mode .project-progress .milestone-card *,
-body.dark-mode .project-progress .progress-card *,
-body.dark-mode .project-progress .milestone *,
-body.dark-mode .progress-page .milestone-card *,
-body.dark-mode .progress-page .progress-card *,
-body.dark-mode .progress-container .milestone-card *,
-body.dark-mode .progress-container .progress-card * {
-  color: #cbd5e1 !important;
-}
-
-/* Card headings */
-
-body.dark-mode .project-progress .milestone-card h3,
-body.dark-mode .project-progress .milestone-card h4,
-body.dark-mode .project-progress .progress-card h3,
-body.dark-mode .project-progress .progress-card h4,
-body.dark-mode .progress-page .milestone-card h3,
-body.dark-mode .progress-page .progress-card h3 {
+body.dark-mode .career-cta h2 {
   color: #f8fafc !important;
 }
 
-/* Due Date */
+body.dark-mode .career-cta p {
+  color: #cbd5e1 !important;
+}
 
-body.dark-mode .project-progress .milestone-card .due-date,
-body.dark-mode .project-progress .progress-card .due-date {
+/* CTA buttons */
+body.dark-mode .career-cta .primary-btn {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .career-cta .secondary-btn {
+  background: transparent !important;
+  color: #60a5fa !important;
+  border: 2px solid #60a5fa !important;
+}
+
+/* Modal */
+body.dark-mode .modal {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+}
+
+body.dark-mode .modal h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .modal input {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+  border-color: #475569 !important;
+}
+
+body.dark-mode .modal input::placeholder {
   color: #94a3b8 !important;
 }
 
+body.dark-mode .modal-buttons button {
+  color: #ffffff !important;
+}
+/* =====================================================
+   WHY CHOOSE ODS NETWORK - FINAL DARK MODE
+===================================================== */
 
-/* =========================================================
-   2. CAREERS PAGE
-   Internship badge = BLUE
-   Content = Visible
-========================================================= */
-
-body.dark-mode .careers-page .job-card,
-body.dark-mode .careers-page .career-card,
-body.dark-mode .careers-page .job-item {
+body.dark-mode .why-container .why-card {
   background: #1e293b !important;
   color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* ALL content */
+body.dark-mode .why-container .why-card h3 {
+  color: #22c55e !important;
+}
 
-body.dark-mode .careers-page .job-card *,
-body.dark-mode .careers-page .career-card *,
-body.dark-mode .careers-page .job-item * {
+body.dark-mode .why-container .why-card p {
   color: #cbd5e1 !important;
-}
-
-/* Job title */
-
-body.dark-mode .careers-page .job-card h1,
-body.dark-mode .careers-page .job-card h2,
-body.dark-mode .careers-page .job-card h3,
-body.dark-mode .careers-page .career-card h1,
-body.dark-mode .careers-page .career-card h2,
-body.dark-mode .careers-page .career-card h3 {
-  color: #f8fafc !important;
-}
-
-/* Internship badge - IMPORTANT */
-
-body.dark-mode .careers-page .job-card .internship,
-body.dark-mode .careers-page .job-card .job-type,
-body.dark-mode .careers-page .job-card .badge,
-body.dark-mode .careers-page .career-card .internship,
-body.dark-mode .careers-page .career-card .job-type,
-body.dark-mode .careers-page .career-card .badge {
-  background: #2563eb !important;
-  color: #ffffff !important;
-  border: none !important;
-}
-
-/* If Internship is a span */
-
-body.dark-mode .careers-page .job-card span {
-  background: #2563eb !important;
-  color: #ffffff !important;
-}
-
-
-/* Apply Now button */
-
-body.dark-mode .careers-page .job-card button,
-body.dark-mode .careers-page .career-card button {
-  background: #2563eb !important;
-  color: #ffffff !important;
-  border: none !important;
-}
-
-
-/* =========================================================
-   3. HOME PAGE - WHY CHOOSE ODS NETWORK
-   Tick must be BLUE
-========================================================= */
-
-/* Why Choose boxes */
-
-body.dark-mode .why-choose .why-card,
-body.dark-mode .why-choose .feature-card,
-body.dark-mode .why-choose .highlight-card {
-  background: #ffffff !important;
-}
-
-/* Tick - every possible implementation */
-
-body.dark-mode .why-choose svg {
-  color: #2563eb !important;
-  fill: #2563eb !important;
-  stroke: #2563eb !important;
-}
-
-body.dark-mode .why-choose i {
-  color: #2563eb !important;
-}
-
-body.dark-mode .why-choose .check,
-body.dark-mode .why-choose .check-icon,
-body.dark-mode .why-choose .icon,
-body.dark-mode .why-choose .tick,
-body.dark-mode .why-choose .tick-icon {
-  color: #2563eb !important;
-  background: transparent !important;
-}
-
-/* Tick inside pseudo element */
-
-body.dark-mode .why-choose .why-card::before,
-body.dark-mode .why-choose .feature-card::before,
-body.dark-mode .why-choose .highlight-card::before {
-  color: #2563eb !important;
 }
