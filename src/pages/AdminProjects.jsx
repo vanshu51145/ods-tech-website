@@ -6,6 +6,8 @@ function AdminProjects() {
   const navigate = useNavigate();
 
   const [projects, setProjects] = useState([]);
+  const adminRole = localStorage.getItem("adminRole");
+const isSuperAdmin = adminRole === "SuperAdmin";
 
   const [formData, setFormData] = useState({
     title: "",
@@ -216,12 +218,14 @@ function AdminProjects() {
                   <td>{project.description}</td>
 
                   <td>
+                    {isSuperAdmin && (
                     <button
                       className="delete-btn"
                       onClick={() => deleteProject(project._id)}
                     >
                       Delete
                     </button>
+                    )}
                   </td>
                 </tr>
               ))

@@ -6,6 +6,7 @@ const Contact = require("./models/Contact");
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const auth = require("./middleware/auth");
+const isSuperAdmin = require("./middleware/isSuperAdmin");
 const Project = require("./models/Project");
 const Upload = require("./middleware/Upload");
 const cloudinary = require("./config/cloudinary");
@@ -234,31 +235,48 @@ app.post("/api/admin/login", loginLimiter, (req, res) => {
 
   const email = xss(req.body.email);
   const password = xss(req.body.password);
+
+  let role = null;
+
+  // Super Admin Login
   if (
     email === process.env.ADMIN_EMAIL &&
     password === process.env.ADMIN_PASSWORD
   ) {
-
-    const token = jwt.sign(
-
-      { email },
-
-      process.env.JWT_SECRET,
-
-      { expiresIn: "1h" }
-
-    );
-
-    return res.json({
-      success: true,
-      token,
-    });
-
+    role = "SuperAdmin";
   }
 
-  res.status(401).json({
-    success: false,
-    message: "Invalid Credentials",
+  // Editor Login
+  else if (
+    email === process.env.EDITOR_EMAIL &&
+    password === process.env.EDITOR_PASSWORD
+  ) {
+    role = "Editor";
+  }
+
+  // Invalid Login
+  else {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid Credentials",
+    });
+  }
+
+  const token = jwt.sign(
+    {
+      email,
+      role,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "1h",
+    }
+  );
+
+  res.json({
+    success: true,
+    token,
+    role,
   });
 
 });
@@ -809,7 +827,7 @@ app.put("/api/jobs/edit/:id", auth, async (req, res) => {
   }
 });
 
-app.delete("/api/projects/:id", auth, async (req, res) => {
+app.delete("/api/projects/:id", auth, isSuperAdmin, async (req, res) => {
   try {
     await Project.findByIdAndDelete(req.params.id);
 
@@ -853,7 +871,7 @@ app.get("/api/blogs/:slug", async (req, res) => {
 
   }
 });
-app.delete("/api/blogs/:id", auth, async (req, res) => {
+app.delete("/api/blogs/:id", auth, isSuperAdmin, async (req, res) => {
   try {
     await Blog.findByIdAndDelete(req.params.id);
 
@@ -868,7 +886,7 @@ app.delete("/api/blogs/:id", auth, async (req, res) => {
     });
   }
 });
-app.delete("/api/admin/testimonials/:id", auth, async (req, res) => {
+app.delete("/api/admin/testimonials/:id", auth,  isSuperAdmin, async (req, res) => {
   try {
     await Testimonial.findByIdAndDelete(req.params.id);
 
@@ -957,6 +975,36 @@ app.post(
 
     } catch (error) {
       console.log(error);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+app.delete(
+  "/api/contact/:id",
+  auth,
+  isSuperAdmin,
+  async (req, res) => {
+    try {
+      const contact = await Contact.findByIdAndDelete(req.params.id);
+
+      if (!contact) {
+        return res.status(404).json({
+          success: false,
+          message: "Lead not found",
+        });
+      }
+
+      res.json({
+        success: true,
+        message: "Lead Deleted Successfully",
+      });
+
+    } catch (error) {
+      console.log("DELETE LEAD ERROR:", error);
 
       res.status(500).json({
         success: false,
@@ -1292,6 +1340,7 @@ app.get("/api/team", async (req, res) => {
 app.post(
   "/api/team",
   auth,
+   isSuperAdmin,
   Upload.single("profileImage"),
   async (req, res) => {
     try {
@@ -1365,7 +1414,7 @@ app.post(
   }
 );
 
-app.delete("/api/team/:id", auth, async (req, res) => {
+app.delete("/api/team/:id", auth, isSuperAdmin, async (req, res) => {
   try {
 
     const teamMember =
@@ -1533,6 +1582,36 @@ app.put(
       });
     } catch (error) {
       console.log("READ NOTIFICATION ERROR:", error);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+app.delete(
+  "/api/invoices/:id",
+  auth,
+  isSuperAdmin,
+  async (req, res) => {
+    try {
+      const invoice = await Invoice.findByIdAndDelete(req.params.id);
+
+      if (!invoice) {
+        return res.status(404).json({
+          success: false,
+          message: "Invoice not found",
+        });
+      }
+
+      res.json({
+        success: true,
+        message: "Invoice Deleted Successfully",
+      });
+
+    } catch (error) {
+      console.log("DELETE INVOICE ERROR:", error);
 
       res.status(500).json({
         success: false,

@@ -9,6 +9,8 @@ function AdminBlogs() {
   const token = localStorage.getItem("token");
 
   const [blogs, setBlogs] = useState([]);
+  const adminRole = localStorage.getItem("adminRole");
+const isSuperAdmin = adminRole === "SuperAdmin";
 
   const [formData, setFormData] = useState({
     title: "",
@@ -262,6 +264,7 @@ function AdminBlogs() {
                   <td>{blog.author}</td>
 
                   <td>
+                    {isSuperAdmin && (
                     <button
                       type="button"
                       className="delete-btn"
@@ -269,6 +272,7 @@ function AdminBlogs() {
                     >
                       Delete
                     </button>
+                    )}
                   </td>
                 </tr>
               ))

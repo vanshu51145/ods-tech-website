@@ -12,9 +12,9 @@ const Services = lazy(() => import("./pages/Services"));
 const Projects = lazy(() => import("./pages/Projects"));
 const Blogs = lazy(() => import("./pages/Blogs"));
 const Contact = lazy(() => import("./pages/Contact"));
-import NotFound from "./pages/NotFound";
+const NotFound = lazy(() => import("./pages/NotFound"));
 
-import AdminLogin from "./pages/AdminLogin";
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(
   () => import("./pages/AdminDashboard")
 );

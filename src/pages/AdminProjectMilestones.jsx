@@ -136,7 +136,7 @@ function AdminProjectMilestones() {
 
                 <button
                     className="dashboard-btn"
-                    onClick={() => navigate("/admin")}
+                    onClick={() => navigate("/admin/dashboard")}
                 >
                     Dashboard
                 </button>

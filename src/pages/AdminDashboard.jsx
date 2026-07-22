@@ -31,6 +31,11 @@ function AdminDashboard() {
     leadAnalytics: {},
     ticketAnalytics: {},
   });
+  const adminRole = localStorage.getItem("adminRole");
+const isSuperAdmin = adminRole === "SuperAdmin";
+  
+
+  
   const headers = [
     { label: "Name", key: "name" },
     { label: "Email", key: "email" },
@@ -49,6 +54,8 @@ function AdminDashboard() {
   }));
   const logout = () => {
     localStorage.removeItem("token");
+      localStorage.removeItem("adminRole");
+
     navigate("/admin/login");
   };
   const leadData = [

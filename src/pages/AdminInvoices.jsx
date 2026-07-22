@@ -8,6 +8,8 @@ function AdminInvoices() {
 
   const [clients, setClients] = useState([]);
   const [invoices, setInvoices] = useState([]);
+  const adminRole = localStorage.getItem("adminRole");
+const isSuperAdmin = adminRole === "SuperAdmin";
 
   const [formData, setFormData] = useState({
     clientId: "",
@@ -155,6 +157,32 @@ console.log("Response:", data);
       toast.error("Server Error");
     }
   };
+  const deleteInvoice = async (id) => {
+  if (!window.confirm("Delete this invoice?")) return;
+
+  try {
+    const response = await fetch(
+      `https://ods-network-backend.onrender.com/api/invoices/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      fetchInvoices();
+    } else {
+      alert(data.message);
+    }
+
+  } catch (error) {
+    console.log("Delete Invoice Error:", error);
+  }
+};
 
   return (
     <div className="page">
@@ -238,6 +266,7 @@ console.log("Response:", data);
               <th>Amount</th>
               <th>Status</th>
               <th>PDF</th>
+              <th>Action</th>
             </tr>
           </thead>
 
@@ -274,6 +303,11 @@ console.log("Response:", data);
                       Download
                     </a>
                   </td>
+                  {isSuperAdmin && (
+  <button onClick={() => deleteInvoice(invoice._id)}>
+    Delete
+  </button>
+)}
                 </tr>
               ))
             )}
