@@ -853,3 +853,68 @@ width:100%;
   }
 
 }
+/* =========================
+   Dark Mode Toggle
+========================= */
+
+.dark-mode-toggle {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+
+/* =========================
+   Dark Mode Navbar
+========================= */
+
+body.dark-mode .navbar {
+  background: #0f172a;
+}
+
+body.dark-mode .navbar a {
+  color: #f8fafc;
+}
+
+body.dark-mode .navbar a:hover {
+  color: #38bdf8;
+}
+
+body.dark-mode .dark-mode-toggle {
+  background: #1e293b;
+}
+
+
+/* =========================
+   Dark Mode Header
+========================= */
+
+body.dark-mode header {
+  background: #0f172a;
+}
+
+
+/* =========================
+   Mobile Dark Mode
+========================= */
+
+@media (max-width: 768px) {
+
+  .dark-mode-toggle {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+
+  body.dark-mode .nav-links {
+    background: #0f172a;
+  }
+
+}

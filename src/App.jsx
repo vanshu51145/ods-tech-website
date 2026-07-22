@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
@@ -40,17 +40,28 @@ const AdminSubscribers = lazy(() => import("./pages/AdminSubscribers"));
 const ClientInvoices = lazy(() => import("./pages/ClientInvoices"));
 const AdminInvoices = lazy(() => import("./pages/AdminInvoices"));
 import WhatsAppWidget from "./components/WhatsAppWidget";
-const ProjectProgress = lazy(() => import("./pages/ProjectProgress")); 
+const ProjectProgress = lazy(() => import("./pages/ProjectProgress"));
 const AdminProjectMilestones = lazy(
   () => import("./pages/AdminProjectMilestones")
-); 
+);
 const AdminTeam = lazy(
   () => import("./pages/AdminTeam")
-); 
+);
 function App() {
 
   const location = useLocation();
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("darkMode") === "true";
+  });
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      const newMode = !prev;
 
+      localStorage.setItem("darkMode", newMode);
+
+      return newMode;
+    });
+  };
   const isAdminPage = location.pathname.startsWith("/admin");
   useEffect(() => {
     ReactGA.send({
@@ -58,12 +69,20 @@ function App() {
       page: location.pathname + location.search,
     });
   }, [location]);
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", darkMode);
+  }, [darkMode]);
 
   return (
     <>
 
-      {!isAdminPage && <Navbar />}
-      <Suspense fallback={<LoadingSpinner />}>
+      {!isAdminPage && (
+        <Navbar
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+        />
+      )}     
+       <Suspense fallback={<LoadingSpinner />}>
 
         <Routes>
 

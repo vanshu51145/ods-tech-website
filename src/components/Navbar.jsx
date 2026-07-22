@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ darkMode, toggleDarkMode }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -63,11 +63,17 @@ function Navbar() {
             </Link>
           </li>
           <li><Link to="/resources" onClick={() => setMenuOpen(false)}>Resources</Link></li>
-          <li><Link to="/client/login"  onClick={() => setMenuOpen(false)}>
-  Client Portal
-</Link></li>
+          <li><Link to="/client/login" onClick={() => setMenuOpen(false)}>
+            Client Portal
+          </Link></li>
         </ul>
-
+        <button
+          className="dark-mode-toggle"
+          onClick={toggleDarkMode}
+          aria-label="Toggle dark mode"
+        >
+          {darkMode ? "☀️" : "🌙"}
+        </button>
         <div
           className="hamburger"
           onClick={() => setMenuOpen(!menuOpen)}

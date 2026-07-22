@@ -304,7 +304,9 @@ console.log("Response:", data);
                     </a>
                   </td>
                   {isSuperAdmin && (
-  <button onClick={() => deleteInvoice(invoice._id)}>
+  <button 
+                        className="delete-btn"
+onClick={() => deleteInvoice(invoice._id)}>
     Delete
   </button>
 )}

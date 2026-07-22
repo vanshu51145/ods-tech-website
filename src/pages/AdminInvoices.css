@@ -176,7 +176,23 @@
   color:#dc2626;
   font-weight:700;
 }
+.delete-btn{
 
+background:#ef4444;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+transition:.3s;
+
+}
+
+.delete-btn:hover{
+
+background:#dc2626;
+
+}
 /* Responsive */
 
 @media(max-width:768px){
