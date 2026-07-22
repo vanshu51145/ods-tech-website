@@ -47,7 +47,7 @@ if (data.success) {
 
   console.log(
     "TOKEN AFTER SAVE:",
-    localStorage.getItem("token")
+    localStorage.getItem("token", data.token)
   );
 
 
