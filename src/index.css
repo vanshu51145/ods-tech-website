@@ -853,97 +853,9 @@ width:100%;
   }
 
 }
-/* =========================
-   Hamburger
-========================= */
-
-.hamburger {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  line-height: 1;
-}
-
-
-/* =========================
-   Dark Mode Toggle
-========================= */
-
-.dark-mode-toggle {
-  border: none;
-  background: transparent;
-  font-size: 22px;
-  cursor: pointer;
-  padding: 8px 10px;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-}
-
-.dark-mode-toggle:hover {
-  transform: scale(1.1);
-}
-
-
-/* =========================
-   Dark Mode Navbar
-========================= */
-
-body.dark-mode .navbar {
-  background: #0f172a;
-}
-
-body.dark-mode .navbar a {
-  color: #f8fafc;
-}
-
-body.dark-mode .navbar a:hover {
-  color: #38bdf8;
-}
-
-body.dark-mode .dark-mode-toggle {
-  background: #1e293b;
-}
-
-
-/* =========================
-   Dark Mode Header
-========================= */
-
-body.dark-mode header {
-  background: #0f172a;
-}
-
-
-/* =========================
-   Mobile Dark Mode
-========================= */
-
-@media (max-width: 768px) {
-
-  /* Hamburger visible on mobile */
-  .hamburger {
-    display: block;
-  }
-
-  /* Dark mode button */
-  .dark-mode-toggle {
-    margin-right: 10px;
-    font-size: 20px;
-  }
-
-  /* Mobile menu */
-  body.dark-mode .nav-links {
-    background: #0f172a;
-  }
-
-  body.dark-mode .nav-links a {
-    color: #f8fafc;
-  }
-
-}
-/* =================================
-   GLOBAL DARK MODE
-================================= */
+/* =====================================================
+   COMPLETE DARK MODE
+===================================================== */
 
 body.dark-mode {
   background: #0f172a;
@@ -951,14 +863,47 @@ body.dark-mode {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* ======================
+   NAVBAR
+====================== */
 
-/* =================================
-   COMMON PAGES
-================================= */
+body.dark-mode .navbar {
+  background: #0f172a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .logo {
+  color: #f8fafc;
+}
+
+body.dark-mode .nav-links a {
+  color: #f8fafc;
+}
+
+body.dark-mode .nav-links a:hover {
+  color: #38bdf8;
+}
+
+body.dark-mode .hamburger {
+  color: #f8fafc;
+}
+
+body.dark-mode .dark-mode-toggle {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+  background: #334155;
+}
+
+
+/* ======================
+   GENERAL PAGE
+====================== */
 
 body.dark-mode .page {
   background: #0f172a;
-  color: #f8fafc;
 }
 
 body.dark-mode .page h1 {
@@ -966,15 +911,32 @@ body.dark-mode .page h1 {
 }
 
 
-/* =================================
-   SERVICES / COMMON CARDS
-================================= */
+/* ======================
+   SECTIONS
+====================== */
+
+body.dark-mode .section {
+  background: #0f172a;
+}
+
+body.dark-mode .section h2 {
+  color: #60a5fa;
+}
+
+
+/* ======================
+   SERVICES / DASHBOARD CARDS
+====================== */
 
 body.dark-mode .card {
   background: #1e293b;
   color: #f8fafc;
   border: 1px solid #334155;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .card:hover {
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.25);
 }
 
 body.dark-mode .card h3 {
@@ -985,100 +947,10 @@ body.dark-mode .card p {
   color: #cbd5e1;
 }
 
-body.dark-mode .card:hover {
-  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.25);
-}
 
-
-/* =================================
-   CLIENT PORTAL - LOGIN / REGISTER
-================================= */
-
-body.dark-mode .contact-form input,
-body.dark-mode .contact-form textarea,
-body.dark-mode .contact-form select {
-  background: #1e293b;
-  color: #f8fafc;
-  border-color: #475569;
-}
-
-body.dark-mode .contact-form input::placeholder,
-body.dark-mode .contact-form textarea::placeholder {
-  color: #94a3b8;
-}
-
-body.dark-mode .contact-form input:focus,
-body.dark-mode .contact-form textarea:focus,
-body.dark-mode .contact-form select:focus {
-  border-color: #60a5fa;
-  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
-}
-
-body.dark-mode .contact-form select option {
-  background: #1e293b;
-  color: #f8fafc;
-}
-
-body.dark-mode .contact-form p {
-  color: #cbd5e1;
-}
-
-body.dark-mode .contact-form a {
-  color: #60a5fa;
-}
-
-
-/* =================================
-   CLIENT DASHBOARD HEADER
-================================= */
-
-body.dark-mode .page-header {
-  color: #f8fafc;
-}
-
-body.dark-mode .page-header h1 {
-  color: #60a5fa;
-}
-
-
-/* =================================
-   LOGOUT BUTTON
-================================= */
-
-body.dark-mode .logout-btn {
-  background: #dc2626;
-  color: #fff;
-  border: none;
-}
-
-body.dark-mode .logout-btn:hover {
-  background: #b91c1c;
-}
-
-
-/* =================================
-   ABOUT / CTA SECTIONS
-================================= */
-
-body.dark-mode .about-cta,
-body.dark-mode .contact-cta {
-  background: #1e293b;
-}
-
-body.dark-mode .about-cta h2,
-body.dark-mode .contact-cta h2 {
-  color: #f8fafc;
-}
-
-body.dark-mode .about-cta p,
-body.dark-mode .contact-cta p {
-  color: #cbd5e1;
-}
-
-
-/* =================================
-   ABOUT CONTENT
-================================= */
+/* ======================
+   ABOUT
+====================== */
 
 body.dark-mode .about-content p {
   color: #cbd5e1;
@@ -1098,12 +970,12 @@ body.dark-mode .highlight-card p {
 }
 
 
-/* =================================
+/* ======================
    WHY CHOOSE US
-================================= */
+====================== */
 
 body.dark-mode .why-choose {
-  background: #1e293b;
+  background: #111827;
 }
 
 body.dark-mode .why-choose h2 {
@@ -1115,12 +987,73 @@ body.dark-mode .why-choose p {
 }
 
 
-/* =================================
-   TEAM SECTION
-================================= */
+/* ======================
+   CTA SECTIONS
+====================== */
+
+body.dark-mode .about-cta,
+body.dark-mode .contact-cta {
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+
+body.dark-mode .about-cta h2,
+body.dark-mode .contact-cta h2 {
+  color: #f8fafc;
+}
+
+body.dark-mode .about-cta p,
+body.dark-mode .contact-cta p {
+  color: #cbd5e1;
+}
+
+body.dark-mode .secondary-btn {
+  background: transparent;
+  color: #60a5fa;
+  border-color: #60a5fa;
+}
+
+body.dark-mode .secondary-btn:hover {
+  background: #2563eb;
+  color: white;
+}
+
+
+/* ======================
+   CONTACT FORM
+====================== */
+
+body.dark-mode .contact-form input,
+body.dark-mode .contact-form textarea,
+body.dark-mode .contact-form select {
+  background: #1e293b;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+body.dark-mode .contact-form input::placeholder,
+body.dark-mode .contact-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+body.dark-mode .contact-form select option {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+body.dark-mode .contact-form input:focus,
+body.dark-mode .contact-form textarea:focus,
+body.dark-mode .contact-form select:focus {
+  border-color: #60a5fa;
+}
+
+
+/* ======================
+   TEAM
+====================== */
 
 body.dark-mode .team-section {
-  background: #0f172a;
+  background: #111827;
 }
 
 body.dark-mode .team-heading h2 {
@@ -1145,25 +1078,80 @@ body.dark-mode .team-bio {
 }
 
 
-/* =================================
+/* ======================
+   PROJECT PROGRESS
+====================== */
+
+body.dark-mode .project-progress,
+body.dark-mode .progress-page,
+body.dark-mode .progress-container {
+  background: #0f172a;
+}
+
+body.dark-mode .project-progress h1,
+body.dark-mode .progress-page h1 {
+  color: #60a5fa;
+}
+
+body.dark-mode .milestone-card,
+body.dark-mode .progress-card {
+  background: #1e293b;
+  border-color: #334155;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .milestone-card h3,
+body.dark-mode .progress-card h3 {
+  color: #60a5fa;
+}
+
+body.dark-mode .milestone-card p,
+body.dark-mode .progress-card p {
+  color: #cbd5e1;
+}
+
+
+/* ======================
    API STATUS
-================================= */
+====================== */
 
 body.dark-mode .api-status {
-  background: #1e293b;
+  background: #111827;
   color: #cbd5e1;
   border-color: #334155;
 }
 
 
-/* =================================
-   MOBILE NAVBAR
-================================= */
+/* ======================
+   FOOTER
+====================== */
+
+body.dark-mode .footer {
+  background: #020617;
+}
+
+body.dark-mode .footer-box a {
+  color: #cbd5e1;
+}
+
+body.dark-mode .footer-box a:hover {
+  color: #60a5fa;
+}
+
+
+/* ======================
+   MOBILE DARK MODE
+====================== */
 
 @media (max-width: 768px) {
 
   body.dark-mode .nav-links {
     background: #0f172a;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  body.dark-mode .nav-links a {
+    color: #f8fafc;
   }
 
 }
