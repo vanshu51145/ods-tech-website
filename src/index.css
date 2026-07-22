@@ -4160,3 +4160,180 @@ body.dark-mode p {
   }
 
 }
+/* =========================================================
+   FINAL DARK MODE - PAGE SPECIFIC FIXES
+   Add at the VERY END of CSS
+========================================================= */
+
+
+/* =========================================================
+   1. PROJECT PROGRESS
+========================================================= */
+
+body.dark-mode .project-progress,
+body.dark-mode .progress-page,
+body.dark-mode .progress-container {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+body.dark-mode .project-progress h1,
+body.dark-mode .progress-page h1,
+body.dark-mode .progress-container h1 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .milestone-card,
+body.dark-mode .progress-card {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark-mode .milestone-card h3,
+body.dark-mode .progress-card h3 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .milestone-card p,
+body.dark-mode .progress-card p {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================================================
+   2. WHY CHOOSE ODS NETWORK
+   Blue ticks must stay BLUE
+========================================================= */
+
+body.dark-mode .why-choose .icon,
+body.dark-mode .why-choose .check-icon,
+body.dark-mode .why-choose i,
+body.dark-mode .why-choose svg {
+  color: #2563eb !important;
+  fill: #2563eb !important;
+}
+
+body.dark-mode .why-choose .why-card,
+body.dark-mode .why-choose .feature-card,
+body.dark-mode .why-choose .highlight-card {
+  background: #ffffff !important;
+  color: #222 !important;
+}
+
+body.dark-mode .why-choose .why-card p,
+body.dark-mode .why-choose .feature-card p,
+body.dark-mode .why-choose .highlight-card p {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================================================
+   3. PROJECTS PAGE CTA
+   CTA should NOT become white
+========================================================= */
+
+body.dark-mode .projects-cta,
+body.dark-mode .project-cta,
+body.dark-mode .projects-page .cta,
+body.dark-mode .projects-page .page-cta {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+}
+
+body.dark-mode .projects-cta h2,
+body.dark-mode .project-cta h2,
+body.dark-mode .projects-page .cta h2,
+body.dark-mode .projects-page .page-cta h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .projects-cta p,
+body.dark-mode .project-cta p,
+body.dark-mode .projects-page .cta p,
+body.dark-mode .projects-page .page-cta p {
+  color: #cbd5e1 !important;
+}
+
+
+/* =========================================================
+   4. CAREERS PAGE
+========================================================= */
+
+body.dark-mode .careers-page {
+  background: #0f172a !important;
+  color: #f8fafc !important;
+}
+
+
+/* Career job cards */
+
+body.dark-mode .careers-page .job-card,
+body.dark-mode .careers-page .career-card,
+body.dark-mode .careers-page .job-item {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+
+/* Career headings */
+
+body.dark-mode .careers-page .job-card h2,
+body.dark-mode .careers-page .job-card h3,
+body.dark-mode .careers-page .career-card h2,
+body.dark-mode .careers-page .career-card h3 {
+  color: #f8fafc !important;
+}
+
+
+/* Career description */
+
+body.dark-mode .careers-page .job-card p,
+body.dark-mode .careers-page .career-card p {
+  color: #cbd5e1 !important;
+}
+
+
+/* Internship badge */
+
+body.dark-mode .careers-page .internship,
+body.dark-mode .careers-page .job-type,
+body.dark-mode .careers-page .job-badge,
+body.dark-mode .careers-page .badge {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+
+/* Apply Now button */
+
+body.dark-mode .careers-page .apply-btn,
+body.dark-mode .careers-page .apply-button,
+body.dark-mode .careers-page .job-card button {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+}
+
+
+/* Career CTA */
+
+body.dark-mode .careers-page .careers-cta,
+body.dark-mode .careers-page .career-cta {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+}
+
+body.dark-mode .careers-page .careers-cta h2,
+body.dark-mode .careers-page .career-cta h2 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .careers-page .careers-cta p,
+body.dark-mode .careers-page .career-cta p {
+  color: #cbd5e1 !important;
+}
