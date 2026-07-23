@@ -1,36 +1,100 @@
+/* =========================
+   ERROR BOUNDARY
+========================= */
+
 .error-boundary {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 40px;
+  padding: 40px 20px;
   background: #f5f7fa;
+  color: #1e293b;
 }
 
 .error-boundary h1 {
   font-size: 42px;
-  color: #2563eb;
-  margin-bottom: 15px;
+  margin: 0 0 15px;
+  color: #dc2626;
 }
 
 .error-boundary p {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 25px;
+  max-width: 500px;
+  margin: 0 0 25px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #64748b;
 }
 
 .error-boundary button {
-  padding: 12px 25px;
+  padding: 13px 28px;
   background: #2563eb;
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
   font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .error-boundary button:hover {
   background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
+
+
+/* =========================
+   ERROR BOUNDARY DARK MODE
+========================= */
+
+body.dark-mode .error-boundary {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+body.dark-mode .error-boundary h1 {
+  color: #f87171;
+}
+
+body.dark-mode .error-boundary p {
+  color: #cbd5e1;
+}
+
+body.dark-mode .error-boundary button {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+body.dark-mode .error-boundary button:hover {
+  background: #1d4ed8;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .error-boundary {
+    padding: 30px 20px;
+  }
+
+  .error-boundary h1 {
+    font-size: 32px;
+  }
+
+  .error-boundary p {
+    font-size: 15px;
+  }
+
+  .error-boundary button {
+    width: 200px;
+  }
+
 }
