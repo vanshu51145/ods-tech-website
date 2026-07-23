@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import TestError from "./components/TestError";
 
 import { lazy, Suspense } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
@@ -189,6 +190,7 @@ function App() {
             path="/admin/team"
             element={<AdminTeam />}
           />
+          <Route path="/test-error" element={<TestError />} />
           <Route path="*" element={<NotFound />} />
 
         </Routes>
