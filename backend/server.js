@@ -897,7 +897,7 @@ app.delete("/api/blogs/:id", auth, isSuperAdmin, async (req, res) => {
     });
   }
 });
-app.delete("/api/admin/testimonials/:id", auth,  isSuperAdmin, async (req, res) => {
+app.delete("/api/admin/testimonials/:id", auth, isSuperAdmin, async (req, res) => {
   try {
     await Testimonial.findByIdAndDelete(req.params.id);
 
@@ -1351,7 +1351,7 @@ app.get("/api/team", async (req, res) => {
 app.post(
   "/api/team",
   auth,
-   isSuperAdmin,
+  isSuperAdmin,
   Upload.single("profileImage"),
   async (req, res) => {
     try {
@@ -1643,7 +1643,7 @@ io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
 
-    // Admin joins common admin room
+  // Admin joins common admin room
   socket.on("join_admin", () => {
 
     socket.join("admin_room");
@@ -1687,6 +1687,10 @@ io.on("connection", (socket) => {
           sender: data.sender,
 
           message: data.message,
+          createdAt: {
+            type: Date,
+            default: Date.now,
+          }
 
         });
 
@@ -1697,18 +1701,18 @@ io.on("connection", (socket) => {
         chatMessage
       );
 
-        // If client sent message,
-        // also send to admin dashboard
-        if (
-          data.sender === "client"
-        ) {
+      // If client sent message,
+      // also send to admin dashboard
+      if (
+        data.sender === "client"
+      ) {
 
-          io.to("admin_room").emit(
-            "receive_message",
-            chatMessage
-          );
+        io.to("admin_room").emit(
+          "receive_message",
+          chatMessage
+        );
 
-        }
+      }
 
     } catch (error) {
 
@@ -1732,6 +1736,28 @@ io.on("connection", (socket) => {
 
   });
 
+});
+app.get("/api/chat/:clientId", async (req, res) => {
+  try {
+    const { clientId } = req.params;
+
+    const messages = await ChatMessage.find({
+      clientId: clientId,
+    }).sort({ createdAt: 1 });
+
+    res.json({
+      success: true,
+      messages,
+    });
+
+  } catch (error) {
+    console.error("FETCH CHAT HISTORY ERROR:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch chat history",
+    });
+  }
 });
 
 server.listen(PORT, () => {

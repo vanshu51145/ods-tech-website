@@ -16,45 +16,80 @@ function LiveSupport() {
     const clientId = client?._id;
 
 
-    useEffect(() => {
+useEffect(() => {
 
-        if (!clientId) return;
-
-        // Join client's private room
-        socket.emit(
-            "join_room",
-            clientId
-        );
+    if (!clientId) return;
 
 
-        // Receive messages
-        const handleReceiveMessage = (data) => {
-
-            setMessages((prev) => [
-                ...prev,
-                data
-            ]);
-
-        };
+    // Join client's private room
+    socket.emit(
+        "join_room",
+        clientId
+    );
 
 
-        socket.on(
+    // Fetch old chat history
+    const fetchChatHistory = async () => {
+
+        try {
+
+            const response = await fetch(
+                `https://ods-network-backend.onrender.com/api/chat/${clientId}`
+            );
+
+            const data = await response.json();
+
+            if (data.success) {
+
+                setMessages(
+                    data.messages || []
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Chat History Error:",
+                error
+            );
+
+        }
+
+    };
+
+
+    fetchChatHistory();
+
+
+    // Receive new messages in real-time
+    const handleReceiveMessage = (data) => {
+
+        setMessages((prev) => [
+            ...prev,
+            data
+        ]);
+
+    };
+
+
+    socket.on(
+        "receive_message",
+        handleReceiveMessage
+    );
+
+
+    // Cleanup
+    return () => {
+
+        socket.off(
             "receive_message",
             handleReceiveMessage
         );
 
+    };
 
-        return () => {
-
-            socket.off(
-                "receive_message",
-                handleReceiveMessage
-            );
-
-        };
-
-    }, [clientId]);
-
+}, [clientId]);
 
     const sendMessage = () => {
 
