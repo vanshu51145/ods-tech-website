@@ -30,6 +30,7 @@ const Milestone = require("./models/Milestone");
 const TeamMember = require("./models/TeamMember");
 const Notification = require("./models/Notification");
 const ChatMessage = require("./models/ChatMessage");
+const AuditLog = require("./models/AuditLog");
 
 const app = express();
 const server = http.createServer(app);
@@ -923,8 +924,10 @@ app.post(
       const amount = Number(req.body.amount);
       const description = xss(req.body.description);
       const status = xss(req.body.status);
+
       console.log("BODY:", req.body);
       console.log("FILE:", req.file);
+
       if (
         !clientId ||
         !invoiceNumber ||
@@ -953,6 +956,7 @@ app.post(
           use_filename: true,
           unique_filename: true,
         },
+
         async (error, result) => {
           if (error) {
             return res.status(500).json({
@@ -961,22 +965,42 @@ app.post(
             });
           }
 
-          const invoice = new Invoice({
-            clientId,
-            invoiceNumber,
-            amount,
-            description,
-            status,
-            pdfUrl: result.secure_url,
-          });
+          try {
+            // Create Invoice
+            const invoice = new Invoice({
+              clientId,
+              invoiceNumber,
+              amount,
+              description,
+              status,
+              pdfUrl: result.secure_url,
+            });
 
-          await invoice.save();
+            await invoice.save();
 
-          res.status(201).json({
-            success: true,
-            message: "Invoice Created Successfully",
-            invoice,
-          });
+            // Create Audit Log
+            await AuditLog.create({
+              adminName: req.admin?.name || "Admin",
+              action: `Created Invoice #${invoiceNumber}`,
+            });
+
+            res.status(201).json({
+              success: true,
+              message: "Invoice Created Successfully",
+              invoice,
+            });
+
+          } catch (error) {
+            console.log(
+              "INVOICE SAVE / AUDIT LOG ERROR:",
+              error
+            );
+
+            res.status(500).json({
+              success: false,
+              message: "Failed to create invoice",
+            });
+          }
         }
       );
 
@@ -985,7 +1009,7 @@ app.post(
         .pipe(uploadStream);
 
     } catch (error) {
-      console.log(error);
+      console.log("CREATE INVOICE ERROR:", error);
 
       res.status(500).json({
         success: false,
@@ -993,14 +1017,15 @@ app.post(
       });
     }
   }
-);
-app.delete(
+);app.delete(
   "/api/contact/:id",
   auth,
   isSuperAdmin,
   async (req, res) => {
     try {
-      const contact = await Contact.findByIdAndDelete(req.params.id);
+      const contact = await Contact.findByIdAndDelete(
+        req.params.id
+      );
 
       if (!contact) {
         return res.status(404).json({
@@ -1008,6 +1033,12 @@ app.delete(
           message: "Lead not found",
         });
       }
+
+      // Create Audit Log
+      await AuditLog.create({
+        adminName: req.admin?.name || "SuperAdmin",
+        action: `Deleted Lead - ${contact.name} (${contact.email})`,
+      });
 
       res.json({
         success: true,
@@ -1607,7 +1638,9 @@ app.delete(
   isSuperAdmin,
   async (req, res) => {
     try {
-      const invoice = await Invoice.findByIdAndDelete(req.params.id);
+      const invoice = await Invoice.findByIdAndDelete(
+        req.params.id
+      );
 
       if (!invoice) {
         return res.status(404).json({
@@ -1616,13 +1649,26 @@ app.delete(
         });
       }
 
+      // Create Audit Log
+      await AuditLog.create({
+        adminName:
+          req.admin?.name ||
+          req.user?.name ||
+          "SuperAdmin",
+
+        action: `Deleted Invoice #${invoice.invoiceNumber}`,
+      });
+
       res.json({
         success: true,
         message: "Invoice Deleted Successfully",
       });
 
     } catch (error) {
-      console.log("DELETE INVOICE ERROR:", error);
+      console.log(
+        "DELETE INVOICE ERROR:",
+        error
+      );
 
       res.status(500).json({
         success: false,
@@ -1797,6 +1843,64 @@ app.get("/api/admin/chats", async (req, res) => {
     });
   }
 });
+app.get(
+  "/api/admin/audit-logs",
+  async (req, res) => {
+    try {
+      const logs = await AuditLog.find()
+        .sort({
+          timestamp: -1,
+        })
+        .limit(20);
+
+      res.json({
+        success: true,
+        logs,
+      });
+    } catch (error) {
+      console.error(
+        "FETCH AUDIT LOGS ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch audit logs",
+      });
+    }
+  }
+);
+app.post(
+  "/api/admin/audit-logs",
+  async (req, res) => {
+    try {
+      const {
+        adminName,
+        action,
+      } = req.body;
+
+      const log = await AuditLog.create({
+        adminName,
+        action,
+      });
+
+      res.json({
+        success: true,
+        log,
+      });
+    } catch (error) {
+      console.error(
+        "CREATE AUDIT LOG ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Failed to create audit log",
+      });
+    }
+  }
+);
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

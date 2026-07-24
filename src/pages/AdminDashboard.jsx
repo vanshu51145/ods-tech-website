@@ -32,6 +32,7 @@ function AdminDashboard() {
     leadAnalytics: {},
     ticketAnalytics: {},
   });
+  const [auditLogs, setAuditLogs] = useState([]);
   const adminRole = localStorage.getItem("adminRole");
   const isSuperAdmin = adminRole === "SuperAdmin";
 
@@ -196,6 +197,26 @@ function AdminDashboard() {
       console.log(error);
     }
   };
+  const fetchAuditLogs = async () => {
+  try {
+    const response = await fetch(
+      "https://ods-network-backend.onrender.com/api/admin/audit-logs",
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setAuditLogs(data.logs || []);
+    }
+  } catch (error) {
+    console.log("Audit Logs Error:", error);
+  }
+};
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -250,6 +271,7 @@ function AdminDashboard() {
     fetchTickets();
     fetchAnalytics();
     fetchNotifications();
+    fetchAuditLogs();
   }, []);
 
   return (
@@ -590,6 +612,57 @@ function AdminDashboard() {
 
 
         </div>
+        {isSuperAdmin && (
+  <div className="recent-activity">
+
+    <div className="recent-activity-header">
+      <h2>Recent Activity</h2>
+      <p>Latest SuperAdmin actions</p>
+    </div>
+
+    {auditLogs.length === 0 ? (
+      <p className="no-activity">
+        No recent activity found.
+      </p>
+    ) : (
+      <div className="activity-list">
+
+        {auditLogs.map((log) => (
+          <div
+            className="activity-item"
+            key={log._id}
+          >
+
+            <div className="activity-icon">
+              📋
+            </div>
+
+            <div className="activity-content">
+
+              <h3>
+                {log.action}
+              </h3>
+
+              <p>
+                By: {log.adminName}
+              </p>
+
+              <small>
+                {new Date(
+                  log.timestamp
+                ).toLocaleString()}
+              </small>
+
+            </div>
+
+          </div>
+        ))}
+
+      </div>
+    )}
+
+  </div>
+)}
         <section id="live-chat">
 
           <AdminLiveChat />
