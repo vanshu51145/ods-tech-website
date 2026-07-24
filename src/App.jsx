@@ -6,7 +6,7 @@ import TestError from "./components/TestError";
 
 import { lazy, Suspense } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
-import LiveSupport from "./pages/client/LiveSupport";
+import LiveSupport from "./pages/LiveSupport";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
