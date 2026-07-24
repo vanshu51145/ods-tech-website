@@ -127,6 +127,44 @@ function AdminDashboard() {
       alert("Failed to update status");
     }
   };
+  const deleteLead = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this lead?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    const response = await fetch(
+      `https://ods-network-backend.onrender.com/api/contact/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      // Remove lead from UI
+      setContacts((prev) =>
+        prev.filter((contact) => contact._id !== id)
+      );
+
+      // Refresh analytics
+      fetchAnalytics();
+
+      alert("Lead deleted successfully");
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.log("DELETE LEAD ERROR:", error);
+    alert("Failed to delete lead");
+  }
+};
   const fetchNotifications = async () => {
     try {
       const response = await fetch(
@@ -692,6 +730,7 @@ function AdminDashboard() {
                   <th>Message</th>
                   <th>Date</th>
                   <th>Status</th>
+                  <th>Action</th>
                 </tr>
               </thead>
 
@@ -735,6 +774,14 @@ function AdminDashboard() {
                           <option value="Converted">Converted</option>
                         </select>
                       </td>
+                      <td>
+  <button
+    className="delete-lead-btn"
+    onClick={() => deleteLead(contact._id)}
+  >
+    Delete
+  </button>
+</td>
                     </tr>
                   ))
                 )}

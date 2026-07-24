@@ -639,3 +639,16 @@ tbody tr:hover {
   color: #64748b;
   padding: 20px;
 }
+.delete-lead-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #dc2626;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.delete-lead-btn:hover {
+  background: #b91c1c;
+}
