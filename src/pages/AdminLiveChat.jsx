@@ -69,40 +69,35 @@ function AdminLiveChat() {
     };
   }, [selectedClient]);
 
-const openChat = (chat) => {
+const openChat = async (chat) => {
   setSelectedClient(chat);
 
-  // Clear previous client's messages
-  setMessages([]);
-
   // Join selected client's room
-  socket.emit(
-    "join_room",
-    chat.room
-  );
-};
+  socket.emit("join_room", chat.room);
 
-  const sendMessage = () => {
-    if (!message.trim() || !selectedClient) {
-      return;
-    }
-
-    const messageData = {
-      room: selectedClient.room,
-      clientId: selectedClient.clientId,
-      sender: "admin",
-      message: message.trim(),
-    };
-
-    socket.emit(
-      "send_message",
-      messageData
+  // Fetch chat history from MongoDB
+  try {
+    const response = await fetch(
+      `https://ods-network-backend.onrender.com/api/chat/${chat.clientId}`
     );
 
-    setMessage("");
-  };
+    const data = await response.json();
 
-  return (
+    if (data.success) {
+      setMessages(data.messages || []);
+    } else {
+      setMessages([]);
+    }
+
+  } catch (error) {
+    console.error(
+      "Admin Chat History Error:",
+      error
+    );
+
+    setMessages([]);
+  }
+};  return (
     <div className="admin-live-chat">
 
       {/* Active Chats */}
