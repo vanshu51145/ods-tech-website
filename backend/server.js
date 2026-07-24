@@ -1677,23 +1677,12 @@ io.on("connection", (socket) => {
 
 
       // Save message in MongoDB
-      const chatMessage =
-        await ChatMessage.create({
-
-          room: data.room,
-
-          clientId: data.clientId,
-
-          sender: data.sender,
-
-          message: data.message,
-          createdAt: {
-            type: Date,
-            default: Date.now,
-          }
-
-        });
-
+     const chatMessage = await ChatMessage.create({
+  room: data.room,
+  clientId: data.clientId,
+  sender: data.sender,
+  message: data.message,
+});
 
       // Send saved message to room
       io.to(data.room).emit(
