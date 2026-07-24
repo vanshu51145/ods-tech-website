@@ -10,65 +10,143 @@ function AdminLiveChat() {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    // Admin joins common admin room
-    socket.emit("join_admin");
+useEffect(() => {
 
-    const handleReceiveMessage = (data) => {
-      // Add client to Active Chats
-      if (data.sender === "client") {
-        setActiveChats((prev) => {
-          const exists = prev.find(
-            (chat) => chat.clientId === data.clientId
+  // Admin joins common admin room
+  socket.emit("join_admin");
+
+
+  // Load existing chats from MongoDB
+  const fetchActiveChats = async () => {
+
+    try {
+
+      const response = await fetch(
+        "https://ods-network-backend.onrender.com/api/admin/chat"
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+
+        setActiveChats(data.chats || []);
+
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Active Chats Error:",
+        error
+      );
+
+    }
+
+  };
+
+
+  fetchActiveChats();
+
+
+  // Receive new real-time messages
+  const handleReceiveMessage = (data) => {
+
+    console.log(
+      "ADMIN RECEIVED:",
+      data
+    );
+
+
+    // Client sends a new message
+    if (data.sender === "client") {
+
+      setActiveChats((prev) => {
+
+        const exists = prev.find(
+          (chat) =>
+            chat.clientId === data.clientId
+        );
+
+
+        if (exists) {
+
+          return prev.map((chat) =>
+            chat.clientId === data.clientId
+              ? {
+                  ...chat,
+                  lastMessage:
+                    data.message,
+                  lastMessageTime:
+                    data.createdAt,
+                }
+              : chat
           );
 
-          if (exists) {
-            return prev.map((chat) =>
-              chat.clientId === data.clientId
-                ? {
-                    ...chat,
-                    lastMessage: data.message,
-                  }
-                : chat
-            );
-          }
+        }
 
-          return [
-            ...prev,
-            {
-              clientId: data.clientId,
-              room: data.room,
-              lastMessage: data.message,
-            },
-          ];
-        });
-      }
 
-      // Show message in selected chat
-      if (
-        selectedClient &&
-        selectedClient.clientId === data.clientId
-      ) {
-        setMessages((prev) => [
+        return [
+          {
+            clientId:
+              data.clientId,
+
+            room:
+              data.room,
+
+            lastMessage:
+              data.message,
+
+            lastMessageTime:
+              data.createdAt,
+
+          },
+
           ...prev,
-          data,
-        ]);
-      }
-    };
 
-    socket.on(
+        ];
+
+      });
+
+    }
+
+
+    // Add new message to selected chat
+    if (
+      selectedClient &&
+      selectedClient.clientId ===
+        data.clientId
+    ) {
+
+      setMessages((prev) => [
+
+        ...prev,
+
+        data,
+
+      ]);
+
+    }
+
+  };
+
+
+  socket.on(
+    "receive_message",
+    handleReceiveMessage
+  );
+
+
+  return () => {
+
+    socket.off(
       "receive_message",
       handleReceiveMessage
     );
 
-    return () => {
-      socket.off(
-        "receive_message",
-        handleReceiveMessage
-      );
-    };
-  }, [selectedClient]);
+  };
 
+
+}, [selectedClient]);
 const openChat = async (chat) => {
   setSelectedClient(chat);
 
@@ -97,7 +175,49 @@ const openChat = async (chat) => {
 
     setMessages([]);
   }
-};  return (
+}; 
+const sendMessage = () => {
+
+  if (
+    !message.trim() ||
+    !selectedClient
+  ) {
+    return;
+  }
+
+
+  const messageData = {
+
+    room:
+      selectedClient.room,
+
+    clientId:
+      selectedClient.clientId,
+
+    sender:
+      "admin",
+
+    message:
+      message.trim(),
+
+  };
+
+
+  console.log(
+    "ADMIN SENDING:",
+    messageData
+  );
+
+
+  socket.emit(
+    "send_message",
+    messageData
+  );
+
+
+  setMessage("");
+
+}; return (
     <div className="admin-live-chat">
 
       {/* Active Chats */}

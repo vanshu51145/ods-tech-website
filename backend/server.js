@@ -1748,7 +1748,55 @@ app.get("/api/chat/:clientId", async (req, res) => {
     });
   }
 });
+app.get("/api/admin/chats", async (req, res) => {
+  try {
+    const chats = await ChatMessage.aggregate([
+      {
+        $sort: {
+          createdAt: -1
+        }
+      },
+      {
+        $group: {
+          _id: "$clientId",
+          clientId: {
+            $first: "$clientId"
+          },
+          room: {
+            $first: "$room"
+          },
+          lastMessage: {
+            $first: "$message"
+          },
+          lastMessageTime: {
+            $first: "$createdAt"
+          }
+        }
+      },
+      {
+        $sort: {
+          lastMessageTime: -1
+        }
+      }
+    ]);
 
+    res.json({
+      success: true,
+      chats
+    });
+
+  } catch (error) {
+    console.error(
+      "FETCH ADMIN CHATS ERROR:",
+      error
+    );
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch chats"
+    });
+  }
+});
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
