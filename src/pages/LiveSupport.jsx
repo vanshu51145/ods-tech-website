@@ -61,17 +61,13 @@ function LiveSupport() {
         if (!message.trim()) return;
 
 
-        const messageData = {
-
-            room: clientId,
-
-            clientId: clientId,
-
-            sender: "client",
-
-            message: message,
-
-        };
+const messageData = {
+  room: clientId,
+  clientId: clientId,
+  sender: "client",
+  message: message.trim(),
+  time: new Date().toISOString(),
+};
 
 
         socket.emit(
