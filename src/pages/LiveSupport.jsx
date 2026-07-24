@@ -17,77 +17,51 @@ function LiveSupport() {
 
 
 useEffect(() => {
+  if (!clientId) return;
 
-    if (!clientId) return;
+  // Join client room
+  socket.emit("join_room", clientId);
 
+  // Fetch old chat history
+  const fetchChatHistory = async () => {
+    try {
+      const response = await fetch(
+        `https://ods-network-backend.onrender.com/api/chat/${clientId}`
+      );
 
-    // Join client's private room
-    socket.emit(
-        "join_room",
-        clientId
+      const data = await response.json();
+
+      if (data.success) {
+        setMessages(data.messages || []);
+      }
+    } catch (error) {
+      console.error("Chat History Error:", error);
+    }
+  };
+
+  fetchChatHistory();
+
+  // Receive new messages
+  const handleReceiveMessage = (data) => {
+    console.log("NEW SOCKET MESSAGE:", data);
+
+    setMessages((prev) => [
+      ...prev,
+      data,
+    ]);
+  };
+
+  socket.on(
+    "receive_message",
+    handleReceiveMessage
+  );
+
+  return () => {
+    socket.off(
+      "receive_message",
+      handleReceiveMessage
     );
-
-
-    // Fetch old chat history
-    const fetchChatHistory = async () => {
-
-        try {
-
-            const response = await fetch(
-                `https://ods-network-backend.onrender.com/api/chat/${clientId}`
-            );
-
-            const data = await response.json();
-
-            if (data.success) {
-
-                setMessages(
-                    data.messages || []
-                );
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Chat History Error:",
-                error
-            );
-
-        }
-
-    };
-
-
-    fetchChatHistory();
-
-
-    // Receive new messages in real-time
-    const handleReceiveMessage = (data) => {
-
-        setMessages((prev) => [
-            ...prev,
-            data
-        ]);
-
-    };
-
-
-    socket.on(
-        "receive_message",
-        handleReceiveMessage
-    );
-
-
-    // Cleanup
-    return () => {
-
-        socket.off(
-            "receive_message",
-            handleReceiveMessage
-        );
-
-    };
+  };
 
 }, [clientId]);
 
