@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
+const http = require("http");
 const cors = require("cors");
+const { Server } = require("socket.io");
 const mongoose = require("mongoose");
 const Contact = require("./models/Contact");
 const nodemailer = require("nodemailer");
@@ -29,6 +31,14 @@ const TeamMember = require("./models/TeamMember");
 const Notification = require("./models/Notification");
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "https://ods-tech-website.vercel.app",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
 
 app.use(
   cors({
@@ -1627,7 +1637,44 @@ app.use(
   "/api/newsletter",
   newsletterRoutes
 );
+io.on("connection", (socket) => {
 
-app.listen(PORT, () => {
+  console.log("User connected:", socket.id);
+
+  // Client joins their own room
+  socket.on("join_room", (clientId) => {
+
+    socket.join(clientId);
+
+    console.log(
+      `Socket ${socket.id} joined room ${clientId}`
+    );
+
+  });
+
+
+  // Receive message and send to room
+  socket.on("send_message", (data) => {
+
+    console.log("Message received:", data);
+
+    io.to(data.room).emit("receive_message", data);
+
+  });
+
+
+  // User disconnected
+  socket.on("disconnect", () => {
+
+    console.log(
+      "User disconnected:",
+      socket.id
+    );
+
+  });
+
+});
+
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
