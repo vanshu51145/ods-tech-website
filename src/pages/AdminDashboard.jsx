@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./AdminDashboard.css";
+import AdminLiveChat from "./AdminLiveChat";
 import { CSVLink } from "react-csv";
 import {
   PieChart,
@@ -19,7 +20,7 @@ import {
 
 function AdminDashboard() {
   const navigate = useNavigate();
-  
+
 
   const [contacts, setContacts] = useState([]);
   const [tickets, setTickets] = useState([]);
@@ -32,10 +33,10 @@ function AdminDashboard() {
     ticketAnalytics: {},
   });
   const adminRole = localStorage.getItem("adminRole");
-const isSuperAdmin = adminRole === "SuperAdmin";
-  
+  const isSuperAdmin = adminRole === "SuperAdmin";
 
-  
+
+
   const headers = [
     { label: "Name", key: "name" },
     { label: "Email", key: "email" },
@@ -54,7 +55,7 @@ const isSuperAdmin = adminRole === "SuperAdmin";
   }));
   const logout = () => {
     localStorage.removeItem("token");
-      localStorage.removeItem("adminRole");
+    localStorage.removeItem("adminRole");
 
     navigate("/admin/login");
   };
@@ -160,7 +161,7 @@ const isSuperAdmin = adminRole === "SuperAdmin";
       );
 
       const data = await response.json();
-    console.log("Mark Read Response:", data);
+      console.log("Mark Read Response:", data);
 
       if (data.success) {
         setNotifications((prev) =>
@@ -302,116 +303,124 @@ const isSuperAdmin = adminRole === "SuperAdmin";
           >
             Manage Team
           </li>
+          <li onClick={() =>
+            document
+              .getElementById("live-chat")
+              .scrollIntoView({
+                behavior: "smooth",
+              })
+          }
+          >
+            Active Chats</li>
         </ul>
       </div>
 
       <div className="main-content">
-<div className="topbar">
+        <div className="topbar">
 
-  <button
-    className="menu-btn"
-    onClick={() => setMenuOpen(true)}
-  >
-    ☰
-  </button>
+          <button
+            className="menu-btn"
+            onClick={() => setMenuOpen(true)}
+          >
+            ☰
+          </button>
 
-  <h1>Admin Dashboard</h1>
+          <h1>Admin Dashboard</h1>
 
-  <div className="topbar-actions">
+          <div className="topbar-actions">
 
-    <div className="notification-wrapper">
+            <div className="notification-wrapper">
 
-      <button
-        className="notification-btn"
-        onClick={() =>
-          setNotificationOpen(!notificationOpen)
-        }
-      >
-        🔔
-
-        {notifications.filter(
-          (notification) => !notification.isRead
-        ).length > 0 && (
-          <span className="notification-badge">
-            {
-              notifications.filter(
-                (notification) => !notification.isRead
-              ).length
-            }
-          </span>
-        )}
-      </button>
-
-
-      {notificationOpen && (
-
-        <div className="notification-dropdown">
-
-          <div className="notification-header">
-            <h3>Notifications</h3>
-          </div>
-
-          {notifications.length === 0 ? (
-
-            <p className="no-notifications">
-              No notifications
-            </p>
-
-          ) : (
-
-            notifications.map((notification) => (
-
-              <div
-                key={notification._id}
-                className={`notification-item ${
-                  notification.isRead
-                    ? "read"
-                    : "unread"
-                }`}
+              <button
+                className="notification-btn"
                 onClick={() =>
-                  markNotificationAsRead(
-                    notification._id
-                  )
+                  setNotificationOpen(!notificationOpen)
                 }
               >
+                🔔
 
-                <strong>
-                  {notification.type}
-                </strong>
+                {notifications.filter(
+                  (notification) => !notification.isRead
+                ).length > 0 && (
+                    <span className="notification-badge">
+                      {
+                        notifications.filter(
+                          (notification) => !notification.isRead
+                        ).length
+                      }
+                    </span>
+                  )}
+              </button>
 
-                <p>
-                  {notification.message}
-                </p>
 
-                <small>
-                  {new Date(
-                    notification.createdAt
-                  ).toLocaleString()}
-                </small>
+              {notificationOpen && (
 
-              </div>
+                <div className="notification-dropdown">
 
-            ))
+                  <div className="notification-header">
+                    <h3>Notifications</h3>
+                  </div>
 
-          )}
+                  {notifications.length === 0 ? (
+
+                    <p className="no-notifications">
+                      No notifications
+                    </p>
+
+                  ) : (
+
+                    notifications.map((notification) => (
+
+                      <div
+                        key={notification._id}
+                        className={`notification-item ${notification.isRead
+                          ? "read"
+                          : "unread"
+                          }`}
+                        onClick={() =>
+                          markNotificationAsRead(
+                            notification._id
+                          )
+                        }
+                      >
+
+                        <strong>
+                          {notification.type}
+                        </strong>
+
+                        <p>
+                          {notification.message}
+                        </p>
+
+                        <small>
+                          {new Date(
+                            notification.createdAt
+                          ).toLocaleString()}
+                        </small>
+
+                      </div>
+
+                    ))
+
+                  )}
+
+                </div>
+
+              )}
+
+            </div>
+
+
+            <button
+              className="logout-btn"
+              onClick={logout}
+            >
+              Logout
+            </button>
+
+          </div>
 
         </div>
-
-      )}
-
-    </div>
-
-
-    <button
-      className="logout-btn"
-      onClick={logout}
-    >
-      Logout
-    </button>
-
-  </div>
-
-</div>
         <div className="cards">
           <div className="card">
             <h3>Total Messages</h3>
@@ -550,6 +559,7 @@ const isSuperAdmin = adminRole === "SuperAdmin";
 
           </div>
 
+
           <div className="chart-card">
 
             <h2>Support Tickets</h2>
@@ -578,8 +588,12 @@ const isSuperAdmin = adminRole === "SuperAdmin";
 
           </div>
 
-        </div>
 
+        </div>
+        <section id="live-chat">
+
+          <AdminLiveChat />
+        </section>
         <div className="table-container" id="messages">
           <div className="table-header">
 

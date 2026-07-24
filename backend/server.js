@@ -29,6 +29,7 @@ const Ticket = require("./models/Ticket");
 const Milestone = require("./models/Milestone");
 const TeamMember = require("./models/TeamMember");
 const Notification = require("./models/Notification");
+const ChatMessage = require("./models/ChatMessage");
 
 const app = express();
 const server = http.createServer(app);
@@ -1641,7 +1642,18 @@ io.on("connection", (socket) => {
 
   console.log("User connected:", socket.id);
 
-  // Client joins their own room
+
+    // Admin joins common admin room
+  socket.on("join_admin", () => {
+
+    socket.join("admin_room");
+
+    console.log(
+      `Admin joined admin_room`
+    );
+
+  });
+  // Join Client Room
   socket.on("join_room", (clientId) => {
 
     socket.join(clientId);
@@ -1653,17 +1665,64 @@ io.on("connection", (socket) => {
   });
 
 
-  // Receive message and send to room
-  socket.on("send_message", (data) => {
+  // Send Message
+  socket.on("send_message", async (data) => {
 
-    console.log("Message received:", data);
+    try {
 
-    io.to(data.room).emit("receive_message", data);
+      console.log(
+        "Message received:",
+        data
+      );
+
+
+      // Save message in MongoDB
+      const chatMessage =
+        await ChatMessage.create({
+
+          room: data.room,
+
+          clientId: data.clientId,
+
+          sender: data.sender,
+
+          message: data.message,
+
+        });
+
+
+      // Send saved message to room
+      io.to(data.room).emit(
+        "receive_message",
+        chatMessage
+      );
+
+        // If client sent message,
+        // also send to admin dashboard
+        if (
+          data.sender === "client"
+        ) {
+
+          io.to("admin_room").emit(
+            "receive_message",
+            chatMessage
+          );
+
+        }
+
+    } catch (error) {
+
+      console.error(
+        "CHAT MESSAGE ERROR:",
+        error
+      );
+
+    }
 
   });
 
 
-  // User disconnected
+  // Disconnect
   socket.on("disconnect", () => {
 
     console.log(

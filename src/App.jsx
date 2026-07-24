@@ -6,7 +6,7 @@ import TestError from "./components/TestError";
 
 import { lazy, Suspense } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
-
+import LiveSupport from "./pages/client/LiveSupport";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
@@ -82,8 +82,8 @@ function App() {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
         />
-      )}     
-       <Suspense fallback={<LoadingSpinner />}>
+      )}
+      <Suspense fallback={<LoadingSpinner />}>
 
         <Routes>
 
@@ -192,6 +192,10 @@ function App() {
           />
           <Route path="/test-error" element={<TestError />} />
           <Route path="*" element={<NotFound />} />
+          <Route
+            path="/client/support"
+            element={<LiveSupport />}
+          />
 
         </Routes>
       </Suspense>

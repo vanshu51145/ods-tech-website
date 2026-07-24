@@ -87,13 +87,22 @@ function ClientDashboard() {
         >
 
           <h3>
-           📊  Project Progress
+            📊  Project Progress
           </h3>
 
           <p>
             Track your project milestones
           </p>
 
+        </div>
+        <div
+          className="card"
+          onClick={() => navigate("/client/support")}
+        >
+          <h3>Live Support</h3>
+          <p>
+            Chat with our support team in real time.
+          </p>
         </div>
 
 

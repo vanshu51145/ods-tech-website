@@ -1,0 +1,242 @@
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import "./AdminLiveChat.css";
+
+const socket = io("https://ods-network-backend.onrender.com");
+
+function AdminLiveChat() {
+  const [activeChats, setActiveChats] = useState([]);
+  const [selectedClient, setSelectedClient] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    // Admin joins common admin room
+    socket.emit("join_admin");
+
+    const handleReceiveMessage = (data) => {
+      // Add client to Active Chats
+      if (data.sender === "client") {
+        setActiveChats((prev) => {
+          const exists = prev.find(
+            (chat) => chat.clientId === data.clientId
+          );
+
+          if (exists) {
+            return prev.map((chat) =>
+              chat.clientId === data.clientId
+                ? {
+                    ...chat,
+                    lastMessage: data.message,
+                  }
+                : chat
+            );
+          }
+
+          return [
+            ...prev,
+            {
+              clientId: data.clientId,
+              room: data.room,
+              lastMessage: data.message,
+            },
+          ];
+        });
+      }
+
+      // Show message in selected chat
+      if (
+        selectedClient &&
+        selectedClient.clientId === data.clientId
+      ) {
+        setMessages((prev) => [
+          ...prev,
+          data,
+        ]);
+      }
+    };
+
+    socket.on(
+      "receive_message",
+      handleReceiveMessage
+    );
+
+    return () => {
+      socket.off(
+        "receive_message",
+        handleReceiveMessage
+      );
+    };
+  }, [selectedClient]);
+
+const openChat = (chat) => {
+  setSelectedClient(chat);
+
+  // Clear previous client's messages
+  setMessages([]);
+
+  // Join selected client's room
+  socket.emit(
+    "join_room",
+    chat.room
+  );
+};
+
+  const sendMessage = () => {
+    if (!message.trim() || !selectedClient) {
+      return;
+    }
+
+    const messageData = {
+      room: selectedClient.room,
+      clientId: selectedClient.clientId,
+      sender: "admin",
+      message: message.trim(),
+    };
+
+    socket.emit(
+      "send_message",
+      messageData
+    );
+
+    setMessage("");
+  };
+
+  return (
+    <div className="admin-live-chat">
+
+      {/* Active Chats */}
+      <div className="active-chats">
+
+        <h2>
+          Active Chats
+        </h2>
+
+        {activeChats.length === 0 ? (
+          <p className="no-active-chat">
+            No active chats yet.
+          </p>
+        ) : (
+          activeChats.map((chat) => (
+            <div
+              key={chat.clientId}
+              className={`chat-item ${
+                selectedClient?.clientId ===
+                chat.clientId
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() =>
+                openChat(chat)
+              }
+            >
+              <h3>
+                Client
+              </h3>
+
+              <p>
+                {chat.lastMessage}
+              </p>
+            </div>
+          ))
+        )}
+
+      </div>
+
+
+      {/* Chat Window */}
+      <div className="chat-window">
+
+        {selectedClient ? (
+          <>
+            <div className="chat-window-header">
+
+              <h2>
+                Live Support
+              </h2>
+
+              <span>
+                Client Support
+              </span>
+
+            </div>
+
+
+            <div className="admin-chat-messages">
+
+              {messages.length === 0 ? (
+                <p className="empty-chat">
+                  No messages yet.
+                </p>
+              ) : (
+                messages.map(
+                  (item, index) => (
+                    <div
+                      key={index}
+                      className={`chat-message ${
+                        item.sender === "admin"
+                          ? "admin-message"
+                          : "client-message"
+                      }`}
+                    >
+                      <p>
+                        {item.message}
+                      </p>
+                    </div>
+                  )
+                )
+              )}
+
+            </div>
+
+
+            <div className="admin-chat-input">
+
+              <input
+                type="text"
+                placeholder="Type your reply..."
+                value={message}
+                onChange={(e) =>
+                  setMessage(
+                    e.target.value
+                  )
+                }
+                onKeyDown={(e) => {
+                  if (
+                    e.key === "Enter"
+                  ) {
+                    sendMessage();
+                  }
+                }}
+              />
+
+              <button
+                onClick={sendMessage}
+              >
+                Send
+              </button>
+
+            </div>
+          </>
+        ) : (
+          <div className="no-chat-selected">
+
+            <h2>
+              Select a client chat
+            </h2>
+
+            <p>
+              Choose an active chat to reply
+              to the client.
+            </p>
+
+          </div>
+        )}
+
+      </div>
+
+    </div>
+  );
+}
+
+export default AdminLiveChat;
