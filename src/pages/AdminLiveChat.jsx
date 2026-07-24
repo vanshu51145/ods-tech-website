@@ -22,7 +22,7 @@ useEffect(() => {
     try {
 
       const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/admin/chat"
+        "https://ods-network-backend.onrender.com/api/admin/chats"
       );
 
       const data = await response.json();
