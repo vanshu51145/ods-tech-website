@@ -65,30 +65,25 @@ useEffect(() => {
 
 }, [clientId]);
 
-    const sendMessage = () => {
+const sendMessage = () => {
+  if (!message.trim() || !clientId) return;
 
-        if (!message.trim()) return;
+  const messageData = {
+    room: clientId,
+    clientId: clientId,
+    sender: "client",
+    message: message.trim(),
+  };
 
+  console.log("SENDING MESSAGE:", messageData);
 
-const messageData = {
-  room: clientId,
-  clientId: clientId,
-  sender: "client",
-  message: message.trim(),
-  time: new Date().toISOString(),
+  socket.emit(
+    "send_message",
+    messageData
+  );
+
+  setMessage("");
 };
-
-
-        socket.emit(
-            "send_message",
-            messageData
-        );
-
-
-        setMessage("");
-
-    };
-
 
     return (
 
