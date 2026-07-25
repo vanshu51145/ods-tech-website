@@ -24,7 +24,12 @@ const milestoneSchema = new mongoose.Schema(
   isCompleted:{
     type:Boolean,
     default:false
-  }
+  },
+  status: {
+  type: String,
+  enum: ["Pending", "In Progress", "Completed"],
+  default: "Pending",
+},
 
 },
 {

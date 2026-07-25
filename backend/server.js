@@ -1172,7 +1172,9 @@ app.post(
         clientId,
         title,
         description,
-        dueDate
+        dueDate,
+        status: "Pending",
+
 
       });
 
@@ -1257,6 +1259,8 @@ app.put(
 
 
     try {
+            const { status } = req.body;
+
 
       const milestone =
         await Milestone.findById(
@@ -1276,9 +1280,14 @@ app.put(
 
       }
 
+  milestone.status = status;
 
-      milestone.isCompleted =
-        req.body.isCompleted;
+      if (status === "Completed") {
+        milestone.isCompleted = true;
+      } else {
+        milestone.isCompleted = false;
+      }
+
 
 
       await milestone.save();
@@ -1288,7 +1297,7 @@ app.put(
 
         success: true,
 
-        message: "Milestone Updated",
+        message: "Milestone Status Updated",
 
         milestone
 
@@ -1298,7 +1307,10 @@ app.put(
     }
     catch (error) {
 
-      console.log(error);
+console.log(
+        "UPDATE MILESTONE ERROR:",
+        error
+      );
 
 
       res.status(500).json({
