@@ -1,158 +1,281 @@
-/* =========================
-   Book Consultation Page
-========================= */
+/* ========================================
+   BOOK CONSULTATION PAGE
+======================================== */
 
-.consultation-page {
+.page {
   min-height: 100vh;
   background: #f4f7fc;
   padding: 50px 20px;
 }
 
-/* Main Heading */
+/* ========================================
+   PAGE HEADING
+======================================== */
 
-.consultation-page > h1 {
+.page > h1 {
   text-align: center;
   font-size: 42px;
   font-weight: 700;
   color: #2563eb;
-  margin-bottom: 40px;
+  margin: 0 0 40px;
 }
 
-/* Main Container */
+/* ========================================
+   MAIN CONSULTATION CONTAINER
+======================================== */
 
 .consultation-container {
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   margin: 0 auto;
-  background: #ffffff;
   padding: 35px;
+  background: #ffffff;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
-/* Section Headings */
+/* ========================================
+   SECTION HEADINGS
+======================================== */
 
 .consultation-container h2 {
-  font-size: 20px;
-  color: #1e293b;
   margin: 28px 0 14px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
 }
 
 .consultation-container h2:first-child {
   margin-top: 0;
 }
 
-/* Calendar */
+/* ========================================
+   CALENDAR
+======================================== */
 
 .react-calendar {
   width: 100% !important;
   max-width: 500px;
   margin: 0 auto;
+  padding: 12px;
+  background: #ffffff;
   border: 1px solid #e2e8f0 !important;
   border-radius: 12px;
-  padding: 15px;
-  background: #ffffff;
   font-family: inherit;
   box-shadow: 0 5px 15px rgba(15, 23, 42, 0.05);
 }
 
-/* Calendar Navigation */
+/* ========================================
+   CALENDAR NAVIGATION
+======================================== */
 
 .react-calendar__navigation {
+  display: flex;
+  width: 100%;
+  height: 45px;
   margin-bottom: 10px;
 }
 
 .react-calendar__navigation button {
   min-width: 44px;
+  padding: 8px;
   background: transparent;
-  border-radius: 8px;
-  font-size: 16px;
+  border: none;
+  border-radius: 7px;
   color: #1e293b;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .react-calendar__navigation button:hover {
   background: #eff6ff;
-}
-
-/* Calendar Weekdays */
-
-.react-calendar__month-view__weekdays {
-  font-weight: 700;
-  color: #475569;
-  text-transform: uppercase;
-  font-size: 12px;
-}
-
-/* Calendar Tiles */
-
-.react-calendar__tile {
-  padding: 14px 8px;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.react-calendar__tile:hover {
-  background: #eff6ff !important;
   color: #2563eb;
 }
 
-/* Selected Date */
+.react-calendar__navigation button:disabled {
+  background: #f8fafc;
+  color: #94a3b8;
+}
+
+/* ========================================
+   WEEKDAY HEADER
+======================================== */
+
+.react-calendar__month-view__weekdays {
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+}
+
+/* ========================================
+   CALENDAR DAYS GRID
+======================================== */
+
+.react-calendar__month-view__days {
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+/* ========================================
+   CALENDAR DATE TILE
+======================================== */
+
+.react-calendar__tile {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 42px;
+  padding: 8px 4px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f8fafc;
+  border: none;
+  border-radius: 7px;
+
+  color: #1e293b;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ========================================
+   DATE HOVER
+======================================== */
+
+.react-calendar__tile:hover {
+  background: #dbeafe !important;
+  color: #2563eb !important;
+}
+
+/* ========================================
+   SELECTED DATE
+======================================== */
 
 .react-calendar__tile--active {
   background: #2563eb !important;
   color: #ffffff !important;
-  border-radius: 8px;
+  font-weight: 600;
 }
+
+/* ========================================
+   TODAY
+======================================== */
 
 .react-calendar__tile--now {
   background: #dbeafe;
   color: #2563eb;
+  font-weight: 600;
 }
 
-/* Selected Date Text */
+/* ========================================
+   SELECTED TODAY
+======================================== */
+
+.react-calendar__tile--now.react-calendar__tile--active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* ========================================
+   PREVIOUS / NEXT MONTH DATES
+======================================== */
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #94a3b8;
+  background: #f8fafc;
+}
+
+/* ========================================
+   WEEKEND DATES
+======================================== */
+
+.react-calendar__month-view__days__day--weekend {
+  color: #ef4444;
+}
+
+/* Selected weekend */
+
+.react-calendar__tile--active.react-calendar__month-view__days__day--weekend {
+  color: #ffffff !important;
+}
+
+/* ========================================
+   SELECTED DATE DISPLAY
+======================================== */
 
 .consultation-container > p {
   max-width: 500px;
-  margin: 18px auto 0;
+  margin: 16px auto 0;
   padding: 12px 15px;
+
   background: #f8fafc;
   border-left: 4px solid #2563eb;
   border-radius: 6px;
+
   color: #475569;
+  font-size: 14px;
 }
 
-/* Form Elements */
+.consultation-container > p strong {
+  color: #1e293b;
+}
+
+/* ========================================
+   FORM ELEMENTS
+======================================== */
 
 .consultation-container select,
 .consultation-container textarea {
   width: 100%;
-  max-width: 100%;
   padding: 13px 15px;
+
+  background: #ffffff;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  font-size: 15px;
+
+  color: #1e293b;
   font-family: inherit;
+  font-size: 15px;
+
   outline: none;
-  transition: 0.2s ease;
-  background: #ffffff;
+  transition: all 0.2s ease;
 }
 
-/* Select */
+/* ========================================
+   TIME SLOT SELECT
+======================================== */
 
 .consultation-container select {
+  height: 48px;
   cursor: pointer;
-  appearance: auto;
 }
 
-/* Textarea */
+/* ========================================
+   TEXTAREA
+======================================== */
 
 .consultation-container textarea {
   min-height: 120px;
   resize: vertical;
+  line-height: 1.5;
 }
 
-/* Focus */
+/* ========================================
+   FORM FOCUS
+======================================== */
 
 .consultation-container select:focus,
 .consultation-container textarea:focus {
@@ -160,18 +283,23 @@
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
-/* Book Button */
+/* ========================================
+   BOOK CONSULTATION BUTTON
+======================================== */
 
 .consultation-container button {
   width: 100%;
   margin-top: 25px;
   padding: 14px 20px;
+
+  background: #2563eb;
   border: none;
   border-radius: 8px;
-  background: #2563eb;
+
   color: #ffffff;
   font-size: 16px;
   font-weight: 600;
+
   cursor: pointer;
   transition: all 0.25s ease;
 }
@@ -186,23 +314,24 @@
   transform: translateY(0);
 }
 
-/* =========================
-   Tablet
-========================= */
+/* ========================================
+   TABLET RESPONSIVE
+======================================== */
 
 @media (max-width: 768px) {
 
-  .consultation-page {
+  .page {
     padding: 35px 15px;
   }
 
-  .consultation-page > h1 {
+  .page > h1 {
     font-size: 34px;
     margin-bottom: 30px;
   }
 
   .consultation-container {
     padding: 25px;
+    border-radius: 15px;
   }
 
   .react-calendar {
@@ -211,17 +340,17 @@
 
 }
 
-/* =========================
-   Mobile
-========================= */
+/* ========================================
+   MOBILE RESPONSIVE
+======================================== */
 
 @media (max-width: 480px) {
 
-  .consultation-page {
+  .page {
     padding: 25px 12px;
   }
 
-  .consultation-page > h1 {
+  .page > h1 {
     font-size: 28px;
     margin-bottom: 25px;
   }
@@ -238,15 +367,37 @@
 
   .react-calendar {
     padding: 8px;
+    border-radius: 10px;
   }
 
-  .react-calendar__tile {
-    padding: 11px 4px;
-    font-size: 13px;
+  .react-calendar__navigation {
+    height: 40px;
   }
 
   .react-calendar__navigation button {
-    font-size: 14px;
+    min-width: 35px;
+    padding: 5px;
+    font-size: 13px;
+  }
+
+  .react-calendar__month-view__weekdays {
+    font-size: 9px;
+  }
+
+  .react-calendar__month-view__days {
+    gap: 3px;
+  }
+
+  .react-calendar__tile {
+    height: 38px;
+    padding: 6px 2px !important;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  .consultation-container > p {
+    font-size: 13px;
+    padding: 10px 12px;
   }
 
   .consultation-container select,
@@ -254,7 +405,16 @@
     font-size: 14px;
   }
 
+  .consultation-container select {
+    height: 45px;
+  }
+
+  .consultation-container textarea {
+    min-height: 110px;
+  }
+
   .consultation-container button {
+    padding: 13px 15px;
     font-size: 15px;
   }
 
