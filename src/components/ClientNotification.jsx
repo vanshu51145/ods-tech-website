@@ -3,7 +3,6 @@ import { io } from "socket.io-client";
 import "./ClientNotification.css";
 
 function ClientNotification() {
-
   const [notifications, setNotifications] = useState([]);
   const [notificationOpen, setNotificationOpen] = useState(false);
 
@@ -11,9 +10,7 @@ function ClientNotification() {
     localStorage.getItem("client")
   );
 
-
   useEffect(() => {
-
     if (!client?._id) {
       return;
     }
@@ -22,15 +19,13 @@ function ClientNotification() {
       "https://ods-network-backend.onrender.com"
     );
 
-
-    // Client joins personal room
+    // Client personal room join
     socket.emit(
       "join_room",
       client._id
     );
 
-
-    // Appointment confirmation notification
+    // Appointment confirmation
     socket.on(
       "appointment_confirmed",
       (data) => {
@@ -40,62 +35,64 @@ function ClientNotification() {
           data
         );
 
-
         const newNotification = {
-
           id: Date.now(),
-
           message: data.message,
-
-          appointment:
-            data.appointment,
-
+          appointment: data.appointment,
+          read: false,
         };
 
-
-        // Add new notification
         setNotifications((prev) => [
-
           newNotification,
-
           ...prev,
-
         ]);
 
-
-        // Browser alert
         alert(data.message);
-
       }
     );
 
-
     return () => {
-
       socket.off(
         "appointment_confirmed"
       );
 
       socket.disconnect();
-
     };
 
   }, [client?._id]);
 
 
   // =========================
-  // Mark Single Notification Read
+  // Mark Single Notification as Read
   // =========================
 
   const markAsRead = (id) => {
 
     setNotifications((prev) =>
-
-      prev.filter(
-        (notification) =>
-          notification.id !== id
+      prev.map((notification) =>
+        notification.id === id
+          ? {
+              ...notification,
+              read: true,
+            }
+          : notification
       )
+    );
 
+  };
+
+
+  // =========================
+  // Mark All as Read
+  // =========================
+
+  const markAllAsRead = () => {
+
+    setNotifications((prev) =>
+      prev.map((notification) => ({
+        ...notification,
+        read: true,
+      }))
     );
 
   };
@@ -112,36 +109,38 @@ function ClientNotification() {
   };
 
 
+  // =========================
+  // Unread Count
+  // =========================
+
+  const unreadCount =
+    notifications.filter(
+      (notification) =>
+        !notification.read
+    ).length;
+
+
   return (
 
     <div className="notification-wrapper">
 
-
       {/* Notification Bell */}
 
       <button
-
         className="notification-btn"
-
         onClick={() =>
           setNotificationOpen(
             !notificationOpen
           )
         }
-
       >
 
         🔔
 
-
-        {/* Notification Badge */}
-
-        {notifications.length > 0 && (
+        {unreadCount > 0 && (
 
           <span className="notification-count">
-
-            {notifications.length}
-
+            {unreadCount}
           </span>
 
         )}
@@ -149,13 +148,11 @@ function ClientNotification() {
       </button>
 
 
-
       {/* Notification Dropdown */}
 
       {notificationOpen && (
 
         <div className="notification-dropdown">
-
 
           {/* Header */}
 
@@ -165,20 +162,33 @@ function ClientNotification() {
               Notifications
             </h3>
 
+            <div className="notification-actions">
 
-            {notifications.length > 0 && (
+              {unreadCount > 0 && (
 
-              <button
-                className="clear-btn"
-                onClick={clearAll}
-              >
-                Clear All
-              </button>
+                <button
+                  onClick={markAllAsRead}
+                  className="mark-all-btn"
+                >
+                  Mark All as Read
+                </button>
 
-            )}
+              )}
+
+              {notifications.length > 0 && (
+
+                <button
+                  onClick={clearAll}
+                  className="clear-btn"
+                >
+                  Clear All
+                </button>
+
+              )}
+
+            </div>
 
           </div>
-
 
 
           {/* No Notifications */}
@@ -186,92 +196,84 @@ function ClientNotification() {
           {notifications.length === 0 ? (
 
             <p className="no-notifications">
-
-              No new notifications
-
+              No notifications
             </p>
 
           ) : (
 
-
             <div className="notification-list">
-
 
               {notifications.map(
                 (notification) => (
 
                   <div
-
-                    className="notification-item"
-
-                    key={
-                      notification.id
-                    }
-
+                    className={`notification-item ${
+                      notification.read
+                        ? "read"
+                        : "unread"
+                    }`}
+                    key={notification.id}
                   >
 
+                    {/* Icon */}
 
                     <div className="notification-icon">
-
                       📅
-
                     </div>
 
 
+                    {/* Content */}
 
                     <div className="notification-content">
 
                       <p>
-
                         {notification.message}
-
                       </p>
 
 
                       {notification.appointment && (
 
                         <small>
-
                           Appointment:{" "}
-
                           {
-                            notification
-                              .appointment
+                            notification.appointment
                               .timeSlot
                           }
-
                         </small>
 
                       )}
 
 
+                      {/* Mark as Read */}
 
-                      {/* Mark As Read */}
+                      {!notification.read && (
 
-                      <button
+                        <button
+                          className="mark-read-btn"
+                          onClick={() =>
+                            markAsRead(
+                              notification.id
+                            )
+                          }
+                        >
+                          Mark as Read
+                        </button>
 
-                        className="mark-read-btn"
+                      )}
 
-                        onClick={() =>
-                          markAsRead(
-                            notification.id
-                          )
-                        }
+                      {notification.read && (
 
-                      >
+                        <span className="read-label">
+                          ✓ Read
+                        </span>
 
-                        ✓ Mark as Read
-
-                      </button>
-
+                      )}
 
                     </div>
-
 
                   </div>
 
                 )
-
               )}
 
             </div>

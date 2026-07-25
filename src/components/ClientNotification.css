@@ -13,7 +13,6 @@
 
 .notification-btn {
   position: relative;
-
   width: 48px;
   height: 48px;
 
@@ -25,28 +24,24 @@
   border-radius: 50%;
 
   background: #ffffff;
+  color: #1e293b;
 
   font-size: 22px;
-
   cursor: pointer;
 
-  box-shadow:
-    0 4px 12px
-    rgba(15, 23, 42, 0.12);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
 
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .notification-btn:hover {
   transform: translateY(-2px);
 
-  box-shadow:
-    0 7px 18px
-    rgba(15, 23, 42, 0.18);
+  box-shadow: 0 7px 18px rgba(15, 23, 42, 0.18);
 }
 
 /* ========================================
-   Notification Count
+   Notification Count Badge
 ======================================== */
 
 .notification-count {
@@ -65,7 +60,6 @@
   padding: 2px 5px;
 
   background: #ef4444;
-
   color: #ffffff;
 
   border-radius: 50%;
@@ -77,7 +71,7 @@
 }
 
 /* ========================================
-   Dropdown
+   Notification Dropdown
 ======================================== */
 
 .notification-dropdown {
@@ -86,34 +80,50 @@
   top: 58px;
   right: 0;
 
-  width: 340px;
+  width: 360px;
+  max-width: calc(100vw - 30px);
 
   background: #ffffff;
 
-  border-radius: 12px;
-
-  box-shadow:
-    0 10px 30px
-    rgba(15, 23, 42, 0.15);
+  border-radius: 14px;
 
   border: 1px solid #e2e8f0;
+
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.18);
 
   z-index: 1000;
 
   overflow: hidden;
+
+  animation: notificationSlide 0.2s ease;
+}
+
+@keyframes notificationSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ========================================
-   Header
+   Notification Header
 ======================================== */
 
 .notification-header {
   display: flex;
-
   align-items: center;
   justify-content: space-between;
 
+  gap: 15px;
+
   padding: 15px 18px;
+
+  background: #ffffff;
 
   border-bottom: 1px solid #e2e8f0;
 }
@@ -124,24 +134,65 @@
   color: #1e293b;
 
   font-size: 17px;
+  font-weight: 700;
 }
 
-.notification-header button {
-  padding: 5px 8px;
+/* ========================================
+   Header Actions
+======================================== */
+
+.notification-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Mark All as Read */
+
+.mark-all-btn {
+  padding: 6px 10px;
 
   border: none;
+  border-radius: 6px;
 
-  background: transparent;
-
+  background: #eff6ff;
   color: #2563eb;
 
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 600;
 
   cursor: pointer;
+
+  transition: all 0.2s ease;
 }
 
-.notification-header button:hover {
-  text-decoration: underline;
+.mark-all-btn:hover {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* Clear All */
+
+.clear-btn {
+  padding: 6px 10px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #fef2f2;
+  color: #dc2626;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.clear-btn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 /* ========================================
@@ -149,7 +200,7 @@
 ======================================== */
 
 .no-notifications {
-  padding: 25px 20px;
+  padding: 30px 20px;
 
   margin: 0;
 
@@ -165,9 +216,28 @@
 ======================================== */
 
 .notification-list {
-  max-height: 350px;
+  max-height: 380px;
 
   overflow-y: auto;
+}
+
+/* Scrollbar */
+
+.notification-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.notification-list::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 /* ========================================
@@ -179,11 +249,11 @@
 
   gap: 12px;
 
-  padding: 15px 18px;
+  padding: 16px 18px;
 
   border-bottom: 1px solid #f1f5f9;
 
-  transition: 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .notification-item:hover {
@@ -194,13 +264,30 @@
   border-bottom: none;
 }
 
+/* Unread Notification */
+
+.notification-item.unread {
+  background: #f8fbff;
+}
+
+/* Read Notification */
+
+.notification-item.read {
+  background: #ffffff;
+  opacity: 0.8;
+}
+
+.notification-item.read:hover {
+  background: #f8fafc;
+}
+
 /* ========================================
    Notification Icon
 ======================================== */
 
 .notification-icon {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
 
   flex-shrink: 0;
 
@@ -216,41 +303,166 @@
 }
 
 /* ========================================
-   Notification Text
+   Notification Content
 ======================================== */
 
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
 .notification-item p {
-  margin: 0 0 5px;
+  margin: 0 0 6px;
 
   color: #1e293b;
 
   font-size: 13px;
-
   line-height: 1.5;
 }
 
 .notification-item small {
+  display: block;
+
+  margin-bottom: 10px;
+
   color: #64748b;
 
   font-size: 11px;
 }
 
 /* ========================================
-   Mobile
+   Mark as Read Button
 ======================================== */
 
-@media (max-width: 480px) {
+.mark-read-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 5px;
+
+  padding: 6px 11px;
+
+  border: 1px solid #2563eb;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #2563eb;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.mark-read-btn:hover {
+  background: #2563eb;
+
+  color: #ffffff;
+
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.2);
+
+  transform: translateY(-1px);
+}
+
+.mark-read-btn:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   Read Label
+======================================== */
+
+.read-label {
+  display: inline-flex;
+  align-items: center;
+
+  margin-top: 5px;
+
+  padding: 5px 9px;
+
+  border-radius: 6px;
+
+  background: #f0fdf4;
+
+  color: #16a34a;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ========================================
+   Mobile Responsive
+======================================== */
+
+@media (max-width: 600px) {
 
   .notification-dropdown {
     position: fixed;
 
-    top: 75px;
+    top: 70px;
     left: 12px;
     right: 12px;
 
     width: auto;
-
     max-width: none;
+
+    border-radius: 12px;
+  }
+
+  .notification-header {
+    padding: 14px;
+  }
+
+  .notification-header h3 {
+    font-size: 15px;
+  }
+
+  .notification-actions {
+    gap: 5px;
+  }
+
+  .mark-all-btn,
+  .clear-btn {
+    padding: 5px 7px;
+
+    font-size: 10px;
+  }
+
+  .notification-item {
+    padding: 14px;
+  }
+
+}
+
+/* ========================================
+   Small Mobile
+======================================== */
+
+@media (max-width: 400px) {
+
+  .notification-actions {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .notification-header {
+    align-items: flex-start;
+  }
+
+  .notification-icon {
+    width: 34px;
+    height: 34px;
+
+    font-size: 15px;
+  }
+
+  .notification-item p {
+    font-size: 12px;
   }
 
 }
