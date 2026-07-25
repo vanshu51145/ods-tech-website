@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import "./ClientNotification.css";
 
 function ClientNotification() {
+
   const [notifications, setNotifications] = useState([]);
   const [notificationOpen, setNotificationOpen] = useState(false);
 
@@ -10,7 +11,9 @@ function ClientNotification() {
     localStorage.getItem("client")
   );
 
+
   useEffect(() => {
+
     if (!client?._id) {
       return;
     }
@@ -19,13 +22,15 @@ function ClientNotification() {
       "https://ods-network-backend.onrender.com"
     );
 
-    // Client apne personal room mein join karega
+
+    // Client joins personal room
     socket.emit(
       "join_room",
       client._id
     );
 
-    // Appointment confirmation receive
+
+    // Appointment confirmation notification
     socket.on(
       "appointment_confirmed",
       (data) => {
@@ -35,58 +40,114 @@ function ClientNotification() {
           data
         );
 
+
         const newNotification = {
+
           id: Date.now(),
+
           message: data.message,
-          appointment: data.appointment,
+
+          appointment:
+            data.appointment,
+
         };
 
+
+        // Add new notification
         setNotifications((prev) => [
+
           newNotification,
+
           ...prev,
+
         ]);
+
 
         // Browser alert
         alert(data.message);
+
       }
     );
 
+
     return () => {
+
       socket.off(
         "appointment_confirmed"
       );
 
       socket.disconnect();
+
     };
 
   }, [client?._id]);
 
 
+  // =========================
+  // Mark Single Notification Read
+  // =========================
+
+  const markAsRead = (id) => {
+
+    setNotifications((prev) =>
+
+      prev.filter(
+        (notification) =>
+          notification.id !== id
+      )
+
+    );
+
+  };
+
+
+  // =========================
+  // Clear All Notifications
+  // =========================
+
+  const clearAll = () => {
+
+    setNotifications([]);
+
+  };
+
+
   return (
+
     <div className="notification-wrapper">
+
 
       {/* Notification Bell */}
 
       <button
+
         className="notification-btn"
+
         onClick={() =>
           setNotificationOpen(
             !notificationOpen
           )
         }
+
       >
 
         🔔
 
+
+        {/* Notification Badge */}
+
         {notifications.length > 0 && (
 
           <span className="notification-count">
+
             {notifications.length}
+
           </span>
 
         )}
 
       </button>
+
 
 
       {/* Notification Dropdown */}
@@ -95,18 +156,21 @@ function ClientNotification() {
 
         <div className="notification-dropdown">
 
+
+          {/* Header */}
+
           <div className="notification-header">
 
             <h3>
               Notifications
             </h3>
 
+
             {notifications.length > 0 && (
 
               <button
-                onClick={() =>
-                  setNotifications([])
-                }
+                className="clear-btn"
+                onClick={clearAll}
               >
                 Clear All
               </button>
@@ -116,48 +180,98 @@ function ClientNotification() {
           </div>
 
 
+
+          {/* No Notifications */}
+
           {notifications.length === 0 ? (
 
             <p className="no-notifications">
+
               No new notifications
+
             </p>
 
           ) : (
 
+
             <div className="notification-list">
+
 
               {notifications.map(
                 (notification) => (
 
                   <div
+
                     className="notification-item"
-                    key={notification.id}
+
+                    key={
+                      notification.id
+                    }
+
                   >
 
+
                     <div className="notification-icon">
+
                       📅
+
                     </div>
 
-                    <div>
+
+
+                    <div className="notification-content">
 
                       <p>
+
                         {notification.message}
+
                       </p>
+
 
                       {notification.appointment && (
 
                         <small>
+
                           Appointment:{" "}
-                          {notification.appointment.timeSlot}
+
+                          {
+                            notification
+                              .appointment
+                              .timeSlot
+                          }
+
                         </small>
 
                       )}
 
+
+
+                      {/* Mark As Read */}
+
+                      <button
+
+                        className="mark-read-btn"
+
+                        onClick={() =>
+                          markAsRead(
+                            notification.id
+                          )
+                        }
+
+                      >
+
+                        ✓ Mark as Read
+
+                      </button>
+
+
                     </div>
+
 
                   </div>
 
                 )
+
               )}
 
             </div>
@@ -169,7 +283,9 @@ function ClientNotification() {
       )}
 
     </div>
+
   );
+
 }
 
 export default ClientNotification;
