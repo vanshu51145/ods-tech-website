@@ -32,3 +32,171 @@
     width: 100%;
   }
 }
+/* Header Actions */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+/* Notification */
+
+.notification-wrapper {
+  position: relative;
+}
+
+
+.notification-btn {
+  position: relative;
+  width: 45px;
+  height: 45px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  font-size: 22px;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  transition: 0.3s;
+}
+
+
+.notification-btn:hover {
+  transform: translateY(-2px);
+}
+
+
+/* Red Notification Count */
+
+.notification-badge {
+  position: absolute;
+
+  top: -5px;
+  right: -5px;
+
+  min-width: 20px;
+  height: 20px;
+
+  padding: 2px 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ef4444;
+  color: white;
+
+  border-radius: 50%;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* Dropdown */
+
+.notification-dropdown {
+  position: absolute;
+
+  top: 55px;
+  right: 0;
+
+  width: 320px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  padding: 18px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.15);
+
+  z-index: 1000;
+}
+
+
+.notification-dropdown h3 {
+  margin: 0 0 15px;
+
+  color: #1e3a8a;
+
+  font-size: 18px;
+}
+
+
+/* Notification Item */
+
+.notification-item {
+  padding: 12px;
+
+  margin-bottom: 10px;
+
+  background: #f1f5f9;
+
+  border-left: 4px solid #2563eb;
+
+  border-radius: 6px;
+}
+
+
+.notification-item p {
+  margin: 0 0 5px;
+
+  font-size: 14px;
+
+  color: #1e293b;
+}
+
+
+.notification-item small {
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+
+.no-notification {
+  color: #64748b;
+
+  font-size: 14px;
+
+  text-align: center;
+
+  padding: 15px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 600px) {
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .notification-dropdown {
+    position: fixed;
+
+    top: 80px;
+    left: 20px;
+    right: 20px;
+
+    width: auto;
+  }
+
+}

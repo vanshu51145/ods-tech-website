@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import "./ClientDashboard.css";
 function ClientDashboard() {
 
   const navigate = useNavigate();
 
-
+const [notifications, setNotifications] = useState([]);
+const [notificationOpen, setNotificationOpen] = useState(false);
   const client = JSON.parse(
     localStorage.getItem("client")
   );
@@ -32,8 +34,17 @@ useEffect(() => {
         "Appointment Confirmed:",
         data.appointment
       );
+       setNotifications((prev) => [
+        {
+          id: Date.now(),
+          message: data.message,
+          appointment: data.appointment,
+        },
+        ...prev,
+      ]);
     }
   );
+  
 
   return () => {
     socket.disconnect();
@@ -55,22 +66,84 @@ useEffect(() => {
     <section className="page">
 
 
-      <div className="page-header">
+     <div className="page-header">
 
-        <h1>
-          Welcome, {client?.name}
-        </h1>
+  <h1>
+    Welcome, {client?.name}
+  </h1>
+
+  <div className="header-actions">
+
+    <div className="notification-wrapper">
+
+      <button
+        className="notification-btn"
+        onClick={() =>
+          setNotificationOpen(!notificationOpen)
+        }
+      >
+        🔔
+
+        {notifications.length > 0 && (
+          <span className="notification-badge">
+            {notifications.length}
+          </span>
+        )}
+      </button>
 
 
-        <button
-          className="logout-btn"
-          onClick={logout}
-        >
-          Logout
-        </button>
+      {notificationOpen && (
+
+        <div className="notification-dropdown">
+
+          <h3>Notifications</h3>
+
+          {notifications.length === 0 ? (
+
+            <p className="no-notification">
+              No new notifications
+            </p>
+
+          ) : (
+
+            notifications.map((notification) => (
+
+              <div
+                className="notification-item"
+                key={notification.id}
+              >
+
+                <p>
+                  {notification.message}
+                </p>
+
+                <small>
+                  Appointment confirmed
+                </small>
+
+              </div>
+
+            ))
+
+          )}
+
+        </div>
+
+      )}
+
+    </div>
 
 
-      </div>
+    <button
+      className="logout-btn"
+      onClick={logout}
+    >
+      Logout
+    </button>
+
+  </div>
+
+</div>
 
 
 
