@@ -128,43 +128,43 @@ function AdminDashboard() {
     }
   };
   const deleteLead = async (id) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this lead?"
-  );
-
-  if (!confirmDelete) return;
-
-  try {
-    const response = await fetch(
-      `https://ods-network-backend.onrender.com/api/contact/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this lead?"
     );
 
-    const data = await response.json();
+    if (!confirmDelete) return;
 
-    if (data.success) {
-      // Remove lead from UI
-      setContacts((prev) =>
-        prev.filter((contact) => contact._id !== id)
+    try {
+      const response = await fetch(
+        `https://ods-network-backend.onrender.com/api/contact/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
 
-      // Refresh analytics
-      fetchAnalytics();
+      const data = await response.json();
 
-      alert("Lead deleted successfully");
-    } else {
-      alert(data.message);
+      if (data.success) {
+        // Remove lead from UI
+        setContacts((prev) =>
+          prev.filter((contact) => contact._id !== id)
+        );
+
+        // Refresh analytics
+        fetchAnalytics();
+
+        alert("Lead deleted successfully");
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log("DELETE LEAD ERROR:", error);
+      alert("Failed to delete lead");
     }
-  } catch (error) {
-    console.log("DELETE LEAD ERROR:", error);
-    alert("Failed to delete lead");
-  }
-};
+  };
   const fetchNotifications = async () => {
     try {
       const response = await fetch(
@@ -236,25 +236,25 @@ function AdminDashboard() {
     }
   };
   const fetchAuditLogs = async () => {
-  try {
-    const response = await fetch(
-      "https://ods-network-backend.onrender.com/api/admin/audit-logs",
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+    try {
+      const response = await fetch(
+        "https://ods-network-backend.onrender.com/api/admin/audit-logs",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setAuditLogs(data.logs || []);
       }
-    );
-
-    const data = await response.json();
-
-    if (data.success) {
-      setAuditLogs(data.logs || []);
+    } catch (error) {
+      console.log("Audit Logs Error:", error);
     }
-  } catch (error) {
-    console.log("Audit Logs Error:", error);
-  }
-};
+  };
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -353,6 +353,9 @@ function AdminDashboard() {
           >
             🧾 Manage Invoices
           </li>
+          <li onClick={() => navigate("/admin/appointments")}>
+            📅 Appointments
+          </li>
           <li
             onClick={() => navigate("/admin/milestones")}
           >
@@ -372,6 +375,7 @@ function AdminDashboard() {
           }
           >
             Active Chats</li>
+          
         </ul>
       </div>
 
@@ -561,6 +565,14 @@ function AdminDashboard() {
             <h1>🧾</h1>
 
           </div>
+           <div
+            className="card"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/admin/appointments")}
+          >
+            <h3>Appointments</h3>
+            <h1>📅</h1>
+          </div>
           <div
             className="card"
             style={{ cursor: "pointer" }}
@@ -570,6 +582,7 @@ function AdminDashboard() {
             <h1>📊</h1>
 
           </div>
+         
           <div
             className="card"
             style={{ cursor: "pointer" }}
@@ -651,56 +664,56 @@ function AdminDashboard() {
 
         </div>
         {isSuperAdmin && (
-  <div className="recent-activity">
+          <div className="recent-activity">
 
-    <div className="recent-activity-header">
-      <h2>Recent Activity</h2>
-      <p>Latest SuperAdmin actions</p>
-    </div>
-
-    {auditLogs.length === 0 ? (
-      <p className="no-activity">
-        No recent activity found.
-      </p>
-    ) : (
-      <div className="activity-list">
-
-        {auditLogs.map((log) => (
-          <div
-            className="activity-item"
-            key={log._id}
-          >
-
-            <div className="activity-icon">
-              📋
+            <div className="recent-activity-header">
+              <h2>Recent Activity</h2>
+              <p>Latest SuperAdmin actions</p>
             </div>
 
-            <div className="activity-content">
-
-              <h3>
-                {log.action}
-              </h3>
-
-              <p>
-                By: {log.adminName}
+            {auditLogs.length === 0 ? (
+              <p className="no-activity">
+                No recent activity found.
               </p>
+            ) : (
+              <div className="activity-list">
 
-              <small>
-                {new Date(
-                  log.timestamp
-                ).toLocaleString()}
-              </small>
+                {auditLogs.map((log) => (
+                  <div
+                    className="activity-item"
+                    key={log._id}
+                  >
 
-            </div>
+                    <div className="activity-icon">
+                      📋
+                    </div>
+
+                    <div className="activity-content">
+
+                      <h3>
+                        {log.action}
+                      </h3>
+
+                      <p>
+                        By: {log.adminName}
+                      </p>
+
+                      <small>
+                        {new Date(
+                          log.timestamp
+                        ).toLocaleString()}
+                      </small>
+
+                    </div>
+
+                  </div>
+                ))}
+
+              </div>
+            )}
 
           </div>
-        ))}
-
-      </div>
-    )}
-
-  </div>
-)}
+        )}
         <section id="live-chat">
 
           <AdminLiveChat />
@@ -775,13 +788,13 @@ function AdminDashboard() {
                         </select>
                       </td>
                       <td>
-  <button
-    className="delete-lead-btn"
-    onClick={() => deleteLead(contact._id)}
-  >
-    Delete
-  </button>
-</td>
+                        <button
+                          className="delete-lead-btn"
+                          onClick={() => deleteLead(contact._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
                     </tr>
                   ))
                 )}

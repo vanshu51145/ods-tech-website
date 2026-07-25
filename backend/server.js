@@ -31,6 +31,7 @@ const TeamMember = require("./models/TeamMember");
 const Notification = require("./models/Notification");
 const ChatMessage = require("./models/ChatMessage");
 const AuditLog = require("./models/AuditLog");
+const Appointment = require("./models/Appointment");
 
 const app = express();
 const server = http.createServer(app);
@@ -40,7 +41,11 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
     credentials: true,
   },
+  
 });
+app.set("io", io);
+
+
 
 app.use(
   cors({
@@ -1910,6 +1915,155 @@ app.post(
         success: false,
         message: "Failed to create audit log",
       });
+    }
+  }
+);
+app.post(
+  "/api/appointments",
+  clientAuth,
+  async (req, res) => {
+    try {
+      const {
+        date,
+        timeSlot,
+        topic,
+      } = req.body;
+
+      if (!date || !timeSlot || !topic) {
+        return res.status(400).json({
+          success: false,
+          message: "All fields are required",
+        });
+      }
+
+      const appointment = new Appointment({
+        clientId: req.client._id,
+        date,
+        timeSlot,
+        topic,
+        status: "Pending",
+      });
+
+      await appointment.save();
+
+      res.status(201).json({
+        success: true,
+        message: "Appointment Booked Successfully",
+        appointment,
+      });
+
+    } catch (error) {
+      console.log(
+        "CREATE APPOINTMENT ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+app.get(
+  "/api/appointments",
+  auth,
+  async (req, res) => {
+    try {
+      const appointments =
+        await Appointment.find()
+          .populate(
+            "clientId",
+            "name company email"
+          )
+          .sort({
+            createdAt: -1,
+          });
+
+      res.json({
+        success: true,
+        appointments,
+      });
+
+    } catch (error) {
+      console.log(
+        "GET APPOINTMENTS ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+app.put(
+  "/api/appointments/:id/confirm",
+  auth,
+  async (req, res) => {
+    try {
+
+      const appointment =
+        await Appointment.findByIdAndUpdate(
+          req.params.id,
+          {
+            status: "Confirmed",
+          },
+          {
+            new: true,
+          }
+        ).populate(
+          "clientId",
+          "name company email"
+        );
+
+      if (!appointment) {
+        return res.status(404).json({
+          success: false,
+          message: "Appointment not found",
+        });
+      }
+
+      // =========================
+      // Socket.io Notification
+      // =========================
+
+      const io = req.app.get("io");
+
+      if (io && appointment.clientId) {
+
+        io.to(
+          appointment.clientId._id.toString()
+        ).emit(
+          "appointment_confirmed",
+          {
+            message:
+              "Your consultation appointment has been confirmed!",
+            appointment,
+          }
+        );
+
+      }
+
+      res.json({
+        success: true,
+        message: "Appointment Confirmed",
+        appointment,
+      });
+
+    } catch (error) {
+
+      console.log(
+        "CONFIRM APPOINTMENT ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+
     }
   }
 );

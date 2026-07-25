@@ -523,29 +523,6 @@ function AdminProjectMilestones() {
                                                                     </div>
 
 
-                                                                    {/* Mark Completed */}
-                                                                    {!item.isCompleted && (
-
-                                                                        <label className="checkbox-row">
-
-                                                                            <input
-                                                                                type="checkbox"
-                                                                                checked={
-                                                                                    false
-                                                                                }
-                                                                                onChange={() =>
-                                                                                    updateMilestoneStatus(
-                                                                                        item._id,
-                                                                                        "Completed"
-                                                                                    )
-                                                                                }
-                                                                            />
-
-                                                                            Mark Completed
-
-                                                                        </label>
-
-                                                                    )}
 
                                                                 </div>
 

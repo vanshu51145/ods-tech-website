@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
+import { useEffect } from "react";
+import { io } from "socket.io-client";
 function ClientDashboard() {
 
   const navigate = useNavigate();
@@ -8,7 +9,36 @@ function ClientDashboard() {
   const client = JSON.parse(
     localStorage.getItem("client")
   );
+useEffect(() => {
+   const client = JSON.parse(
+    localStorage.getItem("client")
+  );
+  if (!client?._id) return;
 
+  const socket = io(
+    "https://ods-network-backend.onrender.com"
+  );
+
+  // Client apne room mein join karega
+  socket.emit("join_room", client._id);
+
+  // Appointment confirmation notification
+  socket.on(
+    "appointment_confirmed",
+    (data) => {
+      alert(data.message);
+
+      console.log(
+        "Appointment Confirmed:",
+        data.appointment
+      );
+    }
+  );
+
+  return () => {
+    socket.disconnect();
+  };
+}, [client?._id]);
 
   const logout = () => {
 
@@ -104,6 +134,17 @@ function ClientDashboard() {
             Chat with our support team in real time.
           </p>
         </div>
+        <div
+  className="card"
+  onClick={() => navigate("/client/appointments")}
+>
+  <h3>📅 Book Consultation</h3>
+
+  <p>
+    Schedule a consultation call with our team.
+  </p>
+</div>
+        
 
 
       </div>

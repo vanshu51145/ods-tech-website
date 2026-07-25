@@ -7,6 +7,8 @@ import TestError from "./components/TestError";
 import { lazy, Suspense } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
 import LiveSupport from "./pages/LiveSupport";
+import BookConsultation from "./pages/BookConsultation";
+import AdminAppointments from "./AdminAppointments";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
@@ -161,6 +163,14 @@ function App() {
           <Route path="/client/login" element={<ClientLogin />} />
           <Route path="/client/register" element={<ClientRegister />} />
           <Route path="/client/dashboard" element={<ClientDashboard />} />
+          <Route
+            path="/client/appointments"
+            element={<BookConsultation />}
+          />
+          <Route
+            path="/admin/appointments"
+            element={<AdminAppointments />}
+          />
           <Route
             path="/admin/subscribers"
             element={
