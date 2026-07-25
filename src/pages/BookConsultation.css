@@ -1,0 +1,261 @@
+/* =========================
+   Book Consultation Page
+========================= */
+
+.consultation-page {
+  min-height: 100vh;
+  background: #f4f7fc;
+  padding: 50px 20px;
+}
+
+/* Main Heading */
+
+.consultation-page > h1 {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 40px;
+}
+
+/* Main Container */
+
+.consultation-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* Section Headings */
+
+.consultation-container h2 {
+  font-size: 20px;
+  color: #1e293b;
+  margin: 28px 0 14px;
+}
+
+.consultation-container h2:first-child {
+  margin-top: 0;
+}
+
+/* Calendar */
+
+.react-calendar {
+  width: 100% !important;
+  max-width: 500px;
+  margin: 0 auto;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 12px;
+  padding: 15px;
+  background: #ffffff;
+  font-family: inherit;
+  box-shadow: 0 5px 15px rgba(15, 23, 42, 0.05);
+}
+
+/* Calendar Navigation */
+
+.react-calendar__navigation {
+  margin-bottom: 10px;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #1e293b;
+}
+
+.react-calendar__navigation button:hover {
+  background: #eff6ff;
+}
+
+/* Calendar Weekdays */
+
+.react-calendar__month-view__weekdays {
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* Calendar Tiles */
+
+.react-calendar__tile {
+  padding: 14px 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.react-calendar__tile:hover {
+  background: #eff6ff !important;
+  color: #2563eb;
+}
+
+/* Selected Date */
+
+.react-calendar__tile--active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+}
+
+.react-calendar__tile--now {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* Selected Date Text */
+
+.consultation-container > p {
+  max-width: 500px;
+  margin: 18px auto 0;
+  padding: 12px 15px;
+  background: #f8fafc;
+  border-left: 4px solid #2563eb;
+  border-radius: 6px;
+  color: #475569;
+}
+
+/* Form Elements */
+
+.consultation-container select,
+.consultation-container textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: 0.2s ease;
+  background: #ffffff;
+}
+
+/* Select */
+
+.consultation-container select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+/* Textarea */
+
+.consultation-container textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Focus */
+
+.consultation-container select:focus,
+.consultation-container textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Book Button */
+
+.consultation-container button {
+  width: 100%;
+  margin-top: 25px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.consultation-container button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+}
+
+.consultation-container button:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 768px) {
+
+  .consultation-page {
+    padding: 35px 15px;
+  }
+
+  .consultation-page > h1 {
+    font-size: 34px;
+    margin-bottom: 30px;
+  }
+
+  .consultation-container {
+    padding: 25px;
+  }
+
+  .react-calendar {
+    max-width: 100%;
+  }
+
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 480px) {
+
+  .consultation-page {
+    padding: 25px 12px;
+  }
+
+  .consultation-page > h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+  }
+
+  .consultation-container {
+    padding: 18px;
+    border-radius: 12px;
+  }
+
+  .consultation-container h2 {
+    font-size: 18px;
+    margin-top: 22px;
+  }
+
+  .react-calendar {
+    padding: 8px;
+  }
+
+  .react-calendar__tile {
+    padding: 11px 4px;
+    font-size: 13px;
+  }
+
+  .react-calendar__navigation button {
+    font-size: 14px;
+  }
+
+  .consultation-container select,
+  .consultation-container textarea {
+    font-size: 14px;
+  }
+
+  .consultation-container button {
+    font-size: 15px;
+  }
+
+}
