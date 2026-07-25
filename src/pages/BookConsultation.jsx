@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./BookConsultation.css";
+import ClientNotification from "../components/ClientNotification";
 function BookConsultation() {
 
   const [date, setDate] = useState(new Date());
@@ -82,9 +83,15 @@ function BookConsultation() {
 
     <div className="page">
 
-      <h1>
-        Book Consultation
-      </h1>
+      <div className="consultation-header">
+
+  <h1>
+    Book Consultation
+  </h1>
+
+  <ClientNotification />
+
+</div>
 
       <div className="consultation-container">
 

@@ -66,38 +66,82 @@
 }
 
 /* ========================================
-   CALENDAR NAVIGATION
+   CALENDAR NAVIGATION - FIXED
 ======================================== */
 
 .react-calendar__navigation {
-  display: flex;
+  display: grid !important;
+  grid-template-columns: 45px 45px minmax(120px, 1fr) 45px 45px;
+  align-items: center;
+  gap: 5px;
+
   width: 100%;
   height: 45px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
+
+/* All navigation buttons */
 
 .react-calendar__navigation button {
-  min-width: 44px;
-  padding: 8px;
-  background: transparent;
-  border: none;
-  border-radius: 7px;
-  color: #1e293b;
-  font-size: 15px;
-  font-weight: 500;
+  height: 40px !important;
+  min-width: 0 !important;
+  width: 100% !important;
+
+  padding: 0 8px !important;
+
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+
+  background: #f8fafc !important;
+  border: none !important;
+  border-radius: 8px !important;
+
+  color: #2563eb !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.react-calendar__navigation button:hover {
-  background: #eff6ff;
-  color: #2563eb;
+/* Previous / Next arrow hover */
+
+.react-calendar__navigation
+button:hover {
+  background: #dbeafe !important;
+  color: #1d4ed8 !important;
 }
 
-.react-calendar__navigation button:disabled {
-  background: #f8fafc;
-  color: #94a3b8;
+/* Month + Year button */
+
+.react-calendar__navigation
+.react-calendar__navigation__label {
+  background: #2563eb !important;
+  color: #ffffff !important;
+
+  font-size: 16px !important;
+  font-weight: 600 !important;
+
+  border-radius: 8px !important;
 }
 
+/* Month + Year hover */
+
+.react-calendar__navigation
+.react-calendar__navigation__label:hover {
+  background: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+/* Disabled buttons */
+
+.react-calendar__navigation
+button:disabled {
+  background: #f1f5f9 !important;
+  color: #94a3b8 !important;
+  cursor: default;
+}
 /* ========================================
    WEEKDAY HEADER
 ======================================== */
@@ -313,6 +357,18 @@
 .consultation-container button:active {
   transform: translateY(0);
 }
+.consultation-header {
+  max-width: 700px;
+  margin: 0 auto 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.consultation-header h1 {
+  margin: 0;
+}
 
 /* ========================================
    TABLET RESPONSIVE
@@ -371,13 +427,21 @@
   }
 
   .react-calendar__navigation {
+    grid-template-columns: 35px 35px minmax(90px, 1fr) 35px 35px;
+    gap: 3px;
     height: 40px;
   }
 
   .react-calendar__navigation button {
-    min-width: 35px;
-    padding: 5px;
-    font-size: 13px;
+    height: 36px !important;
+    padding: 0 4px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+  }
+
+  .react-calendar__navigation
+  .react-calendar__navigation__label {
+    font-size: 13px !important;
   }
 
   .react-calendar__month-view__weekdays {

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import "./ClientDashboard.css";
+import ClientNotification from "../components/ClientNotification";
 function ClientDashboard() {
 
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ useEffect(() => {
     <section className="page">
 
 
-     <div className="page-header">
+<div className="page-header">
 
   <h1>
     Welcome, {client?.name}
@@ -74,65 +75,7 @@ useEffect(() => {
 
   <div className="header-actions">
 
-    <div className="notification-wrapper">
-
-      <button
-        className="notification-btn"
-        onClick={() =>
-          setNotificationOpen(!notificationOpen)
-        }
-      >
-        🔔
-
-        {notifications.length > 0 && (
-          <span className="notification-badge">
-            {notifications.length}
-          </span>
-        )}
-      </button>
-
-
-      {notificationOpen && (
-
-        <div className="notification-dropdown">
-
-          <h3>Notifications</h3>
-
-          {notifications.length === 0 ? (
-
-            <p className="no-notification">
-              No new notifications
-            </p>
-
-          ) : (
-
-            notifications.map((notification) => (
-
-              <div
-                className="notification-item"
-                key={notification.id}
-              >
-
-                <p>
-                  {notification.message}
-                </p>
-
-                <small>
-                  Appointment confirmed
-                </small>
-
-              </div>
-
-            ))
-
-          )}
-
-        </div>
-
-      )}
-
-    </div>
-
+    <ClientNotification />
 
     <button
       className="logout-btn"
