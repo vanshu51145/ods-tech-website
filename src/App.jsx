@@ -8,7 +8,7 @@ import { lazy, Suspense } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
 import LiveSupport from "./pages/LiveSupport";
 import BookConsultation from "./pages/BookConsultation";
-import AdminAppointments from "./AdminAppointments";
+import AdminAppointments from "./pages/AdminAppointments";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
