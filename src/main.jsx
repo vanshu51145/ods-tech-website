@@ -15,11 +15,46 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HelmetProvider>
       <BrowserRouter>
-<ErrorBoundary>
-    <App />
-  </ErrorBoundary>
-          <ToastContainer />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+
+        <ToastContainer />
       </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>
 );
+
+
+// =========================
+// Register Service Worker
+// =========================
+
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener("load", () => {
+
+    navigator.serviceWorker
+      .register("/service-worker.js")
+
+      .then((registration) => {
+
+        console.log(
+          "Service Worker registered successfully:",
+          registration.scope
+        );
+
+      })
+
+      .catch((error) => {
+
+        console.error(
+          "Service Worker registration failed:",
+          error
+        );
+
+      });
+
+  });
+
+}
