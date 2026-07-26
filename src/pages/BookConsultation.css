@@ -488,6 +488,19 @@ button:disabled {
    ONLY CALENDAR + SELECTED DATE + NOTIFICATION
 ======================================== */
 
+/* Main Consultation Box */
+body.dark-mode .consultation-container {
+  background: #1e293b !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+
+/* Consultation Headings */
+body.dark-mode .consultation-container h2 {
+  color: #f8fafc !important;
+}
 
 /* ========================================
    SELECTED DATE BOX
