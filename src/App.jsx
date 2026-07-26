@@ -73,9 +73,12 @@ function App() {
     });
   }, [location]);
   useEffect(() => {
+  if (isAdminPage) {
+    document.body.classList.remove("dark-mode");
+  } else {
     document.body.classList.toggle("dark-mode", darkMode);
-  }, [darkMode]);
-
+  }
+}, [darkMode, isAdminPage]);
   return (
     <>
 
@@ -168,9 +171,13 @@ function App() {
             element={<BookConsultation />}
           />
           <Route
-            path="/admin/appointments"
-            element={<AdminAppointments />}
-          />
+  path="/admin/appointments"
+  element={
+    <ProtectedRoute>
+      <AdminAppointments />
+    </ProtectedRoute>
+  }
+/>
           <Route
             path="/admin/subscribers"
             element={
@@ -183,10 +190,14 @@ function App() {
             path="/client/invoices"
             element={<ClientInvoices />}
           />
-          <Route
-            path="/admin/invoices"
-            element={<AdminInvoices />}
-          />
+         <Route
+  path="/admin/invoices"
+  element={
+    <ProtectedRoute>
+      <AdminInvoices />
+    </ProtectedRoute>
+  }
+/>
           <Route
             path="/client/progress"
             element={<ProjectProgress />}
