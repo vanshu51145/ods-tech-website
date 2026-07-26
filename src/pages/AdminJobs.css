@@ -124,125 +124,179 @@
    ADMIN JOBS DARK MODE
 ================================= */
 
-.admin-dark-mode .page {
-  background: #0f172a;
-  color: #f8fafc;
-  min-height: 100vh;
+body.admin-dark-mode .page {
+    background: #0f172a;
+    color: #f8fafc;
+    min-height: 100vh;
 }
 
 /* Header */
 
-.admin-dark-mode .page h1 {
-  color: #60a5fa !important;
+body.admin-dark-mode .page h1 {
+    color: #60a5fa !important;
 }
 
-.admin-dark-mode .page h2 {
-  color: #f8fafc;
+body.admin-dark-mode .page h2 {
+    color: #f8fafc;
 }
 
-/* Dashboard Button */
+/* ================================
+   JOB FORM
+================================ */
 
-.admin-dark-mode .page button {
-  color: #fff;
+body.admin-dark-mode .job-form {
+    background: #1e293b;
+    color: #f8fafc;
+    border: 1px solid #334155;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.35);
 }
 
-/* Job Form */
-
-.admin-dark-mode .job-form {
-  background: #1e293b;
-  color: #f8fafc;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+body.admin-dark-mode .job-form input,
+body.admin-dark-mode .job-form textarea,
+body.admin-dark-mode .job-form select {
+    background: #0f172a;
+    color: #f8fafc;
+    border: 1px solid #475569;
 }
 
-.admin-dark-mode .job-form input,
-.admin-dark-mode .job-form textarea,
-.admin-dark-mode .job-form select {
-  background: #0f172a;
-  color: #f8fafc;
-  border: 1px solid #475569;
+body.admin-dark-mode .job-form input::placeholder,
+body.admin-dark-mode .job-form textarea::placeholder {
+    color: #94a3b8;
 }
 
-.admin-dark-mode .job-form input::placeholder,
-.admin-dark-mode .job-form textarea::placeholder {
-  color: #94a3b8;
+body.admin-dark-mode .job-form input:focus,
+body.admin-dark-mode .job-form textarea:focus,
+body.admin-dark-mode .job-form select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-.admin-dark-mode .job-form input:focus,
-.admin-dark-mode .job-form textarea:focus,
-.admin-dark-mode .job-form select:focus {
-  border-color: #3b82f6;
-  outline: none;
+body.admin-dark-mode .job-form select option {
+    background: #1e293b;
+    color: #f8fafc;
 }
 
-/* Select Options */
+/* Submit Button */
 
-.admin-dark-mode .job-form select option {
-  background: #1e293b;
-  color: #f8fafc;
+body.admin-dark-mode .job-form button {
+    background: #2563eb;
+    color: #ffffff;
 }
 
-/* Form Submit Button */
-
-.admin-dark-mode .job-form button {
-  background: #2563eb;
-  color: #fff;
+body.admin-dark-mode .job-form button:hover {
+    background: #1d4ed8;
 }
 
-.admin-dark-mode .job-form button:hover {
-  background: #1d4ed8;
+
+/* ================================
+   JOB TABLE
+================================ */
+
+body.admin-dark-mode .job-table {
+    background: #1e293b;
+    color: #f8fafc;
+    border: 1px solid #475569;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.35);
 }
 
-/* Horizontal Lines */
+/* Table Header */
 
-.admin-dark-mode .page hr {
-  border: none;
-  border-top: 1px solid #334155;
+body.admin-dark-mode .job-table thead {
+    background: #334155;
 }
 
-/* Tables */
-
-.admin-dark-mode .job-table {
-  background: #1e293b;
-  color: #f8fafc;
-  border-color: #475569;
+body.admin-dark-mode .job-table th {
+    background: #334155;
+    color: #f8fafc;
+    border-color: #475569;
 }
 
-.admin-dark-mode .job-table thead {
-  background: #334155;
+/* ALL Table Rows */
+
+body.admin-dark-mode .job-table tbody tr {
+    background: #1e293b;
+    color: #e2e8f0;
 }
 
-.admin-dark-mode .job-table th {
-  color: #f8fafc;
-  border-color: #475569;
+/* Even Rows */
+
+body.admin-dark-mode .job-table tbody tr:nth-child(even) {
+    background: #273449;
 }
 
-.admin-dark-mode .job-table td {
-  color: #e2e8f0;
-  border-color: #475569;
+/* Table Cells */
+
+body.admin-dark-mode .job-table td {
+    color: #e2e8f0;
+    background: transparent;
+    border-color: #475569;
 }
 
-.admin-dark-mode .job-table tbody tr:hover {
-  background: #334155;
+/* Hover */
+
+body.admin-dark-mode .job-table tbody tr:hover {
+    background: #334155;
 }
 
-/* Table Buttons */
-
-.admin-dark-mode .job-table button {
-  background: #2563eb;
-  color: #fff;
-  border: none;
+body.admin-dark-mode .job-table tbody tr:hover td {
+    background: transparent;
+    color: #ffffff;
 }
 
-.admin-dark-mode .job-table button:hover {
-  background: #1d4ed8;
+
+/* ================================
+   RESUME LINK
+================================ */
+
+body.admin-dark-mode .job-table a {
+    color: #60a5fa;
 }
 
-/* Resume Link */
-
-.admin-dark-mode .job-table a {
-  color: #60a5fa;
+body.admin-dark-mode .job-table a:hover {
+    color: #93c5fd;
 }
 
-.admin-dark-mode .job-table a:hover {
-  color: #93c5fd;
+
+/* ================================
+   TABLE BUTTON
+================================ */
+
+body.admin-dark-mode .job-table button {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+body.admin-dark-mode .job-table button:hover {
+    background: #1d4ed8;
+}
+
+
+/* ================================
+   HR
+================================ */
+
+body.admin-dark-mode .page hr {
+    border: none;
+    border-top: 1px solid #334155;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 768px) {
+
+    body.admin-dark-mode .job-table {
+        background: #1e293b;
+    }
+
+    body.admin-dark-mode .job-table tbody tr {
+        background: #1e293b;
+    }
+
+    body.admin-dark-mode .job-table tbody tr:nth-child(even) {
+        background: #273449;
+    }
+
 }

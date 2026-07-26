@@ -461,8 +461,172 @@
     font-size: 15px;
   }
 
+
   .notification-item p {
     font-size: 12px;
   }
 
+}
+/* ========================================
+   CLIENT NOTIFICATION DARK MODE
+======================================== */
+
+/* Notification Bell */
+body.dark-mode .notification-btn {
+  background: #1e293b;
+  color: #f8fafc;
+
+  border: 1px solid #475569;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-mode .notification-btn:hover {
+  background: #334155;
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.45);
+}
+
+
+/* Notification Count */
+body.dark-mode .notification-count {
+  border-color: #1e293b;
+}
+
+
+/* Notification Dropdown */
+body.dark-mode .notification-dropdown {
+  background: #1e293b;
+
+  border-color: #475569;
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.45);
+}
+
+
+/* Notification Header */
+body.dark-mode .notification-header {
+  background: #1e293b;
+
+  border-bottom-color: #475569;
+}
+
+body.dark-mode .notification-header h3 {
+  color: #f8fafc;
+}
+
+
+/* Header Actions */
+
+/* Mark All Button */
+body.dark-mode .mark-all-btn {
+  background: #1e3a8a;
+  color: #bfdbfe;
+}
+
+body.dark-mode .mark-all-btn:hover {
+  background: #1e40af;
+  color: #dbeafe;
+}
+
+
+/* Clear Button */
+body.dark-mode .clear-btn {
+  background: #450a0a;
+  color: #fca5a5;
+}
+
+body.dark-mode .clear-btn:hover {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+
+/* No Notifications */
+body.dark-mode .no-notifications {
+  background: #1e293b;
+  color: #94a3b8;
+}
+
+
+/* Notification List Scrollbar */
+body.dark-mode .notification-list::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+body.dark-mode .notification-list::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+body.dark-mode .notification-list::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+
+/* Notification Item */
+body.dark-mode .notification-item {
+  background: #1e293b;
+
+  border-bottom-color: #475569;
+}
+
+body.dark-mode .notification-item:hover {
+  background: #334155;
+}
+
+
+/* Unread Notification */
+body.dark-mode .notification-item.unread {
+  background: #172554;
+}
+
+
+/* Read Notification */
+body.dark-mode .notification-item.read {
+  background: #1e293b;
+  opacity: 0.8;
+}
+
+body.dark-mode .notification-item.read:hover {
+  background: #334155;
+}
+
+
+/* Notification Icon */
+body.dark-mode .notification-icon {
+  background: #1e3a8a;
+}
+
+
+/* Notification Text */
+body.dark-mode .notification-item p {
+  color: #e2e8f0;
+}
+
+body.dark-mode .notification-item small {
+  color: #94a3b8;
+}
+
+
+/* Mark as Read Button */
+body.dark-mode .mark-read-btn {
+  background: #1e293b;
+  color: #60a5fa;
+
+  border-color: #3b82f6;
+}
+
+body.dark-mode .mark-read-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+
+/* Read Label */
+body.dark-mode .read-label {
+  background: #052e16;
+  color: #4ade80;
 }
