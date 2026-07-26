@@ -497,7 +497,9 @@ body.dark-mode .consultation-container > p {
   background: #0f172a !important;
   color: #cbd5e1 !important;
   border-left: 4px solid #2563eb !important;
-  border-radius: 6px;
+  border-top: 1px solid #334155 !important;
+  border-right: 1px solid #334155 !important;
+  border-bottom: 1px solid #334155 !important;
 }
 
 body.dark-mode .consultation-container > p strong {
@@ -506,44 +508,58 @@ body.dark-mode .consultation-container > p strong {
 
 
 /* ========================================
-   REACT CALENDAR
+   CALENDAR - COMPLETE DARK BACKGROUND
 ======================================== */
 
+body.dark-mode .react-calendar,
+body.dark-mode .react-calendar *,
+body.dark-mode .react-calendar__viewContainer,
+body.dark-mode .react-calendar__month-view,
+body.dark-mode .react-calendar__month-view > div,
+body.dark-mode .react-calendar__month-view > div > div {
+  background-color: #1e293b !important;
+}
+
+
+/* Calendar Outer Box */
+
 body.dark-mode .react-calendar {
-  background: #1e293b !important;
   color: #e2e8f0 !important;
   border: 1px solid #475569 !important;
 }
 
 
-/* Calendar Navigation */
+/* ========================================
+   CALENDAR NAVIGATION
+======================================== */
 
 body.dark-mode .react-calendar__navigation {
-  background: #1e293b !important;
+  background-color: #1e293b !important;
 }
 
 body.dark-mode .react-calendar__navigation button {
-  background: #334155 !important;
+  background-color: #334155 !important;
   color: #f8fafc !important;
   border: none !important;
 }
 
 body.dark-mode .react-calendar__navigation button:enabled:hover,
 body.dark-mode .react-calendar__navigation button:enabled:focus {
-  background: #475569 !important;
+  background-color: #475569 !important;
   color: #ffffff !important;
 }
 
 
-/* Month / Year Button */
+/* Month / Year */
 
 body.dark-mode .react-calendar__navigation__label {
-  background: #334155 !important;
+  background-color: #334155 !important;
   color: #ffffff !important;
 }
 
-body.dark-mode .react-calendar__navigation__label:hover {
-  background: #475569 !important;
+body.dark-mode .react-calendar__navigation__label:enabled:hover,
+body.dark-mode .react-calendar__navigation__label:enabled:focus {
+  background-color: #475569 !important;
   color: #ffffff !important;
 }
 
@@ -551,77 +567,85 @@ body.dark-mode .react-calendar__navigation__label:hover {
 /* Disabled Navigation */
 
 body.dark-mode .react-calendar__navigation button:disabled {
-  background: #1e293b !important;
+  background-color: #1e293b !important;
   color: #64748b !important;
 }
 
 
 /* ========================================
-   CALENDAR MAIN AREA
+   WEEKDAY NAMES
 ======================================== */
 
-body.dark-mode .react-calendar__viewContainer,
-body.dark-mode .react-calendar__month-view {
-  background: #1e293b !important;
+body.dark-mode .react-calendar__month-view__weekdays {
+  background-color: #1e293b !important;
+  color: #94a3b8 !important;
 }
 
-
-/* Weekdays */
-
-body.dark-mode .react-calendar__month-view__weekdays {
-  background: #1e293b !important;
+body.dark-mode .react-calendar__month-view__weekdays abbr {
   color: #94a3b8 !important;
 }
 
 
-/* Calendar Dates */
+/* ========================================
+   CALENDAR DAYS
+======================================== */
 
 body.dark-mode .react-calendar__tile {
-  background: #1e293b !important;
+  background-color: #1e293b !important;
   color: #e2e8f0 !important;
+  border: none !important;
 }
 
 body.dark-mode .react-calendar__tile:enabled:hover,
 body.dark-mode .react-calendar__tile:enabled:focus {
-  background: #334155 !important;
+  background-color: #334155 !important;
   color: #ffffff !important;
 }
 
 
-/* Today */
+/* ========================================
+   TODAY
+======================================== */
 
 body.dark-mode .react-calendar__tile--now {
-  background: #334155 !important;
+  background-color: #334155 !important;
   color: #60a5fa !important;
 }
 
 
-/* Selected Date */
+/* ========================================
+   SELECTED DATE
+======================================== */
 
 body.dark-mode .react-calendar__tile--active {
-  background: #2563eb !important;
+  background-color: #2563eb !important;
   color: #ffffff !important;
 }
 
 body.dark-mode .react-calendar__tile--active:enabled:hover,
 body.dark-mode .react-calendar__tile--active:enabled:focus {
-  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
   color: #ffffff !important;
 }
 
 
-/* Previous / Next Month Dates */
+/* ========================================
+   PREVIOUS / NEXT MONTH DATES
+======================================== */
 
 body.dark-mode
 .react-calendar__month-view__days__day--neighboringMonth {
+  background-color: #1e293b !important;
   color: #64748b !important;
 }
 
 
-/* Disabled Dates */
+/* ========================================
+   DISABLED DATES
+======================================== */
 
 body.dark-mode .react-calendar__tile:disabled {
-  background: #172033 !important;
+  background-color: #172033 !important;
   color: #475569 !important;
 }
 
@@ -630,14 +654,10 @@ body.dark-mode .react-calendar__tile:disabled {
    CLIENT NOTIFICATION
 ======================================== */
 
-
-/* Notification Bell */
-
 body.dark-mode .notification-btn {
   background: #1e293b !important;
   color: #f8fafc !important;
   border: 1px solid #475569 !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode .notification-btn:hover {
@@ -680,14 +700,14 @@ body.dark-mode .notification-item:hover {
 }
 
 
-/* Unread Notification */
+/* Unread */
 
 body.dark-mode .notification-item.unread {
   background: #172554 !important;
 }
 
 
-/* Read Notification */
+/* Read */
 
 body.dark-mode .notification-item.read {
   background: #1e293b !important;
