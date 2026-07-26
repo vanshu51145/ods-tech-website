@@ -81,10 +81,7 @@ const toggleAdminDarkMode = () => {
   });
 };
 
-// Admin Dark Mode
-const [adminDarkMode, setAdminDarkMode] = useState(() => {
-  return localStorage.getItem("adminDarkMode") === "true";
-});
+
   const isAdminPage = location.pathname.startsWith("/admin");
   useEffect(() => {
     ReactGA.send({
