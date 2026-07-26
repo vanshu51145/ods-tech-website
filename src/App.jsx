@@ -242,17 +242,29 @@ useEffect(() => {
 />
           <Route
             path="/client/progress"
-            element={<ProjectProgress />}
-          />
-          <Route
-            path="/admin/milestones"
-            element={<AdminProjectMilestones />}
-          />
+            element={
+                  <ProtectedRoute>
 
-          <Route
-            path="/admin/team"
-            element={<AdminTeam />}
+            <ProjectProgress />
+                </ProtectedRoute>
+}
           />
+        <Route
+  path="/admin/milestones"
+  element={
+    <ProtectedRoute>
+      <AdminProjectMilestones />
+    </ProtectedRoute>
+  }
+/>
+       <Route
+  path="/admin/team"
+  element={
+    <ProtectedRoute>
+      <AdminTeam />
+    </ProtectedRoute>
+  }
+/>
           <Route path="/test-error" element={<TestError />} />
           <Route path="*" element={<NotFound />} />
           <Route

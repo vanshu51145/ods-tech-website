@@ -120,3 +120,129 @@
     }
 
 }
+/* =================================
+   ADMIN JOBS DARK MODE
+================================= */
+
+.admin-dark-mode .page {
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Header */
+
+.admin-dark-mode .page h1 {
+  color: #60a5fa !important;
+}
+
+.admin-dark-mode .page h2 {
+  color: #f8fafc;
+}
+
+/* Dashboard Button */
+
+.admin-dark-mode .page button {
+  color: #fff;
+}
+
+/* Job Form */
+
+.admin-dark-mode .job-form {
+  background: #1e293b;
+  color: #f8fafc;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-dark-mode .job-form input,
+.admin-dark-mode .job-form textarea,
+.admin-dark-mode .job-form select {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #475569;
+}
+
+.admin-dark-mode .job-form input::placeholder,
+.admin-dark-mode .job-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+.admin-dark-mode .job-form input:focus,
+.admin-dark-mode .job-form textarea:focus,
+.admin-dark-mode .job-form select:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+/* Select Options */
+
+.admin-dark-mode .job-form select option {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+/* Form Submit Button */
+
+.admin-dark-mode .job-form button {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .job-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Horizontal Lines */
+
+.admin-dark-mode .page hr {
+  border: none;
+  border-top: 1px solid #334155;
+}
+
+/* Tables */
+
+.admin-dark-mode .job-table {
+  background: #1e293b;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+.admin-dark-mode .job-table thead {
+  background: #334155;
+}
+
+.admin-dark-mode .job-table th {
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+.admin-dark-mode .job-table td {
+  color: #e2e8f0;
+  border-color: #475569;
+}
+
+.admin-dark-mode .job-table tbody tr:hover {
+  background: #334155;
+}
+
+/* Table Buttons */
+
+.admin-dark-mode .job-table button {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+}
+
+.admin-dark-mode .job-table button:hover {
+  background: #1d4ed8;
+}
+
+/* Resume Link */
+
+.admin-dark-mode .job-table a {
+  color: #60a5fa;
+}
+
+.admin-dark-mode .job-table a:hover {
+  color: #93c5fd;
+}

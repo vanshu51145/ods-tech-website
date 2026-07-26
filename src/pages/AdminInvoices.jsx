@@ -9,7 +9,7 @@ function AdminInvoices() {
   const [clients, setClients] = useState([]);
   const [invoices, setInvoices] = useState([]);
   const adminRole = localStorage.getItem("adminRole");
-const isSuperAdmin = adminRole === "SuperAdmin";
+  const isSuperAdmin = adminRole === "SuperAdmin";
 
   const [formData, setFormData] = useState({
     clientId: "",
@@ -122,11 +122,11 @@ const isSuperAdmin = adminRole === "SuperAdmin";
         }
       );
 
-console.log("Status:", response.status);
+      console.log("Status:", response.status);
 
-const data = await response.json();
+      const data = await response.json();
 
-console.log("Response:", data);
+      console.log("Response:", data);
       if (data.success) {
         toast.success(data.message);
 
@@ -158,31 +158,31 @@ console.log("Response:", data);
     }
   };
   const deleteInvoice = async (id) => {
-  if (!window.confirm("Delete this invoice?")) return;
+    if (!window.confirm("Delete this invoice?")) return;
 
-  try {
-    const response = await fetch(
-      `https://ods-network-backend.onrender.com/api/invoices/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
+    try {
+      const response = await fetch(
+        `https://ods-network-backend.onrender.com/api/invoices/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        fetchInvoices();
+      } else {
+        alert(data.message);
       }
-    );
 
-    const data = await response.json();
-
-    if (data.success) {
-      fetchInvoices();
-    } else {
-      alert(data.message);
+    } catch (error) {
+      console.log("Delete Invoice Error:", error);
     }
-
-  } catch (error) {
-    console.log("Delete Invoice Error:", error);
-  }
-};
+  };
 
   return (
     <div className="page">
@@ -273,7 +273,7 @@ console.log("Response:", data);
           <tbody>
             {invoices.length === 0 ? (
               <tr>
-                <td colSpan="5">No invoices found.</td>
+                <td colSpan="6">No invoices found.</td>
               </tr>
             ) : (
               invoices.map((invoice) => (
@@ -303,13 +303,16 @@ console.log("Response:", data);
                       Download
                     </a>
                   </td>
-                  {isSuperAdmin && (
-  <button 
+                  <td>
+                    {isSuperAdmin && (
+                      <button
                         className="delete-btn"
-onClick={() => deleteInvoice(invoice._id)}>
-    Delete
-  </button>
-)}
+                        onClick={() => deleteInvoice(invoice._id)}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </td>
                 </tr>
               ))
             )}

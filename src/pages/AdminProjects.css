@@ -192,3 +192,145 @@ min-width:800px;
 }
 
 }
+/* =========================================
+   ADMIN PROJECTS - DARK MODE
+========================================= */
+
+.admin-dark-mode .projects-page {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+/* Header */
+
+.admin-dark-mode .projects-top h1 {
+  color: #60a5fa;
+}
+
+.admin-dark-mode .back-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .back-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Project Form */
+
+.admin-dark-mode .project-form {
+  background: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Inputs */
+
+.admin-dark-mode .project-form input,
+.admin-dark-mode .project-form textarea {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #475569;
+}
+
+.admin-dark-mode .project-form input::placeholder,
+.admin-dark-mode .project-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+.admin-dark-mode .project-form input:focus,
+.admin-dark-mode .project-form textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+/* File Input */
+
+.admin-dark-mode .project-form input[type="file"] {
+  color: #cbd5e1;
+  background: #0f172a;
+}
+
+.admin-dark-mode .project-form input[type="file"]::file-selector-button {
+  background: #334155;
+  color: #f8fafc;
+  border: none;
+  padding: 8px 14px;
+  margin-right: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.admin-dark-mode .project-form input[type="file"]::file-selector-button:hover {
+  background: #475569;
+}
+
+/* Add Project Button */
+
+.admin-dark-mode .project-form button {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .project-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Table Box */
+
+.admin-dark-mode .table-box {
+  background: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.admin-dark-mode .table-box h2 {
+  color: #f8fafc;
+}
+
+/* Table */
+
+.admin-dark-mode .table-box table {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.admin-dark-mode .table-box thead {
+  background: #334155;
+}
+
+.admin-dark-mode .table-box th {
+  color: #f8fafc;
+}
+
+.admin-dark-mode .table-box td {
+  color: #cbd5e1;
+  border-bottom: 1px solid #334155;
+}
+
+.admin-dark-mode .table-box tbody tr:hover {
+  background: #263449;
+}
+
+/* Project Image */
+
+.admin-dark-mode .table-box td img {
+  border: 1px solid #475569;
+}
+
+/* Delete Button */
+
+.admin-dark-mode .delete-btn {
+  background: #dc2626;
+  color: #fff;
+}
+
+.admin-dark-mode .delete-btn:hover {
+  background: #b91c1c;
+}
+
+/* No Projects */
+
+.admin-dark-mode .table-box td[colspan] {
+  color: #94a3b8;
+}

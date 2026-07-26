@@ -328,3 +328,154 @@
   }
 
 }
+/* =========================================
+   ADMIN LIVE CHAT - DARK MODE
+========================================= */
+
+.admin-dark-mode .admin-live-chat {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+/* Active Chats Sidebar */
+
+.admin-dark-mode .active-chats {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.admin-dark-mode .active-chats h2 {
+  color: #f8fafc;
+}
+
+.admin-dark-mode .no-active-chat {
+  color: #94a3b8;
+}
+
+/* Chat Item */
+
+.admin-dark-mode .chat-item {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+.admin-dark-mode .chat-item:hover {
+  background: #334155;
+}
+
+.admin-dark-mode .chat-item.active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .chat-item h3 {
+  color: inherit;
+}
+
+.admin-dark-mode .chat-item p {
+  color: #cbd5e1;
+}
+
+.admin-dark-mode .chat-item.active p {
+  color: #e0f2fe;
+}
+
+/* Chat Window */
+
+.admin-dark-mode .chat-window {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+/* Chat Header */
+
+.admin-dark-mode .chat-window-header {
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+}
+
+.admin-dark-mode .chat-window-header h2 {
+  color: #f8fafc;
+}
+
+.admin-dark-mode .chat-window-header span {
+  color: #94a3b8;
+}
+
+/* Messages Area */
+
+.admin-dark-mode .admin-chat-messages {
+  background: #0f172a;
+}
+
+/* Empty Chat */
+
+.admin-dark-mode .empty-chat {
+  color: #94a3b8;
+}
+
+/* Client Message */
+
+.admin-dark-mode .client-message {
+  background: #334155;
+  color: #f8fafc;
+}
+
+/* Admin Message */
+
+.admin-dark-mode .admin-message {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* Input Area */
+
+.admin-dark-mode .admin-chat-input {
+  background: #1e293b;
+  border-top: 1px solid #334155;
+}
+
+/* Input */
+
+.admin-dark-mode .admin-chat-input input {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #475569;
+}
+
+.admin-dark-mode .admin-chat-input input::placeholder {
+  color: #94a3b8;
+}
+
+.admin-dark-mode .admin-chat-input input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+/* Send Button */
+
+.admin-dark-mode .admin-chat-input button {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .admin-chat-input button:hover {
+  background: #1d4ed8;
+}
+
+/* No Chat Selected */
+
+.admin-dark-mode .no-chat-selected {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.admin-dark-mode .no-chat-selected h2 {
+  color: #f8fafc;
+}
+
+.admin-dark-mode .no-chat-selected p {
+  color: #94a3b8;
+}

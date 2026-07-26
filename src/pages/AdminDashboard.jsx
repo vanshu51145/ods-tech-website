@@ -760,11 +760,11 @@ function AdminDashboard({
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan="5">Loading...</td>
+                    <td colSpan="7">Loading...</td>
                   </tr>
                 ) : contacts.length === 0 ? (
                   <tr>
-                    <td colSpan="5">No Messages Found</td>
+                    <td colSpan="7">No Messages Found</td>
                   </tr>
                 ) : (
                   contacts.map((contact) => (

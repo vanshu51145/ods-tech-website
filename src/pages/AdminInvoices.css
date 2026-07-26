@@ -233,3 +233,137 @@ background:#dc2626;
 }
 
 }
+/* =================================
+   ADMIN INVOICES DARK MODE
+================================= */
+
+.admin-dark-mode .page {
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Header */
+
+.admin-dark-mode .page-header h1 {
+  color: #f8fafc;
+}
+
+.admin-dark-mode .back-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .back-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Invoice Form */
+
+.admin-dark-mode .invoice-form {
+  background: #1e293b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-dark-mode .invoice-form input,
+.admin-dark-mode .invoice-form select,
+.admin-dark-mode .invoice-form textarea {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #475569;
+}
+
+.admin-dark-mode .invoice-form input::placeholder,
+.admin-dark-mode .invoice-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+.admin-dark-mode .invoice-form input:focus,
+.admin-dark-mode .invoice-form select:focus,
+.admin-dark-mode .invoice-form textarea:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+/* Select Options */
+
+.admin-dark-mode .invoice-form select option {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+/* Upload Button */
+
+.admin-dark-mode .invoice-form button {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .invoice-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Table Container */
+
+.admin-dark-mode .table-container {
+  background: #1e293b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Table */
+
+.admin-dark-mode .invoice-table {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.admin-dark-mode .invoice-table thead {
+  background: #334155;
+}
+
+.admin-dark-mode .invoice-table th {
+  color: #f8fafc;
+}
+
+.admin-dark-mode .invoice-table td {
+  color: #e2e8f0;
+  border-bottom: 1px solid #475569;
+}
+
+.admin-dark-mode .invoice-table tbody tr:hover {
+  background: #334155;
+}
+
+/* PDF Download */
+
+.admin-dark-mode .invoice-table a {
+  color: #60a5fa;
+}
+
+.admin-dark-mode .invoice-table a:hover {
+  color: #93c5fd;
+}
+
+/* Paid Status */
+
+.admin-dark-mode .status-paid {
+  color: #4ade80;
+}
+
+/* Unpaid Status */
+
+.admin-dark-mode .status-unpaid {
+  color: #f87171;
+}
+
+/* Delete Button */
+
+.admin-dark-mode .delete-btn {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+}
+
+.admin-dark-mode .delete-btn:hover {
+  background: #b91c1c;
+}

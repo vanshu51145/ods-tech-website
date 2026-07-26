@@ -107,3 +107,74 @@ font-size:55px;
 margin-bottom:20px;
 
 }
+/* =================================
+   ADMIN LOGIN DARK MODE
+================================= */
+
+.admin-dark-mode .admin-login {
+  background: #0f172a;
+}
+
+.admin-dark-mode .login-card {
+  background: #1e293b;
+  color: #f8fafc;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.admin-dark-mode .login-card h1 {
+  color: #60a5fa;
+}
+
+.admin-dark-mode .login-card p {
+  color: #cbd5e1;
+}
+
+.admin-dark-mode .input-group label {
+  color: #e2e8f0;
+}
+
+.admin-dark-mode .input-group input {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #475569;
+}
+
+.admin-dark-mode .input-group input::placeholder {
+  color: #94a3b8;
+}
+
+.admin-dark-mode .input-group input:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.admin-dark-mode .password-box {
+  background: #0f172a;
+  border: 1px solid #475569;
+}
+
+.admin-dark-mode .password-box input {
+  background: transparent;
+  border: none;
+}
+
+.admin-dark-mode .toggle-password {
+  color: #cbd5e1;
+}
+
+.admin-dark-mode .toggle-password:hover {
+  color: #60a5fa;
+}
+
+.admin-dark-mode .login-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .login-btn:hover {
+  background: #1d4ed8;
+}
+
+.admin-dark-mode .login-btn:disabled {
+  background: #475569;
+}

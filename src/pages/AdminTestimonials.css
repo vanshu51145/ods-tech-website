@@ -113,3 +113,168 @@
 }
 
 }
+/* =========================
+   ADMIN TESTIMONIALS DARK MODE
+========================= */
+
+body.admin-dark-mode {
+    background: #0f172a;
+}
+
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+body.admin-dark-mode .admin-testimonials {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+body.admin-dark-mode .admin-testimonials-header {
+    background: #0f172a;
+}
+
+
+/* Back Button */
+
+body.admin-dark-mode .admin-testimonials .back-btn {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+body.admin-dark-mode .admin-testimonials .back-btn:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+body.admin-dark-mode .admin-testimonials h2 {
+    color: #60a5fa;
+}
+
+
+/* =========================
+   TABLE CONTAINER
+========================= */
+
+body.admin-dark-mode .testimonial-table {
+    background: #1e293b;
+    border: 1px solid #334155;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+body.admin-dark-mode .testimonial-table table {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+
+/* Table Header */
+
+body.admin-dark-mode .testimonial-table thead {
+    background: #0f172a;
+}
+
+body.admin-dark-mode .testimonial-table th {
+    background: #1e3a8a;
+    color: #f8fafc;
+    border-bottom: 1px solid #475569;
+}
+
+
+/* Table Body */
+
+body.admin-dark-mode .testimonial-table td {
+    color: #cbd5e1;
+    border-bottom: 1px solid #334155;
+}
+
+
+/* Row Hover */
+
+body.admin-dark-mode .testimonial-table tbody tr:hover {
+    background: #273449;
+}
+
+
+/* =========================
+   RATING
+========================= */
+
+body.admin-dark-mode .testimonial-table td:nth-child(3) {
+    color: #facc15;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+body.admin-dark-mode .testimonial-table td:nth-child(4) {
+    color: #cbd5e1;
+}
+
+
+/* =========================
+   APPROVE BUTTON
+========================= */
+
+body.admin-dark-mode .approve-btn {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+body.admin-dark-mode .approve-btn:hover {
+    background: #15803d;
+}
+
+
+/* =========================
+   DELETE BUTTON
+========================= */
+
+body.admin-dark-mode .testimonial-table .delete-btn {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+body.admin-dark-mode .testimonial-table .delete-btn:hover {
+    background: #b91c1c;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+body.admin-dark-mode .testimonial-table td:last-child {
+    color: #e2e8f0;
+}
+
+
+/* =========================
+   MOBILE TABLE SCROLL
+========================= */
+
+@media (max-width: 768px) {
+
+    body.admin-dark-mode .testimonial-table {
+        background: #1e293b;
+        border-color: #334155;
+    }
+
+}

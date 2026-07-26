@@ -200,3 +200,84 @@ td span {
   }
 
 }
+/* =========================
+   Admin Appointments - Dark Mode
+========================= */
+
+.admin-dark-mode .page {
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+}
+
+.admin-dark-mode .page-header h1 {
+  color: #f8fafc;
+}
+
+.admin-dark-mode .table-container {
+  background: #1e293b;
+  color: #f8fafc;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-dark-mode .table-container h2 {
+  color: #f8fafc;
+}
+
+.admin-dark-mode table {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.admin-dark-mode thead {
+  background: #334155;
+}
+
+.admin-dark-mode th {
+  color: #f8fafc;
+}
+
+.admin-dark-mode td {
+  color: #e2e8f0;
+  border-bottom: 1px solid #475569;
+}
+
+.admin-dark-mode tbody tr:hover {
+  background: #334155;
+}
+
+.admin-dark-mode .dashboard-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .dashboard-btn:hover {
+  background: #1d4ed8;
+}
+
+.admin-dark-mode .confirm-btn {
+  background: #16a34a;
+  color: #fff;
+}
+
+.admin-dark-mode .confirm-btn:hover {
+  background: #15803d;
+}
+
+.admin-dark-mode .status.confirmed {
+  background: #14532d;
+  color: #86efac;
+}
+
+.admin-dark-mode .status.pending {
+  background: #713f12;
+  color: #fde68a;
+}
+
+.admin-dark-mode .table-scroll {
+  scrollbar-color: #475569 #1e293b;
+}
+
+.admin-dark-mode p {
+  color: #cbd5e1;
+}

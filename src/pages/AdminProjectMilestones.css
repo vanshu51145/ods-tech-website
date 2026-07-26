@@ -240,3 +240,188 @@
     }
 
 }
+/* =========================================
+   ADMIN PROJECT MILESTONES - DARK MODE
+========================================= */
+
+.admin-dark-mode .page {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+/* Header */
+
+.admin-dark-mode .page-header h1 {
+  color: #60a5fa;
+}
+
+.admin-dark-mode .dashboard-btn {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .dashboard-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Milestone Form */
+
+.admin-dark-mode .milestone-form {
+  background: #1e293b;
+  border: 1px solid #334155;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.admin-dark-mode .milestone-form input,
+.admin-dark-mode .milestone-form select,
+.admin-dark-mode .milestone-form textarea {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #475569;
+}
+
+.admin-dark-mode .milestone-form input::placeholder,
+.admin-dark-mode .milestone-form textarea::placeholder {
+  color: #94a3b8;
+}
+
+.admin-dark-mode .milestone-form input:focus,
+.admin-dark-mode .milestone-form select:focus,
+.admin-dark-mode .milestone-form textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.admin-dark-mode .milestone-form select option {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.admin-dark-mode .milestone-form button {
+  background: #2563eb;
+  color: #fff;
+}
+
+.admin-dark-mode .milestone-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Kanban Heading */
+
+.admin-dark-mode .kanban-heading {
+  color: #f8fafc;
+}
+
+/* Kanban Board */
+
+.admin-dark-mode .kanban-board {
+  color: #f8fafc;
+}
+
+/* Kanban Columns */
+
+.admin-dark-mode .kanban-column {
+  background: #1e293b;
+  border: 1px solid #334155;
+}
+
+/* Column Header */
+
+.admin-dark-mode .kanban-column-header {
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+}
+
+.admin-dark-mode .kanban-column-header h2 {
+  color: #f8fafc;
+}
+
+.admin-dark-mode .kanban-column-header span {
+  background: #334155;
+  color: #f8fafc;
+}
+
+/* Column-specific header colors */
+
+.admin-dark-mode .kanban-column.pending
+  .kanban-column-header {
+  background: #292524;
+}
+
+.admin-dark-mode .kanban-column.in-progress
+  .kanban-column-header {
+  background: #1e293b;
+}
+
+.admin-dark-mode .kanban-column.completed
+  .kanban-column-header {
+  background: #052e16;
+}
+
+/* Cards Area */
+
+.admin-dark-mode .kanban-cards {
+  background: #0f172a;
+}
+
+/* Milestone Card */
+
+.admin-dark-mode .milestone-card {
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #f8fafc;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+.admin-dark-mode .milestone-card:hover {
+  background: #263449;
+  border-color: #3b82f6;
+}
+
+.admin-dark-mode .milestone-card h3 {
+  color: #60a5fa;
+}
+
+.admin-dark-mode .milestone-card p {
+  color: #cbd5e1;
+}
+
+.admin-dark-mode .milestone-card strong {
+  color: #f8fafc;
+}
+
+/* Status */
+
+.admin-dark-mode .milestone-status {
+  color: #cbd5e1;
+  border-top: 1px solid #334155;
+}
+
+.admin-dark-mode .milestone-status span {
+  color: #60a5fa;
+}
+
+/* Empty Column */
+
+.admin-dark-mode .empty-column {
+  color: #64748b;
+}
+
+/* Scrollbar */
+
+.admin-dark-mode .kanban-cards::-webkit-scrollbar {
+  width: 8px;
+}
+
+.admin-dark-mode .kanban-cards::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.admin-dark-mode .kanban-cards::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 10px;
+}
+
+.admin-dark-mode .kanban-cards::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
