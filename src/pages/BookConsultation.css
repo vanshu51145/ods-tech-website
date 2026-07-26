@@ -485,221 +485,230 @@ button:disabled {
 }
 
 /* =========================
-   BOOK CONSULTATION DARK MODE FIX
+   BOOK CONSULTATION DARK MODE
+   ONLY CALENDAR + SELECTED DATE + NOTIFICATION
 ========================= */
 
-/* Selected Date Text / Box */
+
+/* ========================================
+   SELECTED DATE BOX
+======================================== */
+
 body.dark-mode .consultation-container > p {
-    background: #0f172a;
-    color: #cbd5e1;
-    border: 1px solid #475569;
-    padding: 12px 15px;
-    border-radius: 8px;
+  background: #0f172a !important;
+  color: #cbd5e1 !important;
+  border-left: 4px solid #2563eb !important;
+  border-radius: 6px;
 }
 
 body.dark-mode .consultation-container > p strong {
-    color: #60a5fa;
+  color: #60a5fa !important;
 }
 
 
-/* =========================
-   REACT CALENDAR NAVIGATION
-========================= */
+/* ========================================
+   REACT CALENDAR
+======================================== */
 
-/* Previous / Next / Month-Year buttons */
+body.dark-mode .react-calendar {
+  background: #1e293b !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #475569 !important;
+}
+
+
+/* Calendar Navigation */
+
 body.dark-mode .react-calendar__navigation {
-    background: #1e293b;
+  background: #1e293b !important;
 }
 
 body.dark-mode .react-calendar__navigation button {
-    background: #1e293b !important;
-    color: #f8fafc !important;
-    border: none;
+  background: #334155 !important;
+  color: #f8fafc !important;
+  border: none !important;
 }
 
 body.dark-mode .react-calendar__navigation button:enabled:hover,
 body.dark-mode .react-calendar__navigation button:enabled:focus {
-    background: #334155 !important;
-    color: #ffffff !important;
+  background: #475569 !important;
+  color: #ffffff !important;
 }
 
 
-/* Disabled navigation button */
-body.dark-mode .react-calendar__navigation button:disabled {
-    background: #1e293b !important;
-    color: #64748b !important;
-}
+/* Month / Year Button */
 
-
-/* Calendar arrows */
-body.dark-mode .react-calendar__navigation__arrow {
-    color: #f8fafc !important;
-}
-
-
-/* Month / Year text */
 body.dark-mode .react-calendar__navigation__label {
-    background: #1e293b !important;
-    color: #f8fafc !important;
+  background: #334155 !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .react-calendar__navigation__label:hover {
+  background: #475569 !important;
+  color: #ffffff !important;
 }
 
 
-/* =========================
+/* Disabled Navigation */
+
+body.dark-mode .react-calendar__navigation button:disabled {
+  background: #1e293b !important;
+  color: #64748b !important;
+}
+
+
+/* ========================================
    CALENDAR MAIN AREA
-========================= */
+======================================== */
 
-body.dark-mode .react-calendar {
-    background: #1e293b !important;
-    color: #e2e8f0;
-    border: 1px solid #475569;
-}
-
-body.dark-mode .react-calendar__viewContainer {
-    background: #1e293b;
-}
-
+body.dark-mode .react-calendar__viewContainer,
 body.dark-mode .react-calendar__month-view {
-    background: #1e293b;
+  background: #1e293b !important;
 }
 
 
-/* Weekday names */
+/* Weekdays */
+
 body.dark-mode .react-calendar__month-view__weekdays {
-    background: #1e293b;
-    color: #94a3b8;
+  background: #1e293b !important;
+  color: #94a3b8 !important;
 }
 
 
-/* Calendar dates */
+/* Calendar Dates */
+
 body.dark-mode .react-calendar__tile {
-    background: #1e293b !important;
-    color: #e2e8f0 !important;
+  background: #1e293b !important;
+  color: #e2e8f0 !important;
 }
 
 body.dark-mode .react-calendar__tile:enabled:hover,
 body.dark-mode .react-calendar__tile:enabled:focus {
-    background: #334155 !important;
-    color: #ffffff !important;
+  background: #334155 !important;
+  color: #ffffff !important;
 }
 
 
-/* Today's date */
+/* Today */
+
 body.dark-mode .react-calendar__tile--now {
-    background: #334155 !important;
-    color: #60a5fa !important;
+  background: #334155 !important;
+  color: #60a5fa !important;
 }
 
 
-/* Selected date */
+/* Selected Date */
+
 body.dark-mode .react-calendar__tile--active {
-    background: #2563eb !important;
-    color: #ffffff !important;
+  background: #2563eb !important;
+  color: #ffffff !important;
 }
 
 body.dark-mode .react-calendar__tile--active:enabled:hover,
 body.dark-mode .react-calendar__tile--active:enabled:focus {
-    background: #1d4ed8 !important;
-    color: #ffffff !important;
+  background: #1d4ed8 !important;
+  color: #ffffff !important;
 }
 
 
-/* Previous / Next month's dates */
+/* Previous / Next Month Dates */
+
 body.dark-mode
 .react-calendar__month-view__days__day--neighboringMonth {
-    color: #64748b !important;
+  color: #64748b !important;
 }
 
 
-/* Disabled dates */
+/* Disabled Dates */
+
 body.dark-mode .react-calendar__tile:disabled {
-    background: #172033 !important;
-    color: #475569 !important;
+  background: #172033 !important;
+  color: #475569 !important;
 }
 
 
-/* =========================
+/* ========================================
    CLIENT NOTIFICATION
-========================= */
-
-/* Notification wrapper */
-body.dark-mode .notification-wrapper {
-    color: #f8fafc;
-}
+======================================== */
 
 
-/* Notification Bell Button */
+/* Notification Bell */
+
 body.dark-mode .notification-btn {
-    background: #1e293b !important;
-    color: #f8fafc !important;
-    border: 1px solid #475569;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #475569 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode .notification-btn:hover {
-    background: #334155 !important;
-    color: #ffffff !important;
+  background: #334155 !important;
+  color: #ffffff !important;
 }
 
 
 /* Notification Dropdown */
+
 body.dark-mode .notification-dropdown {
-    background: #1e293b !important;
-    color: #f8fafc !important;
-    border: 1px solid #475569;
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #475569 !important;
 }
 
 
 /* Notification Header */
+
 body.dark-mode .notification-header {
-    background: #1e293b;
-    border-bottom: 1px solid #475569;
+  background: #1e293b !important;
+  border-bottom: 1px solid #475569 !important;
 }
 
 body.dark-mode .notification-header h3 {
-    color: #f8fafc !important;
+  color: #f8fafc !important;
 }
 
 
 /* Notification Items */
+
 body.dark-mode .notification-item {
-    background: #1e293b;
-    color: #e2e8f0;
-    border-bottom: 1px solid #475569;
+  background: #1e293b !important;
+  color: #e2e8f0 !important;
+  border-bottom: 1px solid #475569 !important;
 }
 
 body.dark-mode .notification-item:hover {
-    background: #334155 !important;
+  background: #334155 !important;
 }
 
 
 /* Unread Notification */
+
 body.dark-mode .notification-item.unread {
-    background: #172554 !important;
+  background: #172554 !important;
 }
 
 
 /* Read Notification */
+
 body.dark-mode .notification-item.read {
-    background: #1e293b !important;
+  background: #1e293b !important;
 }
 
 
 /* Notification Text */
-body.dark-mode .notification-item strong {
-    color: #60a5fa !important;
-}
 
 body.dark-mode .notification-item p {
-    color: #e2e8f0 !important;
+  color: #e2e8f0 !important;
 }
 
 body.dark-mode .notification-item small {
-    color: #94a3b8 !important;
+  color: #94a3b8 !important;
 }
 
 
 /* No Notifications */
+
 body.dark-mode .no-notifications {
-    background: #1e293b;
-    color: #94a3b8 !important;
+  background: #1e293b !important;
+  color: #94a3b8 !important;
 }

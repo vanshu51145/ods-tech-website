@@ -1722,3 +1722,202 @@ body.admin-dark-mode .recent-activity small {
 body.admin-dark-mode #live-chat {
   background: #0f172a;
 }
+/* ========================================
+   ADMIN DARK MODE - FINAL FIX
+======================================== */
+
+
+/* ========================================
+   RECENT ACTIVITY MAIN BOX
+======================================== */
+
+body.admin-dark-mode .recent-activity {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+}
+
+
+/* Recent Activity Heading */
+
+body.admin-dark-mode .recent-activity h2,
+body.admin-dark-mode .recent-activity h3 {
+  color: #f8fafc !important;
+}
+
+
+/* Recent Activity Lead / Activity Items */
+
+body.admin-dark-mode .recent-activity > div,
+body.admin-dark-mode .recent-activity .activity-item,
+body.admin-dark-mode .recent-activity .recent-lead {
+  background: #0f172a !important;
+  color: #e2e8f0 !important;
+  border-color: #334155 !important;
+}
+
+
+/* Activity Hover */
+
+body.admin-dark-mode .recent-activity > div:hover,
+body.admin-dark-mode .recent-activity .activity-item:hover,
+body.admin-dark-mode .recent-activity .recent-lead:hover {
+  background: #1e293b !important;
+}
+
+
+/* Recent Activity Text */
+
+body.admin-dark-mode .recent-activity p {
+  color: #e2e8f0 !important;
+}
+
+body.admin-dark-mode .recent-activity small {
+  color: #94a3b8 !important;
+}
+
+body.admin-dark-mode .recent-activity strong {
+  color: #60a5fa !important;
+}
+
+
+/* ========================================
+   ADMIN NOTIFICATION BUTTON
+======================================== */
+
+body.admin-dark-mode .notification-btn {
+  background: #334155 !important;
+  color: #f8fafc !important;
+  border: 1px solid #475569 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.admin-dark-mode .notification-btn:hover {
+  background: #475569 !important;
+  color: #ffffff !important;
+}
+
+
+/* ========================================
+   ADMIN NOTIFICATION DROPDOWN
+======================================== */
+
+body.admin-dark-mode .notification-dropdown {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border: 1px solid #475569 !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45) !important;
+}
+
+
+/* Notification Header */
+
+body.admin-dark-mode .notification-header {
+  background: #1e293b !important;
+  border-bottom: 1px solid #475569 !important;
+}
+
+body.admin-dark-mode .notification-header h3 {
+  color: #f8fafc !important;
+}
+
+
+/* Notification Items */
+
+body.admin-dark-mode .notification-item {
+  background: #1e293b !important;
+  color: #e2e8f0 !important;
+  border-bottom: 1px solid #475569 !important;
+}
+
+body.admin-dark-mode .notification-item:hover {
+  background: #334155 !important;
+}
+
+
+/* Unread Notification */
+
+body.admin-dark-mode .notification-item.unread {
+  background: #172554 !important;
+}
+
+
+/* Read Notification */
+
+body.admin-dark-mode .notification-item.read {
+  background: #1e293b !important;
+}
+
+
+/* Notification Content */
+
+body.admin-dark-mode .notification-item p {
+  color: #e2e8f0 !important;
+}
+
+body.admin-dark-mode .notification-item small {
+  color: #94a3b8 !important;
+}
+
+
+/* Notification Icon */
+
+body.admin-dark-mode .notification-icon {
+  background: #1e3a8a !important;
+}
+
+
+/* No Notifications */
+
+body.admin-dark-mode .no-notifications {
+  background: #1e293b !important;
+  color: #94a3b8 !important;
+}
+
+
+/* ========================================
+   NOTIFICATION ACTION BUTTONS
+======================================== */
+
+body.admin-dark-mode .mark-all-btn {
+  background: #1e3a8a !important;
+  color: #93c5fd !important;
+}
+
+body.admin-dark-mode .mark-all-btn:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+
+body.admin-dark-mode .clear-btn {
+  background: #450a0a !important;
+  color: #fca5a5 !important;
+}
+
+body.admin-dark-mode .clear-btn:hover {
+  background: #7f1d1d !important;
+  color: #ffffff !important;
+}
+
+
+/* Mark as Read */
+
+body.admin-dark-mode .mark-read-btn {
+  background: #1e293b !important;
+  color: #60a5fa !important;
+  border-color: #3b82f6 !important;
+}
+
+body.admin-dark-mode .mark-read-btn:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+
+/* Read Label */
+
+body.admin-dark-mode .read-label {
+  background: #052e16 !important;
+  color: #86efac !important;
+}
