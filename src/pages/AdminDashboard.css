@@ -652,3 +652,208 @@ tbody tr:hover {
 .delete-lead-btn:hover {
   background: #b91c1c;
 }
+/* ========================================
+   Admin Dark Mode Toggle
+======================================== */
+
+.admin-dark-mode-toggle {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  font-size: 19px;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+
+  transition: all 0.25s ease;
+}
+
+.admin-dark-mode-toggle:hover {
+  transform: translateY(-2px);
+
+  box-shadow: 0 7px 18px rgba(15, 23, 42, 0.18);
+}
+
+
+/* ========================================
+   Admin Dark Mode
+======================================== */
+
+body.admin-dark-mode {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+body.admin-dark-mode .dashboard {
+  background: #0f172a;
+}
+
+body.admin-dark-mode .main-content {
+  background: #0f172a;
+}
+
+
+/* Topbar */
+
+body.admin-dark-mode .topbar {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .topbar h1 {
+  color: #f8fafc;
+}
+
+
+/* Dark Mode Toggle */
+
+body.admin-dark-mode .admin-dark-mode-toggle {
+  background: #334155;
+  color: #f8fafc;
+}
+
+
+/* Cards */
+
+body.admin-dark-mode .card {
+  background: #1e293b;
+  color: #f8fafc;
+
+  box-shadow:
+    0 5px 15px
+    rgba(0, 0, 0, 0.25);
+}
+
+body.admin-dark-mode .card h3 {
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .card p {
+  color: #cbd5e1;
+}
+
+
+/* Analytics */
+
+body.admin-dark-mode .analytics-header h2,
+body.admin-dark-mode .analytics-header p {
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .chart-card {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .chart-card h2 {
+  color: #f8fafc;
+}
+
+
+/* Contact Table */
+
+body.admin-dark-mode .table-container {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .table-header h2 {
+  color: #f8fafc;
+}
+
+body.admin-dark-mode table {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+body.admin-dark-mode th {
+  background: #334155;
+  color: #f8fafc;
+}
+
+body.admin-dark-mode td {
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+body.admin-dark-mode tr:hover {
+  background: #334155;
+}
+
+
+/* Select */
+
+body.admin-dark-mode select {
+  background: #334155;
+  color: #f8fafc;
+  border-color: #475569;
+}
+
+
+/* Notifications */
+
+body.admin-dark-mode .notification-dropdown {
+  background: #1e293b;
+  border-color: #475569;
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .notification-header {
+  border-color: #475569;
+}
+
+body.admin-dark-mode .notification-header h3 {
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .notification-item {
+  border-color: #475569;
+}
+
+body.admin-dark-mode .notification-item:hover {
+  background: #334155;
+}
+
+body.admin-dark-mode .notification-item strong,
+body.admin-dark-mode .notification-item p {
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .notification-item small {
+  color: #cbd5e1;
+}
+
+
+/* Recent Activity */
+
+body.admin-dark-mode .recent-activity {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .recent-activity h2,
+body.admin-dark-mode .recent-activity h3 {
+  color: #f8fafc;
+}
+
+body.admin-dark-mode .recent-activity p,
+body.admin-dark-mode .recent-activity small {
+  color: #cbd5e1;
+}
+
+
+/* Admin Live Chat */
+
+body.admin-dark-mode #live-chat {
+  background: #0f172a;
+}

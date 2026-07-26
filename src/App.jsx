@@ -65,6 +65,26 @@ function App() {
       return newMode;
     });
   };
+   const [adminDarkMode, setAdminDarkMode] = useState(() => {
+    return localStorage.getItem("adminDarkMode") === "true";
+  });
+const toggleAdminDarkMode = () => {
+  setAdminDarkMode((prev) => {
+    const newMode = !prev;
+
+    localStorage.setItem(
+      "adminDarkMode",
+      newMode
+    );
+
+    return newMode;
+  });
+};
+
+// Admin Dark Mode
+const [adminDarkMode, setAdminDarkMode] = useState(() => {
+  return localStorage.getItem("adminDarkMode") === "true";
+});
   const isAdminPage = location.pathname.startsWith("/admin");
   useEffect(() => {
     ReactGA.send({
@@ -72,13 +92,34 @@ function App() {
       page: location.pathname + location.search,
     });
   }, [location]);
-  useEffect(() => {
+useEffect(() => {
   if (isAdminPage) {
+    // Remove public website dark mode
     document.body.classList.remove("dark-mode");
+
+    // Apply admin dark mode
+    document.body.classList.toggle(
+      "admin-dark-mode",
+      adminDarkMode
+    );
   } else {
-    document.body.classList.toggle("dark-mode", darkMode);
+    // Remove admin dark mode
+    document.body.classList.remove(
+      "admin-dark-mode"
+    );
+
+    // Apply public website dark mode
+    document.body.classList.toggle(
+      "dark-mode",
+      darkMode
+    );
   }
-}, [darkMode, isAdminPage]);
+}, [
+  darkMode,
+  adminDarkMode,
+  isAdminPage
+]);
+
   return (
     <>
 
@@ -104,15 +145,19 @@ function App() {
             element={<AdminLogin />}
           />
 
-          <Route
-            path="/admin/dashboard"
-            element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-
+<Route
+  path="/admin/dashboard"
+  element={
+    <ProtectedRoute>
+      <AdminDashboard
+        adminDarkMode={adminDarkMode}
+        toggleAdminDarkMode={
+          toggleAdminDarkMode
+        }
+      />
+    </ProtectedRoute>
+  }
+/>
 
           <Route
             path="/admin/projects"

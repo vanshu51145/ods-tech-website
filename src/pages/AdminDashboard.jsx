@@ -18,7 +18,10 @@ import {
 } from "recharts";
 
 
-function AdminDashboard() {
+function AdminDashboard({
+  adminDarkMode,
+  toggleAdminDarkMode,
+}) {
   const navigate = useNavigate();
 
 
@@ -392,6 +395,13 @@ function AdminDashboard() {
           <h1>Admin Dashboard</h1>
 
           <div className="topbar-actions">
+            <button
+  className="admin-dark-mode-toggle"
+  onClick={toggleAdminDarkMode}
+  aria-label="Toggle admin dark mode"
+>
+  {adminDarkMode ? "☀️" : "🌙"}
+</button>
 
             <div className="notification-wrapper">
 
