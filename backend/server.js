@@ -83,11 +83,13 @@ mongoose
   .connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 5000,
   })
-  .then(() => {
-    console.log("MongoDB Connected");
-  })
+  // .then(() => {
+  //   console.log("MongoDB Connected");
+  // })
   .catch((err) => {
-    console.error("MongoDB Error:", err);
+    // console.error("MongoDB Error:", err);
+        process.exit(1);
+
   });
 
 const transporter = nodemailer.createTransport({
@@ -161,7 +163,7 @@ app.put("/api/contact/:id", auth, async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     res.status(500).json({
       success: false,
@@ -172,7 +174,7 @@ app.put("/api/contact/:id", auth, async (req, res) => {
 app.post("/api/contact", contactLimiter, async (req, res) => {
 
   try {
-    console.log("CONTACT DATA:", req.body);
+    // console.log("CONTACT DATA:", req.body);
 
     const name = xss(req.body.name);
     const email = xss(req.body.email);
@@ -210,11 +212,11 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
         <p><strong>Message:</strong> ${message}</p>
       `,
       });
-      console.log("Email sent successfully");
+      // console.log("Email sent successfully");
 
     } catch (mailError) {
 
-      console.log("MAIL ERROR:", mailError.message);
+      // console.log("MAIL ERROR:", mailError.message);
 
     }
 
@@ -223,7 +225,7 @@ app.post("/api/contact", contactLimiter, async (req, res) => {
       message: "Form Submitted Successfully",
     });
   } catch (error) {
-    console.log("CONTACT ERROR:", error.message);
+    // console.log("CONTACT ERROR:", error.message);
 
     res.status(500).json({
       success: false,
@@ -468,12 +470,12 @@ app.post(
   Upload.single("coverImage"),
   async (req, res) => {
     try {
-      console.log("BODY:", req.body);
-      console.log("FILE:", req.file);
+      // console.log("BODY:", req.body);
+      // console.log("FILE:", req.file);
       const title = xss(req.body.title);
       const author = xss(req.body.author);
       const content = xss(req.body.content);
-      console.log("Sanitized:", { title, author, content });
+      // console.log("Sanitized:", { title, author, content });
 
       if (!title || !author || !content) {
         return res.status(400).json({
@@ -620,7 +622,7 @@ app.post("/api/testimonials", async (req, res) => {
       message: "Review submitted successfully. Waiting for approval.",
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     res.status(500).json({
       success: false,
@@ -727,9 +729,9 @@ app.post(
     `,
               });
 
-              console.log("Application email sent");
+              // console.log("Application email sent");
             } catch (mailError) {
-              console.log("Application Email Error:", mailError.message);
+              // console.log("Application Email Error:", mailError.message);
             }
 
             res.status(201).json({
@@ -745,7 +747,7 @@ app.post(
 
     } catch (error) {
 
-      console.log(error);
+      // console.log(error);
 
       res.status(500).json({
         success: false,
@@ -930,8 +932,8 @@ app.post(
       const description = xss(req.body.description);
       const status = xss(req.body.status);
 
-      console.log("BODY:", req.body);
-      console.log("FILE:", req.file);
+      // console.log("BODY:", req.body);
+      // console.log("FILE:", req.file);
 
       if (
         !clientId ||
@@ -996,10 +998,10 @@ app.post(
             });
 
           } catch (error) {
-            console.log(
-              "INVOICE SAVE / AUDIT LOG ERROR:",
-              error
-            );
+            // console.log(
+            //   "INVOICE SAVE / AUDIT LOG ERROR:",
+            //   error
+            // );
 
             res.status(500).json({
               success: false,
@@ -1014,7 +1016,7 @@ app.post(
         .pipe(uploadStream);
 
     } catch (error) {
-      console.log("CREATE INVOICE ERROR:", error);
+      // console.log("CREATE INVOICE ERROR:", error);
 
       res.status(500).json({
         success: false,
@@ -1051,7 +1053,7 @@ app.post(
       });
 
     } catch (error) {
-      console.log("DELETE LEAD ERROR:", error);
+      // console.log("DELETE LEAD ERROR:", error);
 
       res.status(500).json({
         success: false,
@@ -1071,7 +1073,7 @@ app.get("/api/client/invoices", clientAuth, async (req, res) => {
       invoices,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     res.status(500).json({
       success: false,
@@ -1107,7 +1109,7 @@ app.get("/api/invoices", auth, async (req, res) => {
       invoices,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     res.status(500).json({
       success: false,
@@ -1139,7 +1141,7 @@ app.get("/api/admin/analytics", auth, async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     res.status(500).json({
       success: false,
@@ -1201,7 +1203,7 @@ app.post(
     }
     catch (error) {
 
-      console.log(error);
+      // console.log(error);
 
       res.status(500).json({
 
@@ -1244,7 +1246,7 @@ app.get(
     }
     catch (error) {
 
-      console.log(error);
+      // console.log(error);
 
       res.status(500).json({
 
@@ -1312,10 +1314,10 @@ app.put(
     }
     catch (error) {
 
-console.log(
-        "UPDATE MILESTONE ERROR:",
-        error
-      );
+// console.log(
+//         "UPDATE MILESTONE ERROR:",
+//         error
+//       );
 
 
       res.status(500).json({
@@ -1362,7 +1364,7 @@ app.get(
     }
     catch (error) {
 
-      console.log(error);
+      // console.log(error);
 
 
       res.status(500).json({
@@ -1388,7 +1390,7 @@ app.get("/api/team", async (req, res) => {
     });
 
   } catch (error) {
-    console.log("GET TEAM ERROR:", error);
+    // console.log("GET TEAM ERROR:", error);
 
     res.status(500).json({
       success: false,
@@ -1431,7 +1433,7 @@ app.post(
           async (error, result) => {
 
             if (error) {
-              console.log("CLOUDINARY ERROR:", error);
+              // console.log("CLOUDINARY ERROR:", error);
 
               return res.status(500).json({
                 success: false,
@@ -1463,7 +1465,7 @@ app.post(
 
     } catch (error) {
 
-      console.log("ADD TEAM ERROR:", error);
+      // console.log("ADD TEAM ERROR:", error);
 
       res.status(500).json({
         success: false,
@@ -1493,7 +1495,7 @@ app.delete("/api/team/:id", auth, isSuperAdmin, async (req, res) => {
 
   } catch (error) {
 
-    console.log("DELETE TEAM ERROR:", error);
+    // console.log("DELETE TEAM ERROR:", error);
 
     res.status(500).json({
       success: false,
@@ -1578,7 +1580,7 @@ app.put(
 
     } catch (error) {
 
-      console.log("UPDATE TEAM ERROR:", error);
+      // console.log("UPDATE TEAM ERROR:", error);
 
       res.status(500).json({
         success: false,
@@ -1603,7 +1605,7 @@ app.get("/api/admin/notifications", auth, async (req, res) => {
       unreadCount,
     });
   } catch (error) {
-    console.log("NOTIFICATION ERROR:", error);
+    // console.log("NOTIFICATION ERROR:", error);
 
     res.status(500).json({
       success: false,
@@ -1640,7 +1642,7 @@ app.put(
         notification,
       });
     } catch (error) {
-      console.log("READ NOTIFICATION ERROR:", error);
+      // console.log("READ NOTIFICATION ERROR:", error);
 
       res.status(500).json({
         success: false,
@@ -1682,10 +1684,10 @@ app.delete(
       });
 
     } catch (error) {
-      console.log(
-        "DELETE INVOICE ERROR:",
-        error
-      );
+      // console.log(
+      //   "DELETE INVOICE ERROR:",
+      //   error
+      // );
 
       res.status(500).json({
         success: false,
@@ -1703,7 +1705,7 @@ app.use(
 );
 io.on("connection", (socket) => {
 
-  console.log("User connected:", socket.id);
+  // console.log("User connected:", socket.id);
 
 
   // Admin joins common admin room
@@ -1711,9 +1713,9 @@ io.on("connection", (socket) => {
 
     socket.join("admin_room");
 
-    console.log(
-      `Admin joined admin_room`
-    );
+    // console.log(
+    //   `Admin joined admin_room`
+    // );
 
   });
   // Join Client Room
@@ -1721,9 +1723,9 @@ io.on("connection", (socket) => {
 
     socket.join(clientId);
 
-    console.log(
-      `Socket ${socket.id} joined room ${clientId}`
-    );
+    // console.log(
+    //   `Socket ${socket.id} joined room ${clientId}`
+    // );
 
   });
 
@@ -1733,10 +1735,10 @@ io.on("connection", (socket) => {
 
     try {
 
-      console.log(
-        "Message received:",
-        data
-      );
+      // console.log(
+      //   "Message received:",
+      //   data
+      // );
 
 
       // Save message in MongoDB
@@ -1781,10 +1783,10 @@ io.on("connection", (socket) => {
   // Disconnect
   socket.on("disconnect", () => {
 
-    console.log(
-      "User disconnected:",
-      socket.id
-    );
+    // console.log(
+    //   "User disconnected:",
+    //   socket.id
+    // );
 
   });
 
@@ -1953,10 +1955,10 @@ app.post(
       });
 
     } catch (error) {
-      console.log(
-        "CREATE APPOINTMENT ERROR:",
-        error
-      );
+      // console.log(
+      //   "CREATE APPOINTMENT ERROR:",
+      //   error
+      // );
 
       res.status(500).json({
         success: false,
@@ -1986,10 +1988,10 @@ app.get(
       });
 
     } catch (error) {
-      console.log(
-        "GET APPOINTMENTS ERROR:",
-        error
-      );
+      // console.log(
+      //   "GET APPOINTMENTS ERROR:",
+      //   error
+      // );
 
       res.status(500).json({
         success: false,
@@ -2054,10 +2056,10 @@ app.put(
 
     } catch (error) {
 
-      console.log(
-        "CONFIRM APPOINTMENT ERROR:",
-        error
-      );
+      // console.log(
+      //   "CONFIRM APPOINTMENT ERROR:",
+      //   error
+      // );
 
       res.status(500).json({
         success: false,

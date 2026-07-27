@@ -16,10 +16,10 @@ const transporter = nodemailer.createTransport({
 transporter.verify((error, success)=>{
 
  if(error){
-   console.log("Email Error:",error);
+  //  console.log("Email Error:",error);
  }
  else{
-   console.log("Email Server Ready");
+  //  console.log("Email Server Ready");
  }
 
 });
@@ -28,7 +28,7 @@ router.post("/register", async (req, res) => {
 
 const { name, company, email, password } = req.body;
 
-console.log("EMAIL:", email);
+// console.log("EMAIL:", email);
 
 const exists = await Client.findOne({ email });
 
@@ -77,9 +77,9 @@ if (exists) {
         `,
       });
 
-      console.log("Welcome Email Sent");
+      // console.log("Welcome Email Sent");
     } catch (mailError) {
-      console.log("Email Error:", mailError.message);
+      // console.log("Email Error:", mailError.message);
     }
 
     return res.status(201).json({
@@ -87,7 +87,7 @@ if (exists) {
       message: "Registration Successful",
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     return res.status(500).json({
       success: false,
@@ -134,7 +134,7 @@ router.post("/login", async (req, res) => {
       client,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
 
     res.status(500).json({
       success: false,
@@ -158,7 +158,7 @@ res.json({
 
 }catch(error){
 
-console.log(error);
+// console.log(error);
 
 res.status(500).json({
  success:false,

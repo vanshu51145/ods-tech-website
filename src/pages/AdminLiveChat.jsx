@@ -51,10 +51,10 @@ useEffect(() => {
   // Receive new real-time messages
   const handleReceiveMessage = (data) => {
 
-    console.log(
-      "ADMIN RECEIVED:",
-      data
-    );
+    // console.log(
+    //   "ADMIN RECEIVED:",
+    //   data
+    // );
 
 
     // Client sends a new message
@@ -203,10 +203,10 @@ const sendMessage = () => {
   };
 
 
-  console.log(
-    "ADMIN SENDING:",
-    messageData
-  );
+  // console.log(
+  //   "ADMIN SENDING:",
+  //   messageData
+  // );
 
 
   socket.emit(

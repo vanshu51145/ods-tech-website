@@ -126,7 +126,7 @@ function AdminDashboard({
         alert(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       alert("Failed to update status");
     }
   };
@@ -164,7 +164,7 @@ function AdminDashboard({
         alert(data.message);
       }
     } catch (error) {
-      console.log("DELETE LEAD ERROR:", error);
+      // console.log("DELETE LEAD ERROR:", error);
       alert("Failed to delete lead");
     }
   };
@@ -185,7 +185,7 @@ function AdminDashboard({
         setNotifications(data.notifications || []);
       }
     } catch (error) {
-      console.log("Notification Error:", error);
+      // console.log("Notification Error:", error);
     }
   };
 
@@ -203,7 +203,7 @@ function AdminDashboard({
       );
 
       const data = await response.json();
-      console.log("Mark Read Response:", data);
+      // console.log("Mark Read Response:", data);
 
       if (data.success) {
         setNotifications((prev) =>
@@ -215,7 +215,7 @@ function AdminDashboard({
         );
       }
     } catch (error) {
-      console.log("Mark Read Error:", error);
+      // console.log("Mark Read Error:", error);
     }
   };
   const fetchAnalytics = async () => {
@@ -235,7 +235,7 @@ function AdminDashboard({
         setAnalytics(data);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   const fetchAuditLogs = async () => {
@@ -255,7 +255,7 @@ function AdminDashboard({
         setAuditLogs(data.logs || []);
       }
     } catch (error) {
-      console.log("Audit Logs Error:", error);
+      // console.log("Audit Logs Error:", error);
     }
   };
   useEffect(() => {
@@ -296,14 +296,14 @@ function AdminDashboard({
 
         const data = await response.json();
 
-        console.log("TICKETS:", data);
+        // console.log("TICKETS:", data);
 
         if (data.success) {
           setTickets(data.tickets);
         }
 
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 

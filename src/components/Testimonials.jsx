@@ -31,7 +31,7 @@ function Testimonials() {
         setTestimonials(data.testimonials);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

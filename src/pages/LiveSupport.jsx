@@ -43,7 +43,7 @@ useEffect(() => {
 
   // Receive new messages
   const handleReceiveMessage = (data) => {
-    console.log("NEW SOCKET MESSAGE:", data);
+    // console.log("NEW SOCKET MESSAGE:", data);
 
     setMessages((prev) => [
       ...prev,
@@ -75,7 +75,7 @@ const sendMessage = () => {
     message: message.trim(),
   };
 
-  console.log("SENDING MESSAGE:", messageData);
+//   console.log("SENDING MESSAGE:", messageData);
 
   socket.emit(
     "send_message",

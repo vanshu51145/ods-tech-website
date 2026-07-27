@@ -33,7 +33,7 @@ function ClientTickets() {
                 setTickets(data.tickets);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 
@@ -84,7 +84,7 @@ function ClientTickets() {
                 toast.error(data.message);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error("Server Error");
         }
     };

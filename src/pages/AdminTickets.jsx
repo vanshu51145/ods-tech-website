@@ -14,10 +14,10 @@ function AdminTickets() {
     const fetchTickets = async () => {
         try {
             const token = localStorage.getItem("token");
-            console.log(
-                "TOKEN:",
-                localStorage.getItem("token")
-            );
+            // console.log(
+            //     "TOKEN:",
+            //     localStorage.getItem("token")
+            // );
             const response = await fetch(
                 "https://ods-network-backend.onrender.com/api/tickets/admin/all",
                 {
@@ -32,7 +32,7 @@ function AdminTickets() {
                 setTickets(data.tickets);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 
@@ -61,7 +61,7 @@ function AdminTickets() {
                 toast.error(data.message);
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error("Server Error");
         }
     };

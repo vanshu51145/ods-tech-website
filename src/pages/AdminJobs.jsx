@@ -28,7 +28,7 @@ function AdminJobs() {
         setJobs(data.jobs);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -49,7 +49,7 @@ function AdminJobs() {
         setApplications(data.applications);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -102,7 +102,7 @@ function AdminJobs() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Server Error");
     }
   };
@@ -128,7 +128,7 @@ function AdminJobs() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Server Error");
     }
   };

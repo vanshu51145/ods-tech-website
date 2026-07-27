@@ -12,10 +12,10 @@ const isSuperAdmin = adminRole === "SuperAdmin";
   }, []);
 
   const fetchTestimonials = async () => {
-    console.log(
-"TOKEN:",
-localStorage.getItem("token")
-);
+//     console.log(
+// "TOKEN:",
+// localStorage.getItem("token")
+// );
     try {
       const response = await fetch(
         "https://ods-network-backend.onrender.com/api/admin/testimonials",
@@ -34,7 +34,7 @@ localStorage.getItem("token")
         alert(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -56,7 +56,7 @@ localStorage.getItem("token")
 
       fetchTestimonials();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -80,7 +80,7 @@ localStorage.getItem("token")
 
       fetchTestimonials();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

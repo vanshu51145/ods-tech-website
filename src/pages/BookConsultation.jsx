@@ -48,7 +48,7 @@ function BookConsultation() {
 
       const data = await response.json();
 
-      console.log("APPOINTMENT RESPONSE:", data);
+      // console.log("APPOINTMENT RESPONSE:", data);
 
       if (data.success) {
 
@@ -67,10 +67,10 @@ function BookConsultation() {
 
     } catch (error) {
 
-      console.log(
-        "BOOK APPOINTMENT ERROR:",
-        error
-      );
+      // console.log(
+      //   "BOOK APPOINTMENT ERROR:",
+      //   error
+      // );
 
       alert(
         "Failed to book appointment"

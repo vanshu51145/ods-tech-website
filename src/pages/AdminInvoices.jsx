@@ -47,7 +47,7 @@ function AdminInvoices() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Failed to load clients");
     }
   };
@@ -73,7 +73,7 @@ function AdminInvoices() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Failed to load invoices");
     }
   };
@@ -122,11 +122,11 @@ function AdminInvoices() {
         }
       );
 
-      console.log("Status:", response.status);
+      // console.log("Status:", response.status);
 
       const data = await response.json();
 
-      console.log("Response:", data);
+      // console.log("Response:", data);
       if (data.success) {
         toast.success(data.message);
 
@@ -153,7 +153,7 @@ function AdminInvoices() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Server Error");
     }
   };
@@ -180,7 +180,7 @@ function AdminInvoices() {
       }
 
     } catch (error) {
-      console.log("Delete Invoice Error:", error);
+      // console.log("Delete Invoice Error:", error);
     }
   };
 

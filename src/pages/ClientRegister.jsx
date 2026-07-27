@@ -26,7 +26,7 @@ function ClientRegister() {
 
     if (loading) return;
 
-    console.log("REGISTER CLICKED");
+    // console.log("REGISTER CLICKED");
 
     setLoading(true);
 
@@ -61,7 +61,7 @@ function ClientRegister() {
         toast.error(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Something went wrong");
     } finally {
       setLoading(false);

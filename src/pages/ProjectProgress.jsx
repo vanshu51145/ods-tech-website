@@ -39,7 +39,7 @@ function ProjectProgress() {
             }
             catch (error) {
 
-                console.log(error);
+                // console.log(error);
 
             }
             finally {

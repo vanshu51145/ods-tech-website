@@ -23,7 +23,7 @@ function Careers() {
           setJobs(data.jobs);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   }, []);
 
   const handleChange = (e) => {
@@ -81,7 +81,7 @@ function Careers() {
         toast.error(result.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Server Error");
     }
   };

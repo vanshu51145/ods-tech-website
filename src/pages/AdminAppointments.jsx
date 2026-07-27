@@ -24,7 +24,7 @@ function AdminAppointments() {
 
       const data = await response.json();
 
-      console.log("APPOINTMENTS:", data);
+      // console.log("APPOINTMENTS:", data);
 
       if (data.success) {
         setAppointments(data.appointments || []);
@@ -32,10 +32,10 @@ function AdminAppointments() {
         alert(data.message);
       }
     } catch (error) {
-      console.log(
-        "FETCH APPOINTMENTS ERROR:",
-        error
-      );
+      // console.log(
+      //   "FETCH APPOINTMENTS ERROR:",
+      //   error
+      // );
     } finally {
       setLoading(false);
     }
@@ -59,7 +59,7 @@ function AdminAppointments() {
 
       const data = await response.json();
 
-      console.log("CONFIRM RESPONSE:", data);
+      // console.log("CONFIRM RESPONSE:", data);
 
       if (data.success) {
         alert("Appointment Confirmed Successfully");

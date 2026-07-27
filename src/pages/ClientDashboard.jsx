@@ -31,10 +31,10 @@ useEffect(() => {
     (data) => {
       alert(data.message);
 
-      console.log(
-        "Appointment Confirmed:",
-        data.appointment
-      );
+      // console.log(
+      //   "Appointment Confirmed:",
+      //   data.appointment
+      // );
        setNotifications((prev) => [
         {
           id: Date.now(),

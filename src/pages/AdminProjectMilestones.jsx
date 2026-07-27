@@ -42,7 +42,7 @@ function AdminProjectMilestones() {
                     setClients(data.clients || []);
                 }
             } catch (error) {
-                console.log("FETCH CLIENTS ERROR:", error);
+                // console.log("FETCH CLIENTS ERROR:", error);
             }
         };
 
@@ -69,7 +69,7 @@ function AdminProjectMilestones() {
                 setMilestones(data.milestones || []);
             }
         } catch (error) {
-            console.log("FETCH MILESTONES ERROR:", error);
+            // console.log("FETCH MILESTONES ERROR:", error);
         }
     };
 
@@ -126,7 +126,7 @@ function AdminProjectMilestones() {
                 alert(data.message);
             }
         } catch (error) {
-            console.log("CREATE MILESTONE ERROR:", error);
+            // console.log("CREATE MILESTONE ERROR:", error);
             alert("Failed to create milestone");
         }
     };
@@ -176,7 +176,7 @@ function AdminProjectMilestones() {
                 getMilestones();
             }
         } catch (error) {
-            console.log("UPDATE MILESTONE ERROR:", error);
+            // console.log("UPDATE MILESTONE ERROR:", error);
 
             alert("Failed to update milestone status");
 

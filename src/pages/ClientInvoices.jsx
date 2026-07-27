@@ -27,7 +27,7 @@ function ClientInvoices() {
         setInvoices(data.invoices);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

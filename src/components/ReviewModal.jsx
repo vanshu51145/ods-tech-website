@@ -53,7 +53,7 @@ function ReviewModal({ closeModal, refreshTestimonials }) {
         alert(data.message);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       alert("Something Went Wrong");
     }
 

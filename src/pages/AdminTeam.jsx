@@ -42,7 +42,7 @@ const isSuperAdmin = adminRole === "SuperAdmin";
 
     } catch (error) {
 
-      console.log("GET TEAM ERROR:", error);
+      // console.log("GET TEAM ERROR:", error);
 
     }
 
@@ -137,7 +137,7 @@ const isSuperAdmin = adminRole === "SuperAdmin";
 
     } catch (error) {
 
-      console.log("TEAM ERROR:", error);
+      // console.log("TEAM ERROR:", error);
 
       alert("Something went wrong");
 
@@ -213,10 +213,10 @@ const isSuperAdmin = adminRole === "SuperAdmin";
 
     } catch (error) {
 
-      console.log(
-        "DELETE TEAM ERROR:",
-        error
-      );
+      // console.log(
+      //   "DELETE TEAM ERROR:",
+      //   error
+      // );
 
     }
 

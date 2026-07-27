@@ -40,7 +40,7 @@ function Projects() {
         setTotalPages(data.totalPages);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
 
     setLoading(false);

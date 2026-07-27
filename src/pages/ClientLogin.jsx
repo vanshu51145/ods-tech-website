@@ -38,17 +38,17 @@ function ClientLogin() {
     const data = await response.json();
 if (data.success) {
 
-  console.log("TOKEN BEFORE SAVE:", data.token);
+  // console.log("TOKEN BEFORE SAVE:", data.token);
 
   localStorage.setItem(
     "token",
     data.token
   );
 
-  console.log(
-    "TOKEN AFTER SAVE:",
-    localStorage.getItem("token", data.token)
-  );
+  // console.log(
+  //   "TOKEN AFTER SAVE:",
+  //   localStorage.getItem("token", data.token)
+  // );
 
 
   localStorage.setItem(

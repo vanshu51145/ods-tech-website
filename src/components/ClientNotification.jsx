@@ -30,10 +30,10 @@ function ClientNotification() {
       "appointment_confirmed",
       (data) => {
 
-        console.log(
-          "Appointment Confirmation Received:",
-          data
-        );
+        // console.log(
+        //   "Appointment Confirmation Received:",
+        //   data
+        // );
 
         const newNotification = {
           id: Date.now(),

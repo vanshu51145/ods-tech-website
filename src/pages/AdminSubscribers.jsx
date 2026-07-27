@@ -15,10 +15,10 @@ function AdminSubscribers() {
 
 
   const fetchSubscribers = async () => {
-    console.log(
- "ADMIN TOKEN:",
- localStorage.getItem("token")
-);
+//     console.log(
+//  "ADMIN TOKEN:",
+//  localStorage.getItem("token")
+// );
 
     try {
 
@@ -35,7 +35,7 @@ function AdminSubscribers() {
 
       const data = await response.json();
 
-      console.log("SUBSCRIBERS:", data);
+      // console.log("SUBSCRIBERS:", data);
 
 
       if (data.success) {
@@ -44,7 +44,7 @@ function AdminSubscribers() {
 
 
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
 
   };
