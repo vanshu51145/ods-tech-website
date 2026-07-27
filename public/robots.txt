@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /admin/
+Disallow: /client
+Disallow: /client/
+Disallow: /client/dashboard
+Disallow: /client/login
+
+Sitemap: https://ods-tech-website.vercel.app/sitemap.xml
