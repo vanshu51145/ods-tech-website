@@ -27,19 +27,19 @@ function Services() {
         "Accelerate your business growth through data-driven digital marketing strategies. Our services include Social Media Marketing (SMM), Search Engine Marketing (SEM), Email Marketing, Pay-Per-Click (PPC) advertising, content marketing, and brand promotion to maximize your online reach and conversions."
     },
     {
-      title:"🎨 UI/UX Design",
+      title: "🎨 UI/UX Design",
       description:
-      "We create visually appealing and user-centric interfaces that deliver seamless digital experiences. Our UI/UX designs focus on usability, accessibility, and customer engagement to improve user satisfaction and business outcomes."
+        "We create visually appealing and user-centric interfaces that deliver seamless digital experiences. Our UI/UX designs focus on usability, accessibility, and customer engagement to improve user satisfaction and business outcomes."
     },
     {
-      title:"☁️ Cloud Solutions",
+      title: "☁️ Cloud Solutions",
       description:
-      "Leverage secure and scalable cloud technologies to improve efficiency, reduce operational costs, and ensure reliable access to your business applications and data from anywhere."
+        "Leverage secure and scalable cloud technologies to improve efficiency, reduce operational costs, and ensure reliable access to your business applications and data from anywhere."
     },
     {
-      title:"💼 IT Consulting",
+      title: "💼 IT Consulting",
       description:
-      "Our experienced consultants help businesses identify the right technology solutions, optimize workflows, and implement digital transformation strategies that drive productivity and long-term success."
+        "Our experienced consultants help businesses identify the right technology solutions, optimize workflows, and implement digital transformation strategies that drive productivity and long-term success."
     }
 
   ];
@@ -48,17 +48,20 @@ function Services() {
     <>
       <Helmet>
         <title>
-          ODS Tech Services | Web & Software Solutions
-        </title>
+          Web Development & IT Services | ODS Network        </title>
 
-  <meta
-    name="description"
-    content="Explore ODS Network services including Web Development, Mobile Apps, SEO, Digital Marketing, Cloud Solutions, UI/UX Design, and IT Consulting."
-  />
+        <meta
+          name="description"
+          content="Explore ODS Network's professional web development, MERN stack, software development, SEO, UI/UX, and digital solutions for modern businesses."
+        />
 
-  <meta
-    name="keywords"
-    content="Web Development, SEO, Digital Marketing, App Development, Cloud Solutions"
+        <meta
+          name="keywords"
+          content="Web Development, SEO, Digital Marketing, App Development, Cloud Solutions"
+        />
+         <meta
+    name="author"
+    content="ODS Network"
   />
       </Helmet>
 
@@ -82,11 +85,11 @@ function Services() {
                 {service.description}
               </p>
               <button
-  className="service-btn"
-  onClick={() => navigate("/contact")}
->
-  Get a Free Quote
-</button>
+                className="service-btn"
+                onClick={() => navigate("/contact")}
+              >
+                Get a Free Quote
+              </button>
 
             </motion.div>
           ))}

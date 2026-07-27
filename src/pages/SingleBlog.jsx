@@ -51,25 +51,45 @@ function SingleBlog() {
     );
   }
 
-  const cleanContent = (blog.content || "").replace(/<[^>]+>/g, "");
-  const shortDescription = cleanContent.substring(0, 150);
+const cleanContent = (blog.content || "")
+  .replace(/<[^>]+>/g, "")
+  .replace(/\s+/g, " ")
+  .trim();
+
+const shortDescription =
+  cleanContent.length > 160
+    ? `${cleanContent.substring(0, 157)}...`
+    : cleanContent;
 
   return (
     <>
       {/* SEO SAFE HELMET */}
       <Helmet>
         <title>
-          {blog?.title ? `${blog.title} | ODS Tech` : "ODS Tech"}
+          {blog?.title
+            ? `${blog.title} | ODS Network`
+            : "ODS Network | Technology & Digital Solutions"}
         </title>
 
-        <meta name="description" content={shortDescription} />
-
-        <meta property="og:title" content={blog?.title || "ODS Tech"} />
+          <meta
+    name="description"
+    content={
+      shortDescription ||
+      "Read the latest technology, web development, software, SEO, and digital solutions insights from ODS Network."
+    }
+  />
 
         <meta
-          property="og:description"
-          content={shortDescription}
+          property="og:title"
+          content={blog?.title || "ODS Network"}
         />
+          <meta
+    property="og:description"
+    content={
+      shortDescription ||
+      "Read the latest technology and digital solutions insights from ODS Network."
+    }
+  />
 
         <meta property="og:image" content={blog?.coverImage || ""} />
 

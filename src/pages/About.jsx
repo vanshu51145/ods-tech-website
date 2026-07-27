@@ -32,8 +32,7 @@ function About() {
     <>
       <Helmet>
         <title>
-          About ODS Tech | Our Company
-        </title>
+About ODS Network | Our Company & Expertise        </title>
 
         <meta
           name="description"

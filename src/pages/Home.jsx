@@ -10,20 +10,46 @@ function Home() {
     <>
       <Helmet>
         <title>
-          ODS Tech | Professional Web Development Company
+          ODS Network |  Web Development & Digital Solutions
         </title>
 
-         <meta
-      name="description"
-      content="ODS Network provides Web Development, Mobile App Development, SEO, Digital Marketing, UI/UX Design, Cloud Solutions and IT Consulting services."
-    />
+        <meta
+          name="description"
+          content="ODS Network provides professional web development, MERN stack development, software solutions, SEO services, and digital solutions to help businesses grow online."
+        />
 
-    <meta
-      name="keywords"
-      content="Web Development, Mobile App Development, SEO, Digital Marketing, UI UX Design, Software Company, ODS Network"
-    />
+        <meta
+          name="keywords"
+          content="ODS Network, Web Development, MERN Stack Development, Software Development, SEO Services, Digital Marketing, UI UX Design, Digital Solutions"
+        />
 
-    <meta name="author" content="ODS Network" />
+        <meta name="author" content="ODS Network" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: "ODS Network",
+            url: "https://ods-network.com",
+            telephone: "+919801351931",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "NH-31, Rahimpur,Shambhu Deep Dharam Kanta",
+              addressLocality: "Khagaria",
+              addressRegion: "Bihar",
+              postalCode: "851204",
+              addressCountry: "IN",
+            },
+            description:
+              "ODS Network provides web development, software development, SEO and digital solutions.",
+            serviceType: [
+              "Web Development",
+              "MERN Stack Development",
+              "Software Development",
+              "SEO Services",
+              "Digital Solutions"
+            ]
+          })}
+        </script>
       </Helmet>
 
       <Hero />

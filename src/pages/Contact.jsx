@@ -75,104 +75,131 @@ function Contact() {
 
   return (
     <>
-  <Helmet>
-    <title>Contact Us | ODS Network</title>
+      <Helmet>
+        <title>Contact ODS Network | Get in Touch With Our Team</title>
 
-    <meta
-      name="description"
-      content="Contact ODS Network for Web Development, Mobile App Development, SEO, Digital Marketing, Cloud Solutions, and IT Consulting services. Get in touch with our team today."
-    />
-
-    <meta
-      name="keywords"
-      content="Contact ODS Network, Web Development Company, Digital Marketing, SEO Services, Mobile App Development, IT Company Khagaria Bihar"
-    />
-
-    <meta name="author" content="ODS Network" />
-  </Helmet>
-
-    
-    <section className="page">
-      <h1>Contact Us</h1>
-
-      <form
-        className="contact-form"
-        onSubmit={handleSubmit}
-      >
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={formData.name}
-          onChange={handleChange}
-          required
+        <meta
+          name="description"
+          content="Contact ODS Network in Khagaria, Bihar for professional web development, software solutions, SEO, digital marketing, and technology services. Get in touch with our team today."
         />
 
-        <input
-          type="text"
-          name="email"
-          placeholder="Your Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
+        <meta
+          name="keywords"
+          content="Contact ODS Network, ODS Network Khagaria, Web Development Company Khagaria, IT Company Bihar, Software Development Services"
         />
-        <select
-          name="serviceRequested"
-          value={formData.serviceRequested}
-          onChange={handleChange}
-          required
+
+        <meta name="author" content="ODS Network" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: "ODS Network",
+            url: "https://ods-network.com",
+            telephone: "+919801351931",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "NH-31, Rahimpur,Shambhu Deep Dharam Kanta",
+              addressLocality: "Khagaria",
+              addressRegion: "Bihar",
+              postalCode: "851204",
+              addressCountry: "IN"
+            },
+            description:
+              "Contact ODS Network for web development, software development, SEO, digital marketing, and technology solutions.",
+            serviceType: [
+              "Web Development",
+              "MERN Stack Development",
+              "Software Development",
+              "SEO Services",
+              "Digital Marketing",
+              "IT Consulting"
+            ]
+          })}
+        </script>
+      </Helmet>
+
+
+      <section className="page">
+        <h1>Contact Us</h1>
+
+        <form
+          className="contact-form"
+          onSubmit={handleSubmit}
         >
-          <option value="">Select Service</option>
-          <option value="Web Development">Web Development</option>
-          <option value="App Development">App Development</option>
-          <option value="SEO">SEO</option>
-          <option value="Digital Marketing">Digital Marketing</option>
-          <option value="Other">Other</option>
-        </select>
-        <textarea
-          rows="5"
-          name="message"
-          placeholder="Your Message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-        />
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="text"
+            name="email"
+            placeholder="Your Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <select
+            name="serviceRequested"
+            value={formData.serviceRequested}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Service</option>
+            <option value="Web Development">Web Development</option>
+            <option value="App Development">App Development</option>
+            <option value="SEO">SEO</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Other">Other</option>
+          </select>
+          <textarea
+            rows="5"
+            name="message"
+            placeholder="Your Message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          />
 
 
-        <button
-          type="submit"
-          disabled={loading}
-        >
-          {loading
-            ? "Sending..."
-            : "Send Message"}
-        </button>
-      </form>
-      <div className="contact-cta">
-  <h2>Looking for Professional IT Solutions?</h2>
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Sending..."
+              : "Send Message"}
+          </button>
+        </form>
+        <div className="contact-cta">
+          <h2>Looking for Professional IT Solutions?</h2>
 
-  <p>
-    Explore our services and discover how ODS Network can help transform
-    your ideas into innovative digital solutions.
-  </p>
+          <p>
+            Explore our services and discover how ODS Network can help transform
+            your ideas into innovative digital solutions.
+          </p>
 
-  <div className="contact-cta-buttons">
-    <button
-      className="primary-btn"
-      onClick={() => navigate("/services")}
-    >
-      Explore Services
-    </button>
+          <div className="contact-cta-buttons">
+            <button
+              className="primary-btn"
+              onClick={() => navigate("/services")}
+            >
+              Explore Services
+            </button>
 
-    <button
-      className="secondary-btn"
-      onClick={() => navigate("/about")}
-    >
-      Learn More
-    </button>
-  </div>
-</div>
-    </section>
+            <button
+              className="secondary-btn"
+              onClick={() => navigate("/about")}
+            >
+              Learn More
+            </button>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

@@ -45,11 +45,11 @@ function Blogs() {
   return (
       <>
     <Helmet>
-      <title>Latest Blogs | ODS Network</title>
+      <title>Technology Blogs & Insights | ODS Network</title>
 
       <meta
         name="description"
-        content="Read the latest blogs from ODS Network on Web Development, Mobile App Development, SEO, Digital Marketing, UI/UX Design, Cloud Solutions, and emerging technologies."
+        content="Read the latest technology, web development, software, SEO, and digital transformation insights from ODS Network."
       />
 
       <meta
