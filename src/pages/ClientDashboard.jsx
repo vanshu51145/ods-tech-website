@@ -7,50 +7,50 @@ function ClientDashboard() {
 
   const navigate = useNavigate();
 
-const [notifications, setNotifications] = useState([]);
-const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [notificationOpen, setNotificationOpen] = useState(false);
   const client = JSON.parse(
     localStorage.getItem("client")
   );
-useEffect(() => {
-   const client = JSON.parse(
-    localStorage.getItem("client")
-  );
-  if (!client?._id) return;
+  useEffect(() => {
+    const client = JSON.parse(
+      localStorage.getItem("client")
+    );
+    if (!client?._id) return;
 
-  const socket = io(
-    "https://ods-network-backend.onrender.com"
-  );
+    const socket = io(
+      "https://ods-network-backend.onrender.com"
+    );
 
-  // Client apne room mein join karega
-  socket.emit("join_room", client._id);
+    // Client apne room mein join karega
+    socket.emit("join_room", client._id);
 
-  // Appointment confirmation notification
-  socket.on(
-    "appointment_confirmed",
-    (data) => {
-      alert(data.message);
+    // Appointment confirmation notification
+    socket.on(
+      "appointment_confirmed",
+      (data) => {
+        alert(data.message);
 
-      // console.log(
-      //   "Appointment Confirmed:",
-      //   data.appointment
-      // );
-       setNotifications((prev) => [
-        {
-          id: Date.now(),
-          message: data.message,
-          appointment: data.appointment,
-        },
-        ...prev,
-      ]);
-    }
-  );
-  
+        // console.log(
+        //   "Appointment Confirmed:",
+        //   data.appointment
+        // );
+        setNotifications((prev) => [
+          {
+            id: Date.now(),
+            message: data.message,
+            appointment: data.appointment,
+          },
+          ...prev,
+        ]);
+      }
+    );
 
-  return () => {
-    socket.disconnect();
-  };
-}, [client?._id]);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [client?._id]);
 
   const logout = () => {
 
@@ -67,26 +67,26 @@ useEffect(() => {
     <section className="page">
 
 
-<div className="page-header">
+      <div className="page-header">
 
-  <h1>
-    Welcome, {client?.name}
-  </h1>
+        <h1>
+          Welcome, {client?.name}
+        </h1>
 
-  <div className="header-actions">
+        <div className="header-actions">
 
-    <ClientNotification />
+          <ClientNotification />
 
-    <button
-      className="logout-btn"
-      onClick={logout}
-    >
-      Logout
-    </button>
+          <button
+            className="logout-btn"
+            onClick={logout}
+          >
+            Logout
+          </button>
 
-  </div>
+        </div>
 
-</div>
+      </div>
 
 
 
@@ -143,6 +143,16 @@ useEffect(() => {
         </div>
         <div
           className="card"
+          onClick={() => navigate("/client/assets")}
+        >
+          <h3>📁 Project Assets</h3>
+
+          <p>
+            Upload and manage your project files and documents
+          </p>
+        </div>
+        <div
+          className="card"
           onClick={() => navigate("/client/support")}
         >
           <h3>Live Support</h3>
@@ -151,16 +161,16 @@ useEffect(() => {
           </p>
         </div>
         <div
-  className="card"
-  onClick={() => navigate("/client/appointments")}
->
-  <h3>📅 Book Consultation</h3>
+          className="card"
+          onClick={() => navigate("/client/appointments")}
+        >
+          <h3>📅 Book Consultation</h3>
 
-  <p>
-    Schedule a consultation call with our team.
-  </p>
-</div>
-        
+          <p>
+            Schedule a consultation call with our team.
+          </p>
+        </div>
+
 
 
       </div>

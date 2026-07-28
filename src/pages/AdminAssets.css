@@ -1,0 +1,307 @@
+.admin-assets-page {
+  min-height: 100vh;
+  background: #f4f7fc;
+  padding: 40px;
+}
+
+/* Header */
+
+.admin-assets-header {
+  text-align: center;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.admin-assets-header h1 {
+  font-size: 36px;
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.admin-assets-header p {
+  color: #64748b;
+}
+
+/* Back Button */
+
+.back-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  padding: 10px 18px;
+
+  background: #0f172a;
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background: #1e293b;
+}
+
+/* Table Container */
+
+.assets-table-container {
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, 0.08);
+}
+
+.assets-table-container h2 {
+  margin-bottom: 25px;
+
+  color: #0f172a;
+}
+
+/* Table */
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 15px;
+
+  text-align: left;
+
+  border-bottom:
+    1px solid #e2e8f0;
+}
+
+th {
+  background: #f8fafc;
+
+  color: #334155;
+
+  font-weight: 600;
+}
+
+td {
+  color: #475569;
+}
+
+/* Actions */
+
+.asset-actions {
+  display: flex;
+
+  gap: 10px;
+
+  align-items: center;
+}
+
+/* View Button */
+
+.view-btn {
+  padding: 8px 12px;
+
+  background: #2563eb;
+
+  color: white;
+
+  text-decoration: none;
+
+  border-radius: 6px;
+
+  font-size: 13px;
+
+  white-space: nowrap;
+}
+
+.view-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Delete */
+
+.delete-btn {
+  padding: 8px 12px;
+
+  background: #ef4444;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  font-size: 13px;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+/* Loading */
+
+.loading,
+.no-assets {
+  text-align: center;
+
+  padding: 40px;
+
+  color: #64748b;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+  .admin-assets-page {
+    padding: 25px 15px;
+  }
+
+  .admin-assets-header {
+    padding-top: 55px;
+  }
+
+  .assets-table-container {
+    padding: 15px;
+  }
+
+}
+/* =========================================
+   ADMIN ASSETS - DARK MODE
+========================================= */
+
+.admin-dark-mode .admin-assets-page {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.admin-dark-mode .admin-assets-header h1 {
+  color: #38bdf8;
+}
+
+.admin-dark-mode .admin-assets-header p {
+  color: #94a3b8;
+}
+
+
+/* Back Button */
+
+.admin-dark-mode .admin-assets-page .back-btn {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.admin-dark-mode .admin-assets-page .back-btn:hover {
+  background: #334155;
+}
+
+
+/* Table Container */
+
+.admin-dark-mode .admin-assets-page .assets-table-container {
+  background: #1e293b;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.admin-dark-mode .admin-assets-page .assets-table-container h2 {
+  color: #f8fafc;
+}
+
+
+/* Table */
+
+.admin-dark-mode .admin-assets-page table {
+  color: #e2e8f0;
+}
+
+.admin-dark-mode .admin-assets-page th {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.admin-dark-mode .admin-assets-page td {
+  color: #cbd5e1;
+  border-bottom: 1px solid #334155;
+}
+
+
+/* View Button */
+
+.admin-dark-mode .admin-assets-page .view-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.admin-dark-mode .admin-assets-page .view-btn:hover {
+  background: #3b82f6;
+}
+
+
+/* Delete Button */
+
+.admin-dark-mode .admin-assets-page .delete-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.admin-dark-mode .admin-assets-page .delete-btn:hover {
+  background: #ef4444;
+}
+
+
+/* Loading / Empty */
+
+.admin-dark-mode .admin-assets-page .loading,
+.admin-dark-mode .admin-assets-page .no-assets {
+  color: #94a3b8;
+}
+
+
+/* Scrollbar */
+
+.admin-dark-mode .admin-assets-page .table-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.admin-dark-mode .admin-assets-page .table-scroll::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+.admin-dark-mode .admin-assets-page .table-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 10px;
+}
+
+.admin-dark-mode .admin-assets-page .table-scroll::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .admin-dark-mode .admin-assets-page {
+    background: #0f172a;
+  }
+
+  .admin-dark-mode .admin-assets-page .assets-table-container {
+    background: #1e293b;
+  }
+
+}

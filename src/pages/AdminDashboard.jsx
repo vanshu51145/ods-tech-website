@@ -365,6 +365,13 @@ function AdminDashboard({
             📊 Project Milestones
           </li>
           <li
+  onClick={() =>
+    navigate("/admin/assets")
+  }
+>
+  📁 Project Assets
+</li>
+          <li
             onClick={() => navigate("/admin/team")}
           >
             Manage Team
@@ -592,6 +599,25 @@ function AdminDashboard({
             <h1>📊</h1>
 
           </div>
+          <div
+  className="card"
+  style={{ cursor: "pointer" }}
+  onClick={() =>
+    navigate("/admin/assets")
+  }
+>
+  <h3>
+    Project Assets
+  </h3>
+
+  <h1>
+    📁
+  </h1>
+
+  <p>
+    View and manage client files
+  </p>
+</div>
          
           <div
             className="card"

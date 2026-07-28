@@ -33,6 +33,7 @@ const ChatMessage = require("./models/ChatMessage");
 const AuditLog = require("./models/AuditLog");
 const Appointment = require("./models/Appointment");
 const sanitizeHtml = require("sanitize-html");
+const ProjectAsset = require("./models/ProjectAsset");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -2089,6 +2090,195 @@ app.put(
       res.status(500).json({
         success: false,
         message: "Server Error",
+      });
+
+    }
+  }
+);
+app.post(
+  "/api/client/assets",
+  clientAuth,
+  Upload.single("asset"),
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          success: false,
+          message: "Please select a file",
+        });
+      }
+
+      const clientId = req.client._id;
+
+      const uploadStream =
+        cloudinary.uploader.upload_stream(
+          {
+            folder: "ods-project-assets",
+            resource_type: "auto",
+            use_filename: true,
+            unique_filename: true,
+          },
+
+          async (error, result) => {
+            if (error) {
+              console.error(
+                "ASSET CLOUDINARY ERROR:",
+                error
+              );
+
+              return res.status(500).json({
+                success: false,
+                message: "Asset Upload Failed",
+              });
+            }
+
+            try {
+              const asset = new ProjectAsset({
+                clientId: clientId,
+                fileName: req.file.originalname,
+                fileUrl: result.secure_url,
+                fileType: req.file.mimetype,
+                resourceType: result.resource_type,
+              });
+
+              await asset.save();
+
+              res.status(201).json({
+                success: true,
+                message: "Asset Uploaded Successfully",
+                asset,
+              });
+
+            } catch (saveError) {
+              console.error(
+                "ASSET SAVE ERROR:",
+                saveError
+              );
+
+              res.status(500).json({
+                success: false,
+                message: "Failed to save asset",
+              });
+            }
+          }
+        );
+
+      streamifier
+        .createReadStream(req.file.buffer)
+        .pipe(uploadStream);
+
+    } catch (error) {
+      console.error(
+        "UPLOAD ASSET ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error",
+      });
+    }
+  }
+);
+app.get(
+  "/api/client/assets",
+  clientAuth,
+  async (req, res) => {
+    try {
+      const assets = await ProjectAsset.find({
+        clientId: req.client._id,
+      }).sort({
+        createdAt: -1,
+      });
+
+      res.json({
+        success: true,
+        assets,
+      });
+
+    } catch (error) {
+      console.error(
+        "FETCH CLIENT ASSETS ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch assets",
+      });
+    }
+  }
+);
+app.get(
+  "/api/admin/assets",
+  auth,
+  async (req, res) => {
+    try {
+      const assets = await ProjectAsset.find()
+        .populate(
+          "clientId",
+          "name company email"
+        )
+        .sort({
+          createdAt: -1,
+        });
+
+      res.json({
+        success: true,
+        assets,
+      });
+
+    } catch (error) {
+      console.error(
+        "FETCH ADMIN ASSETS ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch assets",
+      });
+    }
+  }
+);
+app.delete(
+  "/api/admin/assets/:id",
+  auth,
+  isSuperAdmin,
+  async (req, res) => {
+    try {
+
+      const asset =
+        await ProjectAsset.findById(
+          req.params.id
+        );
+
+      if (!asset) {
+        return res.status(404).json({
+          success: false,
+          message: "Asset not found",
+        });
+      }
+
+      await ProjectAsset.findByIdAndDelete(
+        req.params.id
+      );
+
+      res.json({
+        success: true,
+        message: "Asset Deleted Successfully",
+      });
+
+    } catch (error) {
+
+      console.error(
+        "DELETE ASSET ERROR:",
+        error
+      );
+
+      res.status(500).json({
+        success: false,
+        message: "Failed to delete asset",
       });
 
     }

@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import TestError from "./components/TestError";
-
+import ClientAssets from "./pages/ClientAssets";
 import { lazy, Suspense } from "react";
 import LoadingSpinner from "./components/LoadingSpinner";
 import LiveSupport from "./pages/LiveSupport";
 import BookConsultation from "./pages/BookConsultation";
 import AdminAppointments from "./pages/AdminAppointments";
+import AdminAssets from "./pages/AdminAssets";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
@@ -271,7 +272,16 @@ useEffect(() => {
             path="/client/support"
             element={<LiveSupport />}
           />
-
+<Route
+  path="/client/assets"
+  element={<ClientAssets />}
+/>
+<Route
+  path="/admin/assets"
+  element={
+    <AdminAssets />
+  }
+/>
         </Routes>
       </Suspense>
 
