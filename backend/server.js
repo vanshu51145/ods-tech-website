@@ -32,7 +32,7 @@ const Notification = require("./models/Notification");
 const ChatMessage = require("./models/ChatMessage");
 const AuditLog = require("./models/AuditLog");
 const Appointment = require("./models/Appointment");
-
+const sanitizeHtml = require("sanitize-html");
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -41,7 +41,7 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
     credentials: true,
   },
-  
+
 });
 app.set("io", io);
 
@@ -88,7 +88,7 @@ mongoose
   // })
   .catch((err) => {
     // console.error("MongoDB Error:", err);
-        process.exit(1);
+    process.exit(1);
 
   });
 
@@ -474,7 +474,32 @@ app.post(
       // console.log("FILE:", req.file);
       const title = xss(req.body.title);
       const author = xss(req.body.author);
-      const content = xss(req.body.content);
+      const content = sanitizeHtml(req.body.content, {
+        allowedTags: [
+          "p",
+          "br",
+          "strong",
+          "b",
+          "em",
+          "i",
+          "u",
+          "h1",
+          "h2",
+          "h3",
+          "h4",
+          "ul",
+          "ol",
+          "li",
+          "a",
+          "img",
+          "blockquote",
+        ],
+        allowedAttributes: {
+          a: ["href", "target", "rel"],
+          img: ["src", "alt", "width", "height"],
+        },
+        allowedSchemes: ["http", "https"],
+      });
       // console.log("Sanitized:", { title, author, content });
 
       if (!title || !author || !content) {
@@ -1024,7 +1049,7 @@ app.post(
       });
     }
   }
-);app.delete(
+); app.delete(
   "/api/contact/:id",
   auth,
   isSuperAdmin,
@@ -1266,7 +1291,7 @@ app.put(
 
 
     try {
-            const { status } = req.body;
+      const { status } = req.body;
 
 
       const milestone =
@@ -1287,7 +1312,7 @@ app.put(
 
       }
 
-  milestone.status = status;
+      milestone.status = status;
 
       if (status === "Completed") {
         milestone.isCompleted = true;
@@ -1314,10 +1339,10 @@ app.put(
     }
     catch (error) {
 
-// console.log(
-//         "UPDATE MILESTONE ERROR:",
-//         error
-//       );
+      // console.log(
+      //         "UPDATE MILESTONE ERROR:",
+      //         error
+      //       );
 
 
       res.status(500).json({
@@ -1742,12 +1767,12 @@ io.on("connection", (socket) => {
 
 
       // Save message in MongoDB
-     const chatMessage = await ChatMessage.create({
-  room: data.room,
-  clientId: data.clientId,
-  sender: data.sender,
-  message: data.message,
-});
+      const chatMessage = await ChatMessage.create({
+        room: data.room,
+        clientId: data.clientId,
+        sender: data.sender,
+        message: data.message,
+      });
 
       // Send saved message to room
       io.to(data.room).emit(
