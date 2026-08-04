@@ -1290,29 +1290,31 @@ app.put(
   auth,
   async (req, res) => {
 
-
     try {
+
       const { status } = req.body;
 
-
-      const milestone =
-        await Milestone.findById(
-          req.params.id
-        );
-
+      const milestone = await Milestone.findById(
+        req.params.id
+      ).populate(
+        "clientId",
+        "name email company"
+      );
 
       if (!milestone) {
 
         return res.status(404).json({
-
           success: false,
-
           message: "Milestone not found"
-
         });
 
       }
 
+      // Check if milestone was already completed
+      const wasAlreadyCompleted =
+        milestone.status === "Completed";
+
+      // Update status
       milestone.status = status;
 
       if (status === "Completed") {
@@ -1321,30 +1323,100 @@ app.put(
         milestone.isCompleted = false;
       }
 
-
-
       await milestone.save();
+
+
+      // Send review email only when milestone
+      // changes to Completed for the first time
+      if (
+        status === "Completed" &&
+        !wasAlreadyCompleted &&
+        milestone.clientId?.email
+      ) {
+
+        await transporter.sendMail({
+
+          from: process.env.EMAIL_USER,
+
+          to: milestone.clientId.email,
+
+          subject:
+            "Thank You for Working With ODS Network!",
+
+          html: `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+
+              <h2>Thank You, ${milestone.clientId.name}!</h2>
+
+              <p>
+                We are happy to let you know that your milestone
+                <strong>${milestone.title}</strong>
+                has been successfully completed.
+              </p>
+
+              <p>
+                Thank you for your cooperation and for working
+                with ODS Network.
+              </p>
+
+              <p>
+                We would love to hear about your experience with us.
+              </p>
+
+              <p>
+                Your feedback helps us improve our services and
+                helps other clients discover ODS Network.
+              </p>
+
+              <a
+                href="${process.env.GOOGLE_REVIEW_URL}"
+                style="
+                  display: inline-block;
+                  padding: 12px 20px;
+                  background: #2563eb;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 6px;
+                "
+              >
+                Leave Us a Google Review
+              </a>
+
+              <p>
+                Thank you for choosing ODS Network!
+              </p>
+
+              <p>
+                <strong>ODS Network Team</strong>
+              </p>
+
+            </div>
+          `
+        });
+
+      }
 
 
       res.json({
 
         success: true,
 
-        message: "Milestone Status Updated",
+        message:
+          status === "Completed"
+            ? "Milestone completed and review email sent"
+            : "Milestone Status Updated",
 
         milestone
 
       });
 
-
     }
     catch (error) {
 
-      // console.log(
-      //         "UPDATE MILESTONE ERROR:",
-      //         error
-      //       );
-
+      console.error(
+        "UPDATE MILESTONE ERROR:",
+        error
+      );
 
       res.status(500).json({
 
@@ -1354,12 +1426,10 @@ app.put(
 
       });
 
-
     }
 
-
-  });
-app.get(
+  }
+);app.get(
   "/api/client/milestones",
   clientAuth,
   async (req, res) => {

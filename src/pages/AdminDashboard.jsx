@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./AdminDashboard.css";
 import AdminLiveChat from "./AdminLiveChat";
 import { CSVLink } from "react-csv";
@@ -16,14 +16,19 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
-
+import {
+  contactApi,
+  ticketApi,
+  analyticsApi,
+  auditLogApi,
+  notificationApi,
+} from "../services/api";
 
 function AdminDashboard({
   adminDarkMode,
   toggleAdminDarkMode,
 }) {
   const navigate = useNavigate();
-
 
   const [contacts, setContacts] = useState([]);
   const [tickets, setTickets] = useState([]);
@@ -39,8 +44,6 @@ function AdminDashboard({
   const adminRole = localStorage.getItem("adminRole");
   const isSuperAdmin = adminRole === "SuperAdmin";
 
-
-
   const headers = [
     { label: "Name", key: "name" },
     { label: "Email", key: "email" },
@@ -49,6 +52,7 @@ function AdminDashboard({
     { label: "Date", key: "createdAt" },
     { label: "Status", key: "status" },
   ];
+
   const csvData = contacts.map((contact) => ({
     name: contact.name,
     email: contact.email,
@@ -57,12 +61,13 @@ function AdminDashboard({
     createdAt: new Date(contact.createdAt).toLocaleDateString(),
     status: contact.status,
   }));
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("adminRole");
-
     navigate("/admin/login");
   };
+
   const leadData = [
     {
       name: "New",
@@ -94,117 +99,105 @@ function AdminDashboard({
   ];
 
   const COLORS = ["#2563eb", "#f59e0b", "#10b981"];
+
+  const fetchContacts = useCallback(async () => {
+    try {
+      const data = await contactApi.getAll();
+      if (data.success) {
+        setContacts(data.contacts);
+      }
+    } catch (err) {
+      // console.log("fetchContacts error:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchTickets = useCallback(async () => {
+    try {
+      const data = await ticketApi.getAll();
+      if (data.success) {
+        setTickets(data.tickets);
+      }
+    } catch (err) {
+      // console.log("fetchTickets error:", err);
+    }
+  }, []);
+
+  const fetchAnalytics = useCallback(async () => {
+    try {
+      const data = await analyticsApi.getAll();
+      if (data.success) {
+        setAnalytics(data);
+      }
+    } catch (err) {
+      // console.log("fetchAnalytics error:", err);
+    }
+  }, []);
+
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const data = await notificationApi.getAll();
+      if (data.success) {
+        setNotifications(data.notifications || []);
+      }
+    } catch (err) {
+      // console.log("Notification Error:", err);
+    }
+  }, []);
+
+  const fetchAuditLogs = useCallback(async () => {
+    try {
+      const data = await auditLogApi.getAll();
+      if (data.success) {
+        setAuditLogs(data.logs || []);
+      }
+    } catch (err) {
+      // console.log("Audit Logs Error:", err);
+    }
+  }, []);
+
   const updateStatus = async (id, status) => {
     try {
-      const response = await fetch(
-        `https://ods-network-backend.onrender.com/api/contact/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          },
-          body: JSON.stringify({ status }),
-        }
-      );
-
-      const data = await response.json();
-
+      const data = await contactApi.updateStatus(id, status);
       if (data.success) {
-
         setContacts((prev) =>
           prev.map((contact) =>
-            contact._id === id
-              ? { ...contact, status }
-              : contact
+            contact._id === id ? { ...contact, status } : contact
           )
         );
-
         fetchAnalytics();
-
       } else {
         alert(data.message);
       }
-    } catch (error) {
-      // console.log(error);
+    } catch (err) {
       alert("Failed to update status");
     }
   };
+
   const deleteLead = async (id) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this lead?"
     );
-
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(
-        `https://ods-network-backend.onrender.com/api/contact/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
+      const data = await contactApi.delete(id);
       if (data.success) {
-        // Remove lead from UI
-        setContacts((prev) =>
-          prev.filter((contact) => contact._id !== id)
-        );
-
-        // Refresh analytics
+        setContacts((prev) => prev.filter((contact) => contact._id !== id));
         fetchAnalytics();
-
         alert("Lead deleted successfully");
       } else {
         alert(data.message);
       }
-    } catch (error) {
-      // console.log("DELETE LEAD ERROR:", error);
+    } catch (err) {
       alert("Failed to delete lead");
     }
   };
-  const fetchNotifications = async () => {
-    try {
-      const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/admin/notifications",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        setNotifications(data.notifications || []);
-      }
-    } catch (error) {
-      // console.log("Notification Error:", error);
-    }
-  };
-
 
   const markNotificationAsRead = async (id) => {
     try {
-      const response = await fetch(
-        `https://ods-network-backend.onrender.com/api/admin/notifications/${id}/read`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-      // console.log("Mark Read Response:", data);
-
+      const data = await notificationApi.markRead(id);
       if (data.success) {
         setNotifications((prev) =>
           prev.map((notification) =>
@@ -214,106 +207,18 @@ function AdminDashboard({
           )
         );
       }
-    } catch (error) {
-      // console.log("Mark Read Error:", error);
+    } catch (err) {
+      // console.log("Mark Read Error:", err);
     }
   };
-  const fetchAnalytics = async () => {
-    try {
-      const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/admin/analytics",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
 
-      const data = await response.json();
-
-      if (data.success) {
-        setAnalytics(data);
-      }
-    } catch (error) {
-      // console.log(error);
-    }
-  };
-  const fetchAuditLogs = async () => {
-    try {
-      const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/admin/audit-logs",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      if (data.success) {
-        setAuditLogs(data.logs || []);
-      }
-    } catch (error) {
-      // console.log("Audit Logs Error:", error);
-    }
-  };
   useEffect(() => {
-    const fetchContacts = async () => {
-      try {
-        const response = await fetch(
-          "https://ods-network-backend.onrender.com/api/contact",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-          }
-        );
-
-        const data = await response.json();
-
-        if (data.success) {
-          setContacts(data.contacts);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
-
-    const fetchTickets = async () => {
-      try {
-
-        const response = await fetch(
-          "https://ods-network-backend.onrender.com/api/tickets/admin/all",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-          }
-        );
-
-        const data = await response.json();
-
-        // console.log("TICKETS:", data);
-
-        if (data.success) {
-          setTickets(data.tickets);
-        }
-
-      } catch (error) {
-        // console.log(error);
-      }
-    };
-
-
     fetchContacts();
     fetchTickets();
     fetchAnalytics();
     fetchNotifications();
     fetchAuditLogs();
-  }, []);
+  }, [fetchContacts, fetchTickets, fetchAnalytics, fetchNotifications, fetchAuditLogs]);
 
   return (
     <div className="dashboard" id="dashboard">
@@ -338,307 +243,121 @@ function AdminDashboard({
           <li onClick={() => navigate("/admin/testimonials")}>
             ⭐ Manage Testimonials
           </li>
-          <li
-            onClick={() => navigate("/admin/jobs")}
-          >
+          <li onClick={() => navigate("/admin/jobs")}>
             💼 Manage Jobs
           </li>
           <li onClick={() => navigate("/admin/tickets")}>
             🎫 Manage Support Tickets
           </li>
-          <li
-            onClick={() => navigate("/admin/subscribers")}
-          >
+          <li onClick={() => navigate("/admin/subscribers")}>
             📧 Manage Subscribers
           </li>
-          <li
-            onClick={() => navigate("/admin/invoices")}
-          >
+          <li onClick={() => navigate("/admin/invoices")}>
             🧾 Manage Invoices
           </li>
           <li onClick={() => navigate("/admin/appointments")}>
             📅 Appointments
           </li>
-          <li
-            onClick={() => navigate("/admin/milestones")}
-          >
+          <li onClick={() => navigate("/admin/milestones")}>
             📊 Project Milestones
           </li>
-          <li
-  onClick={() =>
-    navigate("/admin/assets")
-  }
->
-  📁 Project Assets
-</li>
-          <li
-            onClick={() => navigate("/admin/team")}
-          >
+          <li onClick={() => navigate("/admin/assets")}>
+            📁 Project Assets
+          </li>
+          <li onClick={() => navigate("/admin/team")}>
             Manage Team
           </li>
           <li onClick={() =>
-            document
-              .getElementById("live-chat")
-              .scrollIntoView({
-                behavior: "smooth",
-              })
-          }
-          >
-            Active Chats</li>
-          
+            document.getElementById("live-chat").scrollIntoView({
+              behavior: "smooth",
+            })
+          }>
+            Active Chats
+          </li>
         </ul>
       </div>
 
       <div className="main-content">
         <div className="topbar">
-
-          <button
-            className="menu-btn"
-            onClick={() => setMenuOpen(true)}
-          >
-            ☰
-          </button>
-
+          <button className="menu-btn" onClick={() => setMenuOpen(true)}>☰</button>
           <h1>Admin Dashboard</h1>
-
           <div className="topbar-actions">
             <button
-  className="admin-dark-mode-toggle"
-  onClick={toggleAdminDarkMode}
-  aria-label="Toggle admin dark mode"
->
-  {adminDarkMode ? "☀️" : "🌙"}
-</button>
+              className="admin-dark-mode-toggle"
+              onClick={toggleAdminDarkMode}
+              aria-label="Toggle admin dark mode"
+            >
+              {adminDarkMode ? "☀️" : "🌙"}
+            </button>
 
             <div className="notification-wrapper">
-
               <button
                 className="notification-btn"
-                onClick={() =>
-                  setNotificationOpen(!notificationOpen)
-                }
+                onClick={() => setNotificationOpen(!notificationOpen)}
               >
                 🔔
-
-                {notifications.filter(
-                  (notification) => !notification.isRead
-                ).length > 0 && (
-                    <span className="notification-badge">
-                      {
-                        notifications.filter(
-                          (notification) => !notification.isRead
-                        ).length
-                      }
-                    </span>
-                  )}
+                {notifications.filter((n) => !n.isRead).length > 0 && (
+                  <span className="notification-badge">
+                    {notifications.filter((n) => !n.isRead).length}
+                  </span>
+                )}
               </button>
 
-
               {notificationOpen && (
-
                 <div className="notification-dropdown">
-
                   <div className="notification-header">
                     <h3>Notifications</h3>
                   </div>
-
                   {notifications.length === 0 ? (
-
-                    <p className="no-notifications">
-                      No notifications
-                    </p>
-
+                    <p className="no-notifications">No notifications</p>
                   ) : (
-
                     notifications.map((notification) => (
-
                       <div
                         key={notification._id}
-                        className={`notification-item ${notification.isRead
-                          ? "read"
-                          : "unread"
-                          }`}
-                        onClick={() =>
-                          markNotificationAsRead(
-                            notification._id
-                          )
-                        }
+                        className={`notification-item ${notification.isRead ? "read" : "unread"}`}
+                        onClick={() => markNotificationAsRead(notification._id)}
                       >
-
-                        <strong>
-                          {notification.type}
-                        </strong>
-
-                        <p>
-                          {notification.message}
-                        </p>
-
-                        <small>
-                          {new Date(
-                            notification.createdAt
-                          ).toLocaleString()}
-                        </small>
-
+                        <strong>{notification.type}</strong>
+                        <p>{notification.message}</p>
+                        <small>{new Date(notification.createdAt).toLocaleString()}</small>
                       </div>
-
                     ))
-
                   )}
-
                 </div>
-
               )}
-
             </div>
 
-
-            <button
-              className="logout-btn"
-              onClick={logout}
-            >
-              Logout
-            </button>
-
+            <button className="logout-btn" onClick={logout}>Logout</button>
           </div>
-
         </div>
-        <div className="cards">
-          <div className="card">
-            <h3>Total Messages</h3>
-            <h1>{contacts.length}</h1>
-          </div>
 
+        <div className="cards">
+          <div className="card"><h3>Total Messages</h3><h1>{contacts.length}</h1></div>
           <div className="card">
             <h3>Today's Messages</h3>
-            <h1>
-              {
-                contacts.filter((contact) => {
-                  const today = new Date().toDateString();
-                  return (
-                    new Date(contact.createdAt).toDateString() === today
-                  );
-                }).length
-              }
-            </h1>
+            <h1>{contacts.filter((c) => new Date(c.createdAt).toDateString() === new Date().toDateString()).length}</h1>
           </div>
-
-          <div className="card">
-            <h3>Admin Status</h3>
-            <h1>Active</h1>
-          </div>
-          <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/blogs")}
-          >
-            <h3>Manage Blogs</h3>
-            <h1>📝</h1>
-          </div>
-          <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/projects")}
-          >
-            <h3>Manage Projects</h3>
-            <h1>📁</h1>
-          </div>
-          <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/testimonials")}
-          >
-            <h3>Manage Reviews</h3>
-            <h1>⭐</h1>
-          </div>
-          <div
-            className="card"
-            onClick={() => navigate("/admin/jobs")}
-          >
-            <h3>Manage Jobs</h3>
-            <h1>💼</h1>
-          </div>
-          <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/tickets")}
-          >
-            <h3>Support Tickets</h3>
-            <h1>🎫</h1>
-          </div>
-          <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/subscribers")}
-          >
-            <h3>Manage Subscribers</h3>
-            <h1>📧</h1>
-          </div>
-          <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/invoices")}
-          >
-            <h3>Manage Invoices</h3>
-            <h1>🧾</h1>
-
-          </div>
-           <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/appointments")}
-          >
-            <h3>Appointments</h3>
-            <h1>📅</h1>
-          </div>
-          <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/milestones")}
-          >
-            <h3>Project Milestones</h3>
-            <h1>📊</h1>
-
-          </div>
-          <div
-  className="card"
-  style={{ cursor: "pointer" }}
-  onClick={() =>
-    navigate("/admin/assets")
-  }
->
-  <h3>
-    Project Assets
-  </h3>
-
-  <h1>
-    📁
-  </h1>
-
-  <p>
-    View and manage client files
-  </p>
-</div>
-         
-          <div
-            className="card"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/admin/team")}
-          >
-            <h3>Manage Team</h3>
-            <p>Add, edit and manage team members</p>
-
-          </div>
+          <div className="card"><h3>Admin Status</h3><h1>Active</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/blogs")}><h3>Manage Blogs</h3><h1>📝</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/projects")}><h3>Manage Projects</h3><h1>📁</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/testimonials")}><h3>Manage Reviews</h3><h1>⭐</h1></div>
+          <div className="card" onClick={() => navigate("/admin/jobs")}><h3>Manage Jobs</h3><h1>💼</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/tickets")}><h3>Support Tickets</h3><h1>🎫</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/subscribers")}><h3>Manage Subscribers</h3><h1>📧</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/invoices")}><h3>Manage Invoices</h3><h1>🧾</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/appointments")}><h3>Appointments</h3><h1>📅</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/milestones")}><h3>Project Milestones</h3><h1>📊</h1></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/assets")}><h3>Project Assets</h3><h1>📁</h1><p>View and manage client files</p></div>
+          <div className="card" style={{ cursor: "pointer" }} onClick={() => navigate("/admin/team")}><h3>Manage Team</h3><p>Add, edit and manage team members</p></div>
         </div>
+
         <div className="analytics-header">
           <h2>Analytics Dashboard</h2>
           <p>Overview of Leads and Support Tickets</p>
         </div>
         <div className="charts-container">
-
           <div className="chart-card">
-
             <h2>Lead Analytics</h2>
-
             <ResponsiveContainer width="100%" height={320}>
               <PieChart>
                 <Pie
@@ -648,117 +367,62 @@ function AdminDashboard({
                   cx="50%"
                   cy="50%"
                   outerRadius={90}
-                  label={({ name, percent }) =>
-                    `${name} ${(percent * 100).toFixed(0)}%`
-                  }
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                 >
                   {leadData.map((entry, index) => (
-                    <Cell
-                      key={index}
-                      fill={COLORS[index]}
-                    />
+                    <Cell key={index} fill={COLORS[index]} />
                   ))}
                 </Pie>
-
                 <Tooltip />
                 <Legend />
-
               </PieChart>
             </ResponsiveContainer>
-
           </div>
-
-
           <div className="chart-card">
-
             <h2>Support Tickets</h2>
-
             <ResponsiveContainer width="100%" height={320}>
               <BarChart data={ticketData}>
-
                 <CartesianGrid strokeDasharray="3 3" />
-
                 <XAxis dataKey="status" />
-
                 <YAxis />
-
                 <Tooltip />
-
                 <Legend />
-
-                <Bar
-                  dataKey="count"
-                  radius={[8, 8, 0, 0]}
-                  fill="#2563eb"
-                />
-
+                <Bar dataKey="count" radius={[8, 8, 0, 0]} fill="#2563eb" />
               </BarChart>
             </ResponsiveContainer>
-
           </div>
-
-
         </div>
+
         {isSuperAdmin && (
           <div className="recent-activity">
-
             <div className="recent-activity-header">
               <h2>Recent Activity</h2>
               <p>Latest SuperAdmin actions</p>
             </div>
-
             {auditLogs.length === 0 ? (
-              <p className="no-activity">
-                No recent activity found.
-              </p>
+              <p className="no-activity">No recent activity found.</p>
             ) : (
               <div className="activity-list">
-
                 {auditLogs.map((log) => (
-                  <div
-                    className="activity-item"
-                    key={log._id}
-                  >
-
-                    <div className="activity-icon">
-                      📋
-                    </div>
-
+                  <div className="activity-item" key={log._id}>
+                    <div className="activity-icon">📋</div>
                     <div className="activity-content">
-
-                      <h3>
-                        {log.action}
-                      </h3>
-
-                      <p>
-                        By: {log.adminName}
-                      </p>
-
-                      <small>
-                        {new Date(
-                          log.timestamp
-                        ).toLocaleString()}
-                      </small>
-
+                      <h3>{log.action}</h3>
+                      <p>By: {log.adminName}</p>
+                      <small>{new Date(log.timestamp).toLocaleString()}</small>
                     </div>
-
                   </div>
                 ))}
-
               </div>
             )}
-
           </div>
         )}
-        <section id="live-chat">
 
-          <AdminLiveChat />
-        </section>
+        <section id="live-chat"><AdminLiveChat /></section>
+
         <div className="table-container" id="messages">
           <div className="table-header">
-
             <h2>Contact Messages</h2>
-
             <CSVLink
               data={csvData}
               headers={headers}
@@ -767,7 +431,6 @@ function AdminDashboard({
             >
               Export Leads to CSV
             </CSVLink>
-
           </div>
           <div className="table-scroll">
             <table>
@@ -782,55 +445,27 @@ function AdminDashboard({
                   <th>Action</th>
                 </tr>
               </thead>
-
               <tbody>
                 {loading ? (
-                  <tr>
-                    <td colSpan="7">Loading...</td>
-                  </tr>
+                  <tr><td colSpan="7">Loading...</td></tr>
                 ) : contacts.length === 0 ? (
-                  <tr>
-                    <td colSpan="7">No Messages Found</td>
-                  </tr>
+                  <tr><td colSpan="7">No Messages Found</td></tr>
                 ) : (
                   contacts.map((contact) => (
                     <tr key={contact._id}>
                       <td>{contact.name}</td>
-
                       <td>{contact.email}</td>
                       <td>{contact.serviceRequested}</td>
-
+                      <td>{contact.message.length > 50 ? contact.message.substring(0, 50) + "..." : contact.message}</td>
+                      <td>{new Date(contact.createdAt).toLocaleDateString()}</td>
                       <td>
-                        {contact.message.length > 50
-                          ? contact.message.substring(0, 50) + "..."
-                          : contact.message}
-                      </td>
-
-                      <td>
-                        {new Date(
-                          contact.createdAt
-                        ).toLocaleDateString()}
-                      </td>
-                      <td>
-                        <select
-                          value={contact.status}
-                          onChange={(e) =>
-                            updateStatus(contact._id, e.target.value)
-                          }
-                        >
+                        <select value={contact.status} onChange={(e) => updateStatus(contact._id, e.target.value)}>
                           <option value="New">New</option>
                           <option value="Contacted">Contacted</option>
                           <option value="Converted">Converted</option>
                         </select>
                       </td>
-                      <td>
-                        <button
-                          className="delete-lead-btn"
-                          onClick={() => deleteLead(contact._id)}
-                        >
-                          Delete
-                        </button>
-                      </td>
+                      <td><button className="delete-lead-btn" onClick={() => deleteLead(contact._id)}>Delete</button></td>
                     </tr>
                   ))
                 )}

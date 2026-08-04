@@ -120,7 +120,6 @@ useEffect(() => {
 
   return (
     <>
-
       {!isAdminPage && (
         <Navbar
           darkMode={darkMode}
@@ -198,7 +197,11 @@ useEffect(() => {
           />
           <Route
             path="/client/tickets"
-            element={<ClientTickets />}
+            element={
+              <ProtectedRoute type="client">
+                <ClientTickets />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/admin/tickets"
@@ -208,7 +211,11 @@ useEffect(() => {
           />
           <Route path="/client/login" element={<ClientLogin />} />
           <Route path="/client/register" element={<ClientRegister />} />
-          <Route path="/client/dashboard" element={<ClientDashboard />} />
+          <Route path="/client/dashboard" element={
+            <ProtectedRoute type="client">
+              <ClientDashboard />
+            </ProtectedRoute>
+          } />
           <Route
             path="/client/appointments"
             element={<BookConsultation />}
@@ -231,7 +238,11 @@ useEffect(() => {
           />
           <Route
             path="/client/invoices"
-            element={<ClientInvoices />}
+            element={
+              <ProtectedRoute type="client">
+                <ClientInvoices />
+              </ProtectedRoute>
+            }
           />
          <Route
   path="/admin/invoices"
@@ -244,11 +255,10 @@ useEffect(() => {
           <Route
             path="/client/progress"
             element={
-                  <ProtectedRoute>
-
-            <ProjectProgress />
-                </ProtectedRoute>
-}
+              <ProtectedRoute type="client">
+                <ProjectProgress />
+              </ProtectedRoute>
+            }
           />
         <Route
   path="/admin/milestones"
@@ -270,18 +280,27 @@ useEffect(() => {
           <Route path="*" element={<NotFound />} />
           <Route
             path="/client/support"
-            element={<LiveSupport />}
+            element={
+              <ProtectedRoute type="client">
+                <LiveSupport />
+              </ProtectedRoute>
+            }
           />
 <Route
   path="/client/assets"
-  element={<ClientAssets />}
+  element={
+    <ProtectedRoute type="client">
+      <ClientAssets />
+    </ProtectedRoute>
+  }
 />
 <Route
   path="/admin/assets"
   element={
     <AdminAssets />
   }
-/>
+>
+</Route>
         </Routes>
       </Suspense>
 

@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminProjects.css";
+import { projectApi } from "../services/api";
 
 function AdminProjects() {
   const navigate = useNavigate();
 
   const [projects, setProjects] = useState([]);
   const adminRole = localStorage.getItem("adminRole");
-const isSuperAdmin = adminRole === "SuperAdmin";
+  const isSuperAdmin = adminRole === "SuperAdmin";
 
   const [formData, setFormData] = useState({
     title: "",
@@ -16,37 +17,30 @@ const isSuperAdmin = adminRole === "SuperAdmin";
   });
 
   const [image, setImage] = useState(null);
-
   const [loading, setLoading] = useState(false);
 
-  const token = localStorage.getItem("token");
+  const fetchProjects = useCallback(async () => {
+    try {
+      const data = await projectApi.getAll();
+      if (data.success) {
+        setProjects(data.projects);
+      }
+    } catch (err) {
+      // console.log("fetchProjects error:", err);
+    }
+  }, []);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     if (!token) {
       navigate("/admin/login");
     } else {
       fetchProjects();
     }
-  }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const response = await fetch("https://ods-network-backend.onrender.com/api/projects");
-
-      const data = await response.json();
-
-      if (data.success) {
-        setProjects(data.projects);
-      }
-    } catch (err) {
-    }
-  };
+  }, [fetchProjects, navigate]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const addProject = async (e) => {
@@ -61,69 +55,39 @@ const isSuperAdmin = adminRole === "SuperAdmin";
 
     try {
       const sendData = new FormData();
-
       sendData.append("title", formData.title);
       sendData.append("category", formData.category);
       sendData.append("description", formData.description);
       sendData.append("image", image);
 
-      const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/projects",
-        {
-          method: "POST",
-          headers: {
-            Authorization: token,
-          },
-          body: sendData,
-        }
-      );
-
-      const data = await response.json();
+      const data = await projectApi.create(sendData);
 
       if (data.success) {
         alert("Project Added Successfully");
-
-        setFormData({
-          title: "",
-          category: "",
-          description: "",
-        });
-
+        setFormData({ title: "", category: "", description: "" });
         setImage(null);
-
         document.getElementById("imageInput").value = "";
-
         fetchProjects();
       } else {
         alert(data.message);
       }
     } catch (err) {
       alert("Something Went Wrong");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const deleteProject = async (id) => {
     if (!window.confirm("Delete this project?")) return;
 
     try {
-      const response = await fetch(
-        `https://ods-network-backend.onrender.com/api/projects/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-
-      const data = await response.json();
-
+      const data = await projectApi.delete(id);
       if (data.success) {
         fetchProjects();
       }
     } catch (err) {
+      // console.log("deleteProject error:", err);
     }
   };
 
@@ -131,13 +95,7 @@ const isSuperAdmin = adminRole === "SuperAdmin";
     <div className="projects-page">
       <div className="projects-top">
         <h1>Manage Projects</h1>
-
-        <button
-          className="back-btn"
-          onClick={() => navigate("/admin/dashboard")}
-        >
-          Dashboard
-        </button>
+        <button className="back-btn" onClick={() => navigate("/admin/dashboard")}>Dashboard</button>
       </div>
 
       <form className="project-form" onSubmit={addProject}>
@@ -149,7 +107,6 @@ const isSuperAdmin = adminRole === "SuperAdmin";
           onChange={handleChange}
           required
         />
-
         <input
           type="text"
           placeholder="Category"
@@ -158,7 +115,6 @@ const isSuperAdmin = adminRole === "SuperAdmin";
           onChange={handleChange}
           required
         />
-
         <textarea
           placeholder="Description"
           rows="5"
@@ -167,7 +123,6 @@ const isSuperAdmin = adminRole === "SuperAdmin";
           onChange={handleChange}
           required
         />
-
         <input
           id="imageInput"
           type="file"
@@ -175,15 +130,11 @@ const isSuperAdmin = adminRole === "SuperAdmin";
           onChange={(e) => setImage(e.target.files[0])}
           required
         />
-
-        <button type="submit">
-          {loading ? "Uploading..." : "Add Project"}
-        </button>
+        <button type="submit">{loading ? "Uploading..." : "Add Project"}</button>
       </form>
 
       <div className="table-box">
         <h2>All Projects</h2>
-
         <table>
           <thead>
             <tr>
@@ -194,37 +145,19 @@ const isSuperAdmin = adminRole === "SuperAdmin";
               <th>Action</th>
             </tr>
           </thead>
-
           <tbody>
             {projects.length === 0 ? (
-              <tr>
-                <td colSpan="5">No Projects Found</td>
-              </tr>
+              <tr><td colSpan="5">No Projects Found</td></tr>
             ) : (
               projects.map((project) => (
                 <tr key={project._id}>
-                  <td>
-                    <img
-                      src={project.imageUrl}
-                      alt={project.title}
-                      width="90"
-                    />
-                  </td>
-
+                  <td><img src={project.imageUrl} alt={project.title} width="90" /></td>
                   <td>{project.title}</td>
-
                   <td>{project.category}</td>
-
                   <td>{project.description}</td>
-
                   <td>
                     {isSuperAdmin && (
-                    <button
-                      className="delete-btn"
-                      onClick={() => deleteProject(project._id)}
-                    >
-                      Delete
-                    </button>
+                      <button className="delete-btn" onClick={() => deleteProject(project._id)}>Delete</button>
                     )}
                   </td>
                 </tr>

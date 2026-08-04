@@ -1,163 +1,106 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import "./ClientTickets.css";
+import { ticketApi } from "../services/api";
 
 function ClientTickets() {
-    const [tickets, setTickets] = useState([]);
+  const [tickets, setTickets] = useState([]);
 
-    const [formData, setFormData] = useState({
-          clientId:
-                        JSON.parse(localStorage.getItem("client"))?._id,
-        subject: "",
-        description: "",
-        priority: "",
-    });
+  const [formData, setFormData] = useState({
+    clientId: JSON.parse(localStorage.getItem("client"))?._id,
+    subject: "",
+    description: "",
+    priority: "",
+  });
 
-    useEffect(() => {
-        fetchTickets();
-    }, []);
+  const fetchTickets = useCallback(async () => {
+    try {
+      const data = await ticketApi.getClient();
+      if (data.success) {
+        setTickets(data.tickets);
+      }
+    } catch (err) {
+      // console.log(err);
+    }
+  }, []);
 
-    const fetchTickets = async () => {
-        try {
-            const response = await fetch(
-                "https://ods-network-backend.onrender.com/api/tickets",{
-                 headers: {
-                          Authorization: localStorage.getItem("clientToken"),
+  useEffect(() => {
+    fetchTickets();
+  }, [fetchTickets]);
 
-                    },}
-            );
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-            const data = await response.json();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-            if (data.success) {
-                setTickets(data.tickets);
-            }
-        } catch (error) {
-            // console.log(error);
-        }
-    };
+    if (!formData.priority) {
+      toast.error("Please select priority");
+      return;
+    }
 
-    const handleChange = (e) => {
+    try {
+      const data = await ticketApi.create(formData);
+      if (data.success) {
+        toast.success(data.message);
         setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
+          clientId: JSON.parse(localStorage.getItem("client"))?._id,
+          subject: "",
+          description: "",
+          priority: "",
         });
-    };
+        fetchTickets();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (err) {
+      toast.error("Server Error");
+    }
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  return (
+    <section className="page">
+      <h1>Support Tickets</h1>
 
-        if (!formData.priority) {
-            toast.error("Please select priority");
-            return;
-        }
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <input type="text" name="subject" placeholder="Ticket Subject" value={formData.subject} onChange={handleChange} required />
+        <textarea rows="5" name="description" placeholder="Describe your issue" value={formData.description} onChange={handleChange} required />
+        <select name="priority" value={formData.priority} onChange={handleChange} required>
+          <option value="">Select Priority</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+        <button type="submit">Submit Ticket</button>
+      </form>
 
-        try {
-            const response = await fetch(
-                "https://ods-network-backend.onrender.com/api/tickets",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                          Authorization: localStorage.getItem("clientToken"),
-
-                    },
-                    body: JSON.stringify(formData),
-                }
-            );
-
-            const data = await response.json();
-
-            if (data.success) {
-                toast.success(data.message);
-
-                setFormData({
-                    clientId:
-                        JSON.parse(localStorage.getItem("client"))?._id,
-                    subject: "",
-                    description: "",
-                    priority: "",
-                });
-
-                fetchTickets();
-            } else {
-                toast.error(data.message);
-            }
-        } catch (error) {
-            // console.log(error);
-            toast.error("Server Error");
-        }
-    };
-
-    return (
-        <section className="page">
-            <h1>Support Tickets</h1>
-
-            <form className="contact-form" onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="subject"
-                    placeholder="Ticket Subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                />
-
-                <textarea
-                    rows="5"
-                    name="description"
-                    placeholder="Describe your issue"
-                    value={formData.description}
-                    onChange={handleChange}
-                    required
-                />
-
-                <select
-                    name="priority"
-                    value={formData.priority}
-                    onChange={handleChange}
-                    required
-                >
-                    <option value="">Select Priority</option>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                </select>
-
-                <button type="submit">
-                    Submit Ticket
-                </button>
-            </form>
-
-            <div className="table-container">
-                <table className="ticket-table">
-                    <thead>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Priority</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {tickets.length === 0 ? (
-                            <tr>
-                                <td colSpan="3">No Tickets Found</td>
-                            </tr>
-                        ) : (
-                            tickets.map((ticket) => (
-                                <tr key={ticket._id}>
-                                    <td>{ticket.subject}</td>
-                                    <td>{ticket.priority}</td>
-                                    <td>{ticket.status}</td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    );
+      <div className="table-container">
+        <table className="ticket-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Priority</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tickets.length === 0 ? (
+              <tr><td colSpan="3">No Tickets Found</td></tr>
+            ) : (
+              tickets.map((ticket) => (
+                <tr key={ticket._id}>
+                  <td>{ticket.subject}</td>
+                  <td>{ticket.priority}</td>
+                  <td>{ticket.status}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
 }
 
 export default ClientTickets;

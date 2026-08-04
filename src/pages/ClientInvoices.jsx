@@ -1,78 +1,55 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./ClientInvoices.css";
+import { invoiceApi } from "../services/api";
 
 function ClientInvoices() {
   const [invoices, setInvoices] = useState([]);
 
-  useEffect(() => {
-    fetchInvoices();
-  }, []);
-
-  const fetchInvoices = async () => {
+  const fetchInvoices = useCallback(async () => {
     try {
-      const token = localStorage.getItem("clientToken");
-
-      const response = await fetch(
-        "https://ods-network-backend.onrender.com/api/client/invoices",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
+      const data = await invoiceApi.getClient();
       if (data.success) {
         setInvoices(data.invoices);
       }
-    } catch (error) {
-      // console.log(error);
+    } catch (err) {
+      // console.log(err);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchInvoices();
+  }, [fetchInvoices]);
 
   return (
     <section className="page">
       <h1>My Invoices</h1>
       <div className="table-wrapper">
-
-      <table>
-        <thead>
-          <tr>
-            <th>Invoice</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>PDF</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {invoices.length === 0 ? (
+        <table>
+          <thead>
             <tr>
-              <td colSpan="5">No Invoices Found</td>
+              <th>Invoice</th>
+              <th>Amount</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>PDF</th>
             </tr>
-          ) : (
-            invoices.map((invoice) => (
-              <tr key={invoice._id}>
-                <td>{invoice.invoiceNumber}</td>
-                <td>₹{invoice.amount}</td>
-                <td>{invoice.description}</td>
-                <td>{invoice.status}</td>
-                <td>
-                  <a
-                    href={invoice.pdfUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Download
-                  </a>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {invoices.length === 0 ? (
+              <tr><td colSpan="5">No Invoices Found</td></tr>
+            ) : (
+              invoices.map((invoice) => (
+                <tr key={invoice._id}>
+                  <td>{invoice.invoiceNumber}</td>
+                  <td>₹{invoice.amount}</td>
+                  <td>{invoice.description}</td>
+                  <td>{invoice.status}</td>
+                  <td><a href={invoice.pdfUrl} target="_blank" rel="noreferrer">Download</a></td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </section>
   );
