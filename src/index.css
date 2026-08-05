@@ -565,6 +565,15 @@ padding:40px 10%;
     transition:.4s;
   }
 
+  /* Explicit light mode for mobile */
+  body:not(.dark-mode) .nav-links {
+    background: white;
+  }
+
+  body:not(.dark-mode) .nav-links a {
+    color: #222;
+  }
+
   .nav-links.active{
     left:0;
   }
