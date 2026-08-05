@@ -2,27 +2,9 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
 const clientAuth = require("../middleware/clientAuth");
 const Client = require("../models/Client");
 const transporter = require("../config/mailer");
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-transporter.verify((error, success)=>{
-
- if(error){
-  //  console.log("Email Error:",error);
- }
- else{
-  //  console.log("Email Server Ready");
- }
-
-});
 router.post("/register", async (req, res) => {
   try {
 

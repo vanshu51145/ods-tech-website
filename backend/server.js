@@ -5,7 +5,6 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const mongoose = require("mongoose");
 const Contact = require("./models/Contact");
-const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 const auth = require("./middleware/auth");
 const isSuperAdmin = require("./middleware/isSuperAdmin");
@@ -93,14 +92,7 @@ mongoose
 
   });
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
+const transporter = require("./config/mailer");
 app.get("/", (req, res) => {
   res.send("Backend Running Successfully");
 });
