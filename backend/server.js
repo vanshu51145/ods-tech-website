@@ -37,11 +37,10 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://ods-tech-website.vercel.app",
+    origin: process.env.FRONTEND_URL || "https://ods-tech-website.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   },
-
 });
 app.set("io", io);
 
@@ -49,7 +48,7 @@ app.set("io", io);
 
 app.use(
   cors({
-    origin: "https://ods-tech-website.vercel.app",
+    origin: process.env.FRONTEND_URL || "https://ods-tech-website.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
